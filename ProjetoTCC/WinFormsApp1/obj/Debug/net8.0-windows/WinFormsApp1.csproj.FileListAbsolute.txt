@@ -1,0 +1,687 @@
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.exe
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.deps.json
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.runtimeconfig.json
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.pdb
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Guna.UI2.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\System.Management.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.AssemblyReference.cache
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Form1.resources
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.GenerateResource.cache
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfoInputs.cache
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfo.cs
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinForms.E4050A35.Up2Date
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\refint\WinFormsApp1.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Properties.Resources.resources
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\AssimpNet.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Audio.OpenAL.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Compute.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Core.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.GLControl.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Graphics.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Input.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Mathematics.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Common.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Desktop.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.GraphicsLibraryFramework.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libassimp.so
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libassimp.dylib
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\assimp.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\assimp.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libglfw.so.3
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-arm64\native\libglfw.3.dylib
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libglfw.3.dylib
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\glfw3.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\glfw3.dll
+C:\Users\Caioa\source\repos\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\StbImageSharp.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.exe
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.deps.json
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.runtimeconfig.json
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.pdb
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\AssimpNet.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Guna.UI2.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Audio.OpenAL.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Compute.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Core.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.GLControl.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Graphics.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Input.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Mathematics.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Common.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Desktop.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.GraphicsLibraryFramework.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\StbImageSharp.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\System.Management.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libassimp.so
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libassimp.dylib
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\assimp.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\assimp.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libglfw.so.3
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-arm64\native\libglfw.3.dylib
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libglfw.3.dylib
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\glfw3.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\glfw3.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.AssemblyReference.cache
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Form1.resources
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Properties.Resources.resources
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.GenerateResource.cache
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfoInputs.cache
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfo.cs
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinForms.E4050A35.Up2Date
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\refint\WinFormsApp1.dll
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
+C:\Users\Caioa\Downloads\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
+C:\Users\Caioa\Downloads\ProjetoTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\WebView2Loader.dll
+C:\Users\Caioa\Downloads\ProjetoTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+C:\Users\Caioa\Downloads\ProjetoTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+C:\Users\Caioa\Downloads\ProjetoTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.dll
+C:\Users\Caioa\Downloads\ProjetoTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.dll
+C:\Users\Caioa\Downloads\ProjetoTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.dll
+C:\Users\Caioa\Downloads\ProjetoTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.xml
+C:\Users\Caioa\Downloads\ProjetoTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.xml
+C:\Users\Caioa\Downloads\ProjetoTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\WebView2Loader.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.exe
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.deps.json
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.runtimeconfig.json
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.pdb
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\AssimpNet.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Guna.UI2.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Audio.OpenAL.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Compute.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Core.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.GLControl.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Graphics.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Input.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Mathematics.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Common.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Desktop.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.GraphicsLibraryFramework.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\StbImageSharp.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\System.Management.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libassimp.so
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libassimp.dylib
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\assimp.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\assimp.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libglfw.so.3
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-arm64\native\libglfw.3.dylib
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libglfw.3.dylib
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\glfw3.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\glfw3.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.xml
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.xml
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.AssemblyReference.cache
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Form1.resources
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Properties.Resources.resources
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.GenerateResource.cache
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfoInputs.cache
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfo.cs
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinForms.E4050A35.Up2Date
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\refint\WinFormsApp1.dll
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
+C:\Users\felip\Documents\PROJETOTCC (2)\PROJETOTCC\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\WebView2Loader.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.exe
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.deps.json
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.runtimeconfig.json
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.pdb
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\AssimpNet.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Guna.UI2.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Audio.OpenAL.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Compute.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Core.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.GLControl.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Graphics.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Input.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Mathematics.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Common.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Desktop.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.GraphicsLibraryFramework.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\StbImageSharp.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Management.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libassimp.so
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libassimp.dylib
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\assimp.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\assimp.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libglfw.so.3
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-arm64\native\libglfw.3.dylib
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libglfw.3.dylib
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\glfw3.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\glfw3.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.xml
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.xml
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.AssemblyReference.cache
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Form1.resources
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Properties.Resources.resources
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.GenerateResource.cache
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfoInputs.cache
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfo.cs
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.CoreCompileInputs.cache
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinForms.E4050A35.Up2Date
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\refint\WinFormsApp1.dll
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
+D:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\WebView2Loader.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.exe
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.deps.json
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.runtimeconfig.json
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.pdb
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\AssimpNet.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\Guna.UI2.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Audio.OpenAL.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Compute.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Core.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.GLControl.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Graphics.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Input.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Mathematics.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Common.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Desktop.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.GraphicsLibraryFramework.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\StbImageSharp.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\System.Management.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libassimp.so
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libassimp.dylib
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\assimp.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\assimp.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libglfw.so.3
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-arm64\native\libglfw.3.dylib
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libglfw.3.dylib
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\glfw3.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\glfw3.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.xml
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.xml
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.AssemblyReference.cache
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Form1.resources
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Properties.Resources.resources
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.GenerateResource.cache
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfoInputs.cache
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfo.cs
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.CoreCompileInputs.cache
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\obj\Debug\net8.0-windows\WinForms.E4050A35.Up2Date
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\obj\Debug\net8.0-windows\refint\WinFormsApp1.dll
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
+D:\TCC_2025\ProjetoTCC - Copia\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.AssemblyReference.cache
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\refint\WinFormsApp1.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\WebView2Loader.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.exe
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.deps.json
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.runtimeconfig.json
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.pdb
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\AssimpNet.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Guna.UI2.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Audio.OpenAL.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Compute.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Core.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.GLControl.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Graphics.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Input.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Mathematics.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Common.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Desktop.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.GraphicsLibraryFramework.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\StbImageSharp.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Management.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libassimp.so
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libassimp.dylib
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\assimp.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\assimp.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libglfw.so.3
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-arm64\native\libglfw.3.dylib
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libglfw.3.dylib
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\glfw3.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\glfw3.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.dll
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.xml
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.xml
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Form1.resources
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Properties.Resources.resources
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.GenerateResource.cache
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfoInputs.cache
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfo.cs
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinForms.E4050A35.Up2Date
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
+C:\Users\Caioa\Downloads\ProjetoTCC1\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\WebView2Loader.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.exe
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.deps.json
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.runtimeconfig.json
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.pdb
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\AssimpNet.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Guna.UI2.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Audio.OpenAL.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Compute.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Core.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.GLControl.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Graphics.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Input.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Mathematics.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Common.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Desktop.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.GraphicsLibraryFramework.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\StbImageSharp.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Management.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libassimp.so
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libassimp.dylib
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\assimp.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\assimp.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libglfw.so.3
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-arm64\native\libglfw.3.dylib
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libglfw.3.dylib
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\glfw3.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\glfw3.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.xml
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.xml
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.AssemblyReference.cache
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Form1.resources
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Properties.Resources.resources
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.GenerateResource.cache
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfoInputs.cache
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfo.cs
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.CoreCompileInputs.cache
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinForms.E4050A35.Up2Date
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\refint\WinFormsApp1.dll
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
+E:\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\WebView2Loader.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.exe
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.deps.json
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.runtimeconfig.json
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.pdb
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\AssimpNet.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Guna.UI2.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Audio.OpenAL.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Compute.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Core.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.GLControl.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Graphics.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Input.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Mathematics.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Common.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Desktop.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.GraphicsLibraryFramework.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\StbImageSharp.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Management.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libassimp.so
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libassimp.dylib
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\assimp.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\assimp.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libglfw.so.3
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-arm64\native\libglfw.3.dylib
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libglfw.3.dylib
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\glfw3.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\glfw3.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.xml
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.xml
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.AssemblyReference.cache
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Form1.resources
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Properties.Resources.resources
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.GenerateResource.cache
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfoInputs.cache
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfo.cs
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.CoreCompileInputs.cache
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinForms.E4050A35.Up2Date
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\refint\WinFormsApp1.dll
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
+E:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\WebView2Loader.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.exe
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.deps.json
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.runtimeconfig.json
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.pdb
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\AssimpNet.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Guna.UI2.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Audio.OpenAL.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Compute.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Core.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.GLControl.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Graphics.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Input.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Mathematics.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Common.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Desktop.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.GraphicsLibraryFramework.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\StbImageSharp.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Management.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libassimp.so
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libassimp.dylib
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\assimp.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\assimp.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libglfw.so.3
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-arm64\native\libglfw.3.dylib
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libglfw.3.dylib
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\glfw3.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\glfw3.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.xml
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.xml
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.AssemblyReference.cache
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Form1.resources
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Properties.Resources.resources
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.GenerateResource.cache
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfoInputs.cache
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfo.cs
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.CoreCompileInputs.cache
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinForms.E4050A35.Up2Date
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\refint\WinFormsApp1.dll
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
+D:\TCC_20252\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.AssemblyReference.cache
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\refint\WinFormsApp1.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\WebView2Loader.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.exe
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.deps.json
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.runtimeconfig.json
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.pdb
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\AssimpNet.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Azure.Core.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Azure.Identity.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\BouncyCastle.Cryptography.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Google.Protobuf.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Guna.UI2.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\K4os.Compression.LZ4.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\K4os.Compression.LZ4.Streams.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\K4os.Hash.xxHash.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Bcl.Cryptography.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Data.SqlClient.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Extensions.Options.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Extensions.Primitives.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Identity.Client.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Logging.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.SqlServer.Server.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\MySql.Data.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Audio.OpenAL.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Compute.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Core.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.GLControl.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Graphics.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Input.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Mathematics.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Common.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Desktop.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.GraphicsLibraryFramework.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\StbImageSharp.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.ClientModel.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Configuration.ConfigurationManager.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Diagnostics.EventLog.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.IO.Pipelines.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Management.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Memory.Data.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Security.Cryptography.Pkcs.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Text.Encodings.Web.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Text.Json.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\ZstdSharp.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\cs\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\de\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\es\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\fr\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\it\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\ja\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\ko\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\pl\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\pt-BR\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\ru\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\tr\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\zh-Hans\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\zh-Hant\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libassimp.so
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libassimp.dylib
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\assimp.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\assimp.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\unix\lib\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\comerr64.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\gssapi64.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\k5sprt64.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\krb5_64.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\krbcc64.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libglfw.so.3
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-arm64\native\libglfw.3.dylib
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libglfw.3.dylib
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\glfw3.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\glfw3.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.dll
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.xml
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.xml
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Form1.resources
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Properties.Resources.resources
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.GenerateResource.cache
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfoInputs.cache
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfo.cs
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinForms.E4050A35.Up2Date
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
+C:\Users\Caioa\Downloads\TCC_2025\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\WebView2Loader.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.exe
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.deps.json
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.runtimeconfig.json
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\WinFormsApp1.pdb
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\AssimpNet.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Azure.Core.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Azure.Identity.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\BouncyCastle.Cryptography.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Google.Protobuf.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Guna.UI2.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\K4os.Compression.LZ4.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\K4os.Compression.LZ4.Streams.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\K4os.Hash.xxHash.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Bcl.Cryptography.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Data.SqlClient.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Extensions.Options.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Extensions.Primitives.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Identity.Client.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Logging.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Protocols.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.IdentityModel.Tokens.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.SqlServer.Server.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\MySql.Data.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Audio.OpenAL.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Compute.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Core.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.GLControl.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Graphics.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Input.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Mathematics.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Common.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.Desktop.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\OpenTK.Windowing.GraphicsLibraryFramework.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\StbImageSharp.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.ClientModel.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Configuration.ConfigurationManager.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Diagnostics.EventLog.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.IO.Pipelines.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Management.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Memory.Data.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Security.Cryptography.Pkcs.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Text.Encodings.Web.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\System.Text.Json.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\ZstdSharp.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\cs\Microsoft.Data.SqlClient.resources.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\de\Microsoft.Data.SqlClient.resources.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\es\Microsoft.Data.SqlClient.resources.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\fr\Microsoft.Data.SqlClient.resources.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\it\Microsoft.Data.SqlClient.resources.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\ja\Microsoft.Data.SqlClient.resources.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\ko\Microsoft.Data.SqlClient.resources.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\pl\Microsoft.Data.SqlClient.resources.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\pt-BR\Microsoft.Data.SqlClient.resources.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\ru\Microsoft.Data.SqlClient.resources.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\tr\Microsoft.Data.SqlClient.resources.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\zh-Hans\Microsoft.Data.SqlClient.resources.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\zh-Hant\Microsoft.Data.SqlClient.resources.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libassimp.so
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libassimp.dylib
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\assimp.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\assimp.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\unix\lib\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\Microsoft.Data.SqlClient.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\comerr64.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\gssapi64.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\k5sprt64.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\krb5_64.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\krbcc64.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\linux-x64\native\libglfw.so.3
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-arm64\native\libglfw.3.dylib
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libglfw.3.dylib
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x64\native\glfw3.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win-x86\native\glfw3.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net7.0\System.Management.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.xml
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.xml
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.AssemblyReference.cache
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Form1.resources
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.Properties.Resources.resources
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.GenerateResource.cache
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfoInputs.cache
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.AssemblyInfo.cs
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinForms.E4050A35.Up2Date
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\refint\WinFormsApp1.dll
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
+C:\Users\felip\Downloads\TCC_2025\ProjetoTCC\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll

@@ -1,0 +1,143 @@
+#VRML V2.0 utf8
+# ----------------------------------------------------------------
+# Cena criada em 18, junho de 2025 às 10:40
+# ---------------------------------------------------------------
+
+NavigationInfo {
+    headlight TRUE
+    type ["EXAMINE"]
+}
+
+# Timer para o ventilador
+DEF VENTILADOR_TIMER TimeSensor {
+    cycleInterval 0.052333333
+    loop TRUE
+}
+
+# Interpolador de rotação do ventilador
+DEF VENTILADOR_ROTOR OrientationInterpolator {
+    key [ 
+        0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45,
+        0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9 , 0.95, 1.0
+    ]
+    keyValue [ 
+        0 0 1 0,
+        0 0 1 0.314,
+        0 0 1 0.628,
+        0 0 1 0.942,
+        0 0 1 1.256,
+        0 0 1 1.57,
+        0 0 1 1.884,
+        0 0 1 2.198,
+        0 0 1 2.512,
+        0 0 1 2.826,
+        0 0 1 3.14,
+        0 0 1 3.454,
+        0 0 1 3.768,
+        0 0 1 4.082,
+        0 0 1 4.396,
+        0 0 1 4.71,
+        0 0 1 5.024,
+        0 0 1 5.338,
+        0 0 1 5.652,
+        0 0 1 5.966,
+        0 0 1 6.28
+    ] 
+}
+
+# Grupo principal da cena
+Group {
+    children [
+        # tunel de vento
+        Transform {
+            translation 0 0 0
+            children [
+                Inline { url ":TunelDeVento.wrl" }
+            ]
+        }
+        
+        Transform {
+            # O formato  X Y Z
+            translation 50 -138 35
+            
+            # SCALE: Altere os valores para aumentar/diminuir o avião.
+            # 1 1 1 = normal, 0.5 0.5 0.5 = metade do tamanho.
+            children [
+                Transform {
+                    # O formato  X Y Z
+                    translation 0 0 0
+                    
+                    # SCALE: Altere os valores para aumentar/diminuir o avião.
+                    # 1 1 1 = normal, 0.5 0.5 0.5 = metade do tamanho.
+                    scale 0.01 0.01 0.01
+
+                    rotation 1 0 0 1.5708
+                    children [
+                        DEF AVIAO_RETANGULAR Transform {
+                            children [
+                                Inline { url ":WingTypes/Delta.wrl" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+        
+        # iluminacao
+        DirectionalLight {
+            direction 0 -1 -1
+            intensity 0.8
+        }
+        
+        # ventilador - Transform externo para posicionamento
+        Transform {
+            # O formato  X Y Z
+            translation 200 -139 40
+            
+            # SCALE: Altere os valores para aumentar/diminuir o ventilador.
+            # 1 1 1 = normal, 0.5 0.5 0.5 = metade do tamanho.
+            scale 6 6 6 
+            
+            # ROTATION: <eixo_x> <eixo_y> <eixo_z> <ângulo_em_radianos>
+            # 0 1 0 = rotação no eixo Y (horizontal)
+            # 1 0 0 = rotação no eixo X (vertical)
+            # 0 0 1 = rotação no eixo Z (plano)
+            rotation 0 1 0 4.71   
+            
+            children [
+                # Transform interno para animação de rotação
+                DEF VENTILADOR_TRANSFORM Transform {
+                    children [
+                        Inline { url ":ventilador.wrl" }
+                        Shape {
+                            appearance Appearance {
+                                material Material {
+                                    diffuseColor 0.7 0.7 0.9
+                                    transparency 0.3
+                                }
+                               
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+        
+        # Ponto de vista 
+        Viewpoint {
+            position 35.78701577186584 3.219329833984 40.6202430725098 #Camera Position
+            orientation 0.1 -1.1 -1.2 3 #Camera Orientation
+            description "vista Frontal"
+        }
+        # ponto de vista
+        Viewpoint {
+            position 27.4059257507324 -132.81037902832 39.681568145752
+            orientation 0.462148874998093 -0.779842829704285 -0.569413840770721 2.07507729530334
+            description "movimento de voo"
+        }
+    ]
+}
+
+# Conexões da animação do ventilador
+ROUTE VENTILADOR_TIMER.fraction_changed TO VENTILADOR_ROTOR.set_fraction
+ROUTE VENTILADOR_ROTOR.value_changed TO VENTILADOR_TRANSFORM.set_rotation
