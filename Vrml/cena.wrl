@@ -75,7 +75,7 @@ Group {
                     children [
                         DEF AVIAO_RETANGULAR Transform {
                             children [
-                                Inline { url ":WingTypes/Delta.wrl" }
+                                Inline { url ":WingTypes/Rectangular.wrl" }
                             ]
                         }
                     ]
