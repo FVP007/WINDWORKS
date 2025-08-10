@@ -9,7 +9,7 @@ Shape{
         shininess 6
     }
     texture ImageTexture {
-      url "metal1.jpg"
+      url "../Textures/metal1.jpg"
       repeatS TRUE
       repeatT TRUE
     }
@@ -29,7 +29,7 @@ Shape{
         shininess 6 
     }
     texture ImageTexture {
-      url "pneu.png"
+      url "../Textures/pneu.png"
       repeatS TRUE
       repeatT TRUE
     }
@@ -41,19 +41,7 @@ Shape{
         shininess 6 
     }
     texture ImageTexture {
-      url "metal2.jpg"
-      repeatS TRUE
-      repeatT TRUE
-    }
-  }
-  appearance DEF M4 Appearance {
-    material Material {
-        diffuseColor 0.78354 0.78354 0.78354
-        emissiveColor 0 0 0
-        shininess 6 
-    }
-    texture ImageTexture {
-      url "black.png"
+      url "../Textures/metal2.jpg"
       repeatS TRUE
       repeatT TRUE
     }

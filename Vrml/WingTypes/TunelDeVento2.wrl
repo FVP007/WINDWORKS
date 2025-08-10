@@ -8,7 +8,7 @@ Shape{
         shininess 6
     }
     texture ImageTexture {
-      url "WingTypes/metal1.jpg"
+      url "../Textures/metal1.jpg"
       repeatS TRUE
       repeatT TRUE
     }
@@ -28,7 +28,7 @@ Shape{
         shininess 6 
     }
     texture ImageTexture {
-      url "WingTypes/pneu.png"
+      url "../Textures/pneu.png"
       repeatS TRUE
       repeatT TRUE
     }
@@ -40,7 +40,7 @@ Shape{
         shininess 6 
     }
     texture ImageTexture {
-      url "WingTypes/metal2.jpg"
+      url "../Textures/metal2.jpg"
       repeatS TRUE
       repeatT TRUE
     }
@@ -54,7 +54,7 @@ Shape{
         shininess 1          
     }
     texture ImageTexture {
-      url "WingTypes/green.png"
+      url "../Textures/green.png"
       repeatS TRUE
       repeatT TRUE
     }
