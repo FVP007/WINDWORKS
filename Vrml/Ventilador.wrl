@@ -523,7 +523,7 @@ Transform {
 	       shininess .5
         }
         texture ImageTexture {
-            url "TexturaMetal.jpg"
+            url "WingTypes/metal2.jpg"
         }
       }
     }
