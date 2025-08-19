@@ -17,7 +17,7 @@ using System.Xml;
 using System.Data;
 using Microsoft.Data.SqlClient;
 using MySql.Data.MySqlClient;
-
+using System.Drawing; // <-- Needed for Size, Point, etc.
 
 namespace WinFormsApp1
 {
@@ -28,12 +28,20 @@ namespace WinFormsApp1
         private string selectedWingType = "Rectangular";
         private bool PageGraficoEnabled = false;
         private bool PageResultadosEnabled = false;
-        // Connection string 
         private string connectionString = "Server=localhost;Database=LiftForceDb;Uid=root;";
+
+        // Responsive layout variables
+        private Size originalFormSize;
+        private bool isResponsiveInitialized = false;
+
+       
+        private Process vrmlProcess = null;
 
         public Form1()
         {
             InitializeComponent();
+
+            // Existing setup
             ComboWindSpeed.DropDownStyle = ComboBoxStyle.DropDown;
             ComboAirDensity.DropDownStyle = ComboBoxStyle.DropDown;
             ComboWingArea.DropDownStyle = ComboBoxStyle.DropDown;
@@ -42,10 +50,128 @@ namespace WinFormsApp1
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             ButtonRunTest.Enabled = false;
             this.KeyPreview = true;
-
+            SetupResponsiveLayout();
 
         }
 
+        private void SetupResponsiveLayout()
+        {
+            this.AutoScaleMode = AutoScaleMode.Dpi;
+            this.AutoScaleDimensions = new SizeF(96F, 96F);
+            this.WindowState = FormWindowState.Normal;
+            ConfigurePanelAnchors();
+
+            this.Resize += Form1_Resize;
+        }
+
+        private void ConfigurePanelAnchors()
+        {
+            guna2Panel3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            guna2Panel3.MinimumSize = new Size(205, 400);
+            guna2Panel2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            guna2Panel6.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            guna2Panel6.MinimumSize = new Size(250, 400);
+
+            ConfigureInternalControls();
+        }
+
+        private void ConfigureInternalControls()
+        {
+            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tabControl1.Location = new Point(0, 0);
+            int buttonHeight = 60;
+            tabControl1.Size = new Size(guna2Panel2.Width, guna2Panel2.Height - buttonHeight);
+            ButtonRunTest.Anchor = AnchorStyles.Bottom;
+            PictureBoxModelImage.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            webViewChart.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            LabelWingType.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            LabelWingType.Height = 42;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ComboWingType.Items.AddRange(new object[] { "Rectangular", "Elliptical", "Trapezoidal", "Delta" });
+            ComboCameraPerspective.Items.AddRange(new object[] { "Front View", "Side View", "Isometric View" });
+            ComboWindSpeed.Items.AddRange(new object[] { 10, 20, 30, 40, 50 });
+            ComboAirDensity.Items.AddRange(new object[] { 1.225, 1.18, 1.15, 1.12, 1.10 });
+            ComboWingArea.Items.AddRange(new object[] { 0.1, 0.25, 0.5, 1.0, 2.0, 5.0 });
+            ComboWingType.SelectedIndex = 0;
+            ComboCameraPerspective.SelectedIndex = 0;
+            ComboWindSpeed.SelectedIndex = 0;
+            ComboAirDensity.SelectedIndex = 0;
+            ComboWingArea.SelectedIndex = 0;
+            ComboWindSpeed.SelectedIndexChanged += CheckFieldsFilled;
+            ComboAirDensity.SelectedIndexChanged += CheckFieldsFilled;
+            ComboWingArea.SelectedIndexChanged += CheckFieldsFilled;
+            ComboWingType.SelectedIndexChanged += ComboWingType_SelectedIndexChanged;
+            originalFormSize = this.Size;
+            isResponsiveInitialized = true;
+            LoadDataToGridView();
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            if (!isResponsiveInitialized) return;
+            RecalculateButtonPositions();
+            AdjustTabControlSize();
+        }
+
+        private void RecalculateButtonPositions()
+        {
+            if (guna2Panel2.Width <= 0) return;
+            int centerX = guna2Panel2.Width / 2;
+            int buttonWidth = ButtonRunTest.Width;
+            ButtonRunTest.Location = new Point(centerX - buttonWidth / 2, guna2Panel2.Height - ButtonRunTest.Height - 10);
+            
+        }
+
+        private void AdjustTabControlSize()
+        {
+            if (guna2Panel2.Width <= 0 || guna2Panel2.Height <= 0) return;
+            int buttonSpace = 60;
+            tabControl1.Size = new Size(guna2Panel2.Width, Math.Max(200, guna2Panel2.Height - buttonSpace));
+        }
+
+        private void OptimizeForFullScreen()
+        {
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                tableLayoutPanel1.ColumnStyles[0] = new ColumnStyle(SizeType.Absolute, 280F);
+                tableLayoutPanel1.ColumnStyles[1] = new ColumnStyle(SizeType.Percent, 55F);
+                tableLayoutPanel1.ColumnStyles[2] = new ColumnStyle(SizeType.Percent, 45F);
+            }
+            else
+            {
+                tableLayoutPanel1.ColumnStyles[0] = new ColumnStyle(SizeType.Absolute, 250F);
+                tableLayoutPanel1.ColumnStyles[1] = new ColumnStyle(SizeType.Percent, 60F);
+                tableLayoutPanel1.ColumnStyles[2] = new ColumnStyle(SizeType.Percent, 40F);
+
+            }
+        }
+
+        // Override WndProc for maximize/restore
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_SYSCOMMAND = 0x0112;
+            const int SC_MAXIMIZE = 0xF030;
+            const int SC_RESTORE = 0xF120;
+
+            if (m.Msg == WM_SYSCOMMAND)
+            {
+                if (m.WParam.ToInt32() == SC_MAXIMIZE || m.WParam.ToInt32() == SC_RESTORE)
+                {
+                    base.WndProc(ref m);
+                    BeginInvoke(new MethodInvoker(() =>
+                    {
+                        OptimizeForFullScreen();
+                        RecalculateButtonPositions();
+                        AdjustTabControlSize();
+                    }));
+                    return;
+                }
+            }
+            base.WndProc(ref m);
+        }
 
         private void SaveTestResult(string wingType, double windSpeed, double airDensity, double wingArea, double coefficient, double liftForce, string cameraPerspective)
         {
@@ -119,7 +245,7 @@ namespace WinFormsApp1
             return dataTable;
         }
 
-        // Método adicional para obter estatísticas usando a stored procedure
+ 
         private DataTable GetWingTypeStatistics(string wingType = null)
         {
             DataTable dataTable = new DataTable();
@@ -148,34 +274,6 @@ namespace WinFormsApp1
             return dataTable;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            ComboWingType.Items.AddRange(new object[] { "Rectangular", "Elliptical", "Trapezoidal", "Delta" });
-
-            ComboCameraPerspective.Items.AddRange(new object[] { "Front View", "Side View", "Isometric View" });
-
-            ComboWindSpeed.Items.AddRange(new object[] { 10, 20, 30, 40, 50 });
-
-            // Values for air density (kg/m³) — typical approximations at sea level
-            ComboAirDensity.Items.AddRange(new object[] { 1.225, 1.18, 1.15, 1.12, 1.10 });
-
-            // Values for wing area (m²)
-            ComboWingArea.Items.AddRange(new object[] { 0.1, 0.25, 0.5, 1.0, 2.0, 5.0 });
-
-            // Optional: set the first selected item in each combo
-            ComboWingType.SelectedIndex = 0;
-            ComboCameraPerspective.SelectedIndex = 0;
-            ComboWindSpeed.SelectedIndex = 0;
-            ComboAirDensity.SelectedIndex = 0;
-            ComboWingArea.SelectedIndex = 0;
-
-            ComboWindSpeed.SelectedIndexChanged += CheckFieldsFilled;
-            ComboAirDensity.SelectedIndexChanged += CheckFieldsFilled;
-            ComboWingArea.SelectedIndexChanged += CheckFieldsFilled;
-
-            ComboWingType.SelectedIndexChanged += ComboWingType_SelectedIndexChanged;
-        }
-
         private void ComboWingType_SelectedIndexChanged(object sender, EventArgs e)
         {
             //achei interessante talvez usemos
@@ -185,6 +283,9 @@ namespace WinFormsApp1
         {
             try
             {
+                // Fecha processos VRML existentes antes de abrir um novo
+                CloseExistingVRMLProcesses();
+
                 string wingType = ComboWingType.SelectedItem?.ToString() ?? "Rectangular";
                 int windSpeed = int.Parse(ComboWindSpeed.SelectedItem?.ToString() ?? "10");
 
@@ -193,10 +294,23 @@ namespace WinFormsApp1
                 string scenePath = "C:\\TCC_2025\\Vrml\\cena.wrl";
                 string programPath = "C:\\Program Files\\ParallelGraphics\\RapidAuthorViewer\\RapidAuthorViewer.exe";
 
-                var process = new Process();
-                process.StartInfo.FileName = programPath;
-                process.StartInfo.Arguments = $"\"{scenePath}\"";
-                process.Start();
+                
+                if (!File.Exists(programPath))
+                {
+                    MessageBox.Show($"RapidAuthorViewer não encontrado em:\n{programPath}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (!File.Exists(scenePath))
+                {
+                    MessageBox.Show($"Arquivo VRML não encontrado em:\n{scenePath}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                vrmlProcess = new Process();
+                vrmlProcess.StartInfo.FileName = programPath;
+                vrmlProcess.StartInfo.Arguments = $"\"{scenePath}\"";
+                vrmlProcess.StartInfo.UseShellExecute = true;
+                vrmlProcess.Start();
 
                 Console.WriteLine($"VRML aberto com tipo de asa: {wingType}");
             }
@@ -250,7 +364,7 @@ namespace WinFormsApp1
                 case 1:
                     return "position 35.78701577186584 3.219329833984 40.6202430725098 #Camera Position";
                 case 2:
-                    return "position 25 -138 35.6202430725098 #Camera Position";
+                    return "position 15.78701577186584 -128.219329833984 37.6202430725098 #Camera Position";
                 default:
                     return "";
             }
@@ -265,7 +379,7 @@ namespace WinFormsApp1
                 case 1:
                     return "orientation 0.1 -1.1 -1.2 3 #Camera Orientation";
                 case 2:
-                    return "orientation 1.1 -1.1 -1.1 2.1 #Camera Orientation";
+                    return "orientation 0.728832358121872 -0.999999999999 -0.999999999999 2.23173069953918 #Camera Orientation";
                 default:
                     return "";
             }
@@ -321,7 +435,7 @@ namespace WinFormsApp1
 
         private async void ShowChart(double density, double maxSpeed, double area, double coefficient)
         {
-            // Gerar pontos para o gráfico
+            
             List<object[]> dataPoints = new List<object[]>();
             for (double v = 0; v <= maxSpeed; v += 1)
             {
@@ -331,7 +445,7 @@ namespace WinFormsApp1
 
             string dataPointsJson = JsonSerializer.Serialize(dataPoints);
 
-            // Use interpolação de string para inserir os valores no HTML
+            
             string html = $@"<!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -531,23 +645,322 @@ namespace WinFormsApp1
 
             if (e.TabPage == PageGrafico && !PageGraficoEnabled)
             {
-                e.Cancel = true; 
+                e.Cancel = true;
             }
             if (e.TabPage == PageResultados && !PageResultadosEnabled)
             {
-                e.Cancel = true; 
+                e.Cancel = true;
             }
             if (e.TabPage == PageResultados)
             {
-                ButtonRunTest.Visible = false; 
-                ButtonGenerateXML.Visible = true; 
+                ButtonRunTest.Visible = false;
+                
             }
             else
             {
-                ButtonRunTest.Visible = true; 
-                ButtonGenerateXML.Visible = false; 
+                ButtonRunTest.Visible = true;
+                
             }
 
         }
+
+        
+        
+
+        private void ButtonGenerateXML_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataTable results = GetAllTestResults();
+                if (results.Rows.Count == 0)
+                {
+                    MessageBox.Show("Nenhum resultado encontrado para exportar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Criação do XML
+                XmlWriterSettings settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    Encoding = System.Text.Encoding.UTF8,
+                    OmitXmlDeclaration = false
+                };
+
+                // Caminho para salvar o arquivo
+                string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Resultados.xml");
+
+                using (XmlWriter writer = XmlWriter.Create(filePath, settings))
+                {
+                    writer.WriteStartDocument(true);
+                    writer.WriteStartElement("TestResults"); // Tag raiz corrigida
+
+                    foreach (DataRow row in results.Rows)
+                    {
+                        writer.WriteStartElement("TestResult"); // Elemento individual
+                                                                // Removido o elemento WingType duplicado
+                        writer.WriteElementString("WingType", row["WingType"]?.ToString() ?? "");
+                        writer.WriteElementString("CameraPerspective", row["CameraPerspective"]?.ToString() ?? "");
+                        writer.WriteElementString("WindSpeed", row["WindSpeed"]?.ToString() ?? "");
+                        writer.WriteElementString("AirDensity", row["AirDensity"]?.ToString() ?? "");
+                        writer.WriteElementString("WingArea", row["WingArea"]?.ToString() ?? "");
+                        writer.WriteElementString("Coefficient", row["Coefficient"]?.ToString() ?? "");
+                        writer.WriteElementString("LiftForce", row["LiftForce"]?.ToString() ?? "");
+                        writer.WriteElementString("TestDate", row["TestDate"]?.ToString() ?? "");
+                        writer.WriteEndElement(); // TestResult
+                    }
+
+                    writer.WriteEndElement(); // TestResults
+                    writer.WriteEndDocument();
+                }
+
+                MessageBox.Show($"Arquivo XML gerado com sucesso em:\n{filePath}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar XML: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Adicione este método na sua classe Form1
+        private void CloseExistingVRMLProcesses()
+        {
+            try
+            {
+                // Fecha o processo específico que foi iniciado por esta aplicação
+                if (vrmlProcess != null && !vrmlProcess.HasExited)
+                {
+                    vrmlProcess.Kill();
+                    vrmlProcess.Dispose();
+                    vrmlProcess = null;
+                    Console.WriteLine("Processo VRML anterior fechado.");
+                }
+
+                
+                Process[] processes = Process.GetProcessesByName("Electron");
+                foreach (Process process in processes)
+                {
+                    try
+                    {
+                        process.Kill();
+                        process.WaitForExit(3000);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Erro ao fechar processo: {ex.Message}");
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao fechar processos VRML: {ex.Message}");
+            }
+        }
+
+        // Adicione este método ao evento FormClosing do formulário
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Fecha o processo VRML ao fechar a aplicação
+            CloseExistingVRMLProcesses();
+        }
+
+        // Use o nome correto do controle do seu Designer
+        private DataGridView dataGridViewResults => dataGridView1;
+
+        // Carrega todos os dados no DataGridView
+        private void LoadDataToGridView()
+        {
+            try
+            {
+                DataTable dataTable = GetAllTestResults();
+                if (dataTable.Rows.Count == 0)
+                {
+                    MessageBox.Show("Nenhum resultado encontrado no banco de dados.", "Informação",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dataGridViewResults.DataSource = null;
+                    return;
+                }
+
+                ConfigureDataGridView();
+                dataGridViewResults.DataSource = dataTable;
+                ConfigureColumns();
+                dataGridViewResults.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                Console.WriteLine($"Carregados {dataTable.Rows.Count} registros no DataGridView.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar dados: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        
+        private void ConfigureDataGridView()
+        {
+            dataGridViewResults.AllowUserToAddRows = false;
+            dataGridViewResults.AllowUserToDeleteRows = false;
+            dataGridViewResults.ReadOnly = true;
+            dataGridViewResults.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridViewResults.MultiSelect = false;
+            dataGridViewResults.AutoGenerateColumns = true;
+            dataGridViewResults.BackgroundColor = Color.White;
+            dataGridViewResults.BorderStyle = BorderStyle.Fixed3D;
+            dataGridViewResults.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+            dataGridViewResults.GridColor = Color.LightGray;
+            dataGridViewResults.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
+            dataGridViewResults.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            dataGridViewResults.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 9, FontStyle.Bold);
+            dataGridViewResults.ColumnHeadersHeight = 30;
+            dataGridViewResults.AlternatingRowsDefaultCellStyle.BackColor = Color.LightBlue;
+            dataGridViewResults.DefaultCellStyle.SelectionBackColor = Color.DarkBlue;
+            dataGridViewResults.DefaultCellStyle.SelectionForeColor = Color.White;
+        }
+
+        
+        private void ConfigureColumns()
+        {
+            if (dataGridViewResults.Columns.Count == 0) return;
+
+            if (dataGridViewResults.Columns.Contains("Id"))
+                dataGridViewResults.Columns["Id"].Visible = false;
+
+            var columnHeaders = new Dictionary<string, string>
+            {
+                ["WingType"] = "Tipo de Asa",
+                ["CameraPerspective"] = "Perspectiva da Câmera",
+                ["WindSpeed"] = "Velocidade do Vento (m/s)",
+                ["AirDensity"] = "Densidade do Ar (kg/m³)",
+                ["WingArea"] = "Área da Asa (m²)",
+                ["Coefficient"] = "Coeficiente",
+                ["LiftForce"] = "Força de Sustentação (N)",
+                ["TestDate"] = "Data do Teste"
+            };
+
+            foreach (var header in columnHeaders)
+            {
+                if (dataGridViewResults.Columns.Contains(header.Key))
+                    dataGridViewResults.Columns[header.Key].HeaderText = header.Value;
+            }
+
+            if (dataGridViewResults.Columns.Contains("WindSpeed"))
+            {
+                dataGridViewResults.Columns["WindSpeed"].DefaultCellStyle.Format = "F1";
+                dataGridViewResults.Columns["WindSpeed"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+            if (dataGridViewResults.Columns.Contains("AirDensity"))
+            {
+                dataGridViewResults.Columns["AirDensity"].DefaultCellStyle.Format = "F3";
+                dataGridViewResults.Columns["AirDensity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+            if (dataGridViewResults.Columns.Contains("WingArea"))
+            {
+                dataGridViewResults.Columns["WingArea"].DefaultCellStyle.Format = "F2";
+                dataGridViewResults.Columns["WingArea"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+            if (dataGridViewResults.Columns.Contains("LiftForce"))
+            {
+                dataGridViewResults.Columns["LiftForce"].DefaultCellStyle.Format = "F2";
+                dataGridViewResults.Columns["LiftForce"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+            if (dataGridViewResults.Columns.Contains("Coefficient"))
+            {
+                dataGridViewResults.Columns["Coefficient"].DefaultCellStyle.Format = "F2";
+                dataGridViewResults.Columns["Coefficient"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+            if (dataGridViewResults.Columns.Contains("TestDate"))
+            {
+                dataGridViewResults.Columns["TestDate"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+                dataGridViewResults.Columns["TestDate"].Width = 150;
+            }
+        }
+
+        // Atualiza o DataGridView (chame após inserir/atualizar registros)
+        private void RefreshDataGridView()
+        {
+            LoadDataToGridView();
+        }
+
+        // Filtra dados por tipo de asa
+        private void LoadFilteredData(string wingType = null)
+        {
+            try
+            {
+                DataTable dataTable = string.IsNullOrEmpty(wingType)
+                    ? GetAllTestResults()
+                    : GetFilteredTestResults(wingType);
+
+                ConfigureDataGridView();
+                dataGridViewResults.DataSource = dataTable;
+                ConfigureColumns();
+                dataGridViewResults.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao filtrar dados: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Busca dados filtrados
+        private DataTable GetFilteredTestResults(string wingType)
+        {
+            DataTable dataTable = new DataTable();
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string selectQuery = @"
+                SELECT 
+                    Id,
+                    TestDate,
+                    WingType,
+                    WindSpeed,
+                    AirDensity,
+                    WingArea,
+                    Coefficient,
+                    LiftForce,
+                    CameraPerspective
+                FROM TestResults 
+                WHERE WingType = @WingType
+                ORDER BY TestDate DESC";
+
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(selectQuery, connection))
+                    {
+                        adapter.SelectCommand.Parameters.AddWithValue("@WingType", wingType);
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao recuperar dados filtrados: {ex.Message}", "Erro",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return dataTable;
+        }
+
+        // Evento para botão "Carregar Dados"
+        private void ButtonLoadData_Click(object sender, EventArgs e)
+        {
+            LoadDataToGridView();
+        }
+
+       
+
+        
+        private void DataGridViewResults_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewResults.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridViewResults.SelectedRows[0];
+                string wingType = selectedRow.Cells["WingType"].Value?.ToString();
+                double liftForce = Convert.ToDouble(selectedRow.Cells["LiftForce"].Value ?? 0);
+                Console.WriteLine($"Selecionado: {wingType} - Força: {liftForce}N");
+                
+            }
+        }
+
+        
     }
 }
