@@ -76,8 +76,12 @@
             guna2ControlBox2 = new Guna.UI2.WinForms.Guna2ControlBox();
             guna2ControlBox1 = new Guna.UI2.WinForms.Guna2ControlBox();
             toolStrip1 = new ToolStrip();
+            toolStripDropDownButton2 = new ToolStripDropDownButton();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            toolStripMenuItem2 = new ToolStripMenuItem();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
-            exportXmlToolStripMenuItem = new ToolStripMenuItem();
+            resultsToolStripMenuItem = new ToolStripMenuItem();
+            toolStripComboBox1 = new ToolStripComboBox();
             tableLayoutPanel1 = new TableLayoutPanel();
             guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             tabControl1 = new TabControl();
@@ -86,8 +90,6 @@
             PictureBoxModelImage = new Guna.UI2.WinForms.Guna2PictureBox();
             PageGrafico = new TabPage();
             webViewChart = new Microsoft.Web.WebView2.WinForms.WebView2();
-            PageResultados = new TabPage();
-            dataGridView1 = new DataGridView();
             ButtonRunTest = new Guna.UI2.WinForms.Guna2Button();
             guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
             guna2Panel8 = new Guna.UI2.WinForms.Guna2Panel();
@@ -128,8 +130,6 @@
             ((System.ComponentModel.ISupportInitialize)PictureBoxModelImage).BeginInit();
             PageGrafico.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)webViewChart).BeginInit();
-            PageResultados.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             guna2Panel3.SuspendLayout();
             guna2Panel8.SuspendLayout();
             guna2Panel7.SuspendLayout();
@@ -224,31 +224,62 @@
             // toolStrip1
             // 
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton1 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton2, toolStripDropDownButton1, toolStripComboBox1 });
             toolStrip1.Location = new Point(0, 32);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1263, 25);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
             // 
+            // toolStripDropDownButton2
+            // 
+            toolStripDropDownButton2.DisplayStyle = ToolStripItemDisplayStyle.Text;
+            toolStripDropDownButton2.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem1 });
+            toolStripDropDownButton2.Image = (Image)resources.GetObject("toolStripDropDownButton2.Image");
+            toolStripDropDownButton2.ImageTransparentColor = Color.Magenta;
+            toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+            toolStripDropDownButton2.ShowDropDownArrow = false;
+            toolStripDropDownButton2.Size = new Size(34, 22);
+            toolStripDropDownButton2.Text = "Files";
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2 });
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Text = "Open With";
+            toolStripMenuItem1.ToolTipText = "Export All Data for XML";
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(100, 22);
+            toolStripMenuItem2.Text = "Excel";
+            toolStripMenuItem2.Click += toolStripMenuItem2_Click;
+            // 
             // toolStripDropDownButton1
             // 
             toolStripDropDownButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { exportXmlToolStripMenuItem });
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { resultsToolStripMenuItem });
             toolStripDropDownButton1.Image = (Image)resources.GetObject("toolStripDropDownButton1.Image");
             toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
             toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             toolStripDropDownButton1.ShowDropDownArrow = false;
-            toolStripDropDownButton1.Size = new Size(34, 22);
-            toolStripDropDownButton1.Text = "Files";
+            toolStripDropDownButton1.Size = new Size(36, 22);
+            toolStripDropDownButton1.Text = "View";
             // 
-            // exportXmlToolStripMenuItem
+            // resultsToolStripMenuItem
             // 
-            exportXmlToolStripMenuItem.Name = "exportXmlToolStripMenuItem";
-            exportXmlToolStripMenuItem.Size = new Size(131, 22);
-            exportXmlToolStripMenuItem.Text = "Export Xml";
-            exportXmlToolStripMenuItem.ToolTipText = "Export All Data for XML";
-            exportXmlToolStripMenuItem.Click += ButtonGenerateXML_Click;
+            resultsToolStripMenuItem.Name = "resultsToolStripMenuItem";
+            resultsToolStripMenuItem.Size = new Size(111, 22);
+            resultsToolStripMenuItem.Text = "Results";
+            resultsToolStripMenuItem.Click += resultsToolStripMenuItem_Click;
+            // 
+            // toolStripComboBox1
+            // 
+            toolStripComboBox1.Items.AddRange(new object[] { "Rectangular", "Elliptical", "Trapezoidal", "Delta" });
+            toolStripComboBox1.Name = "toolStripComboBox1";
+            toolStripComboBox1.Size = new Size(121, 25);
             // 
             // tableLayoutPanel1
             // 
@@ -287,7 +318,6 @@
             // 
             tabControl1.Controls.Add(PageVisualizador);
             tabControl1.Controls.Add(PageGrafico);
-            tabControl1.Controls.Add(PageResultados);
             tabControl1.Dock = DockStyle.Top;
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
@@ -359,25 +389,6 @@
             webViewChart.Size = new Size(805, 399);
             webViewChart.TabIndex = 7;
             webViewChart.ZoomFactor = 1D;
-            // 
-            // PageResultados
-            // 
-            PageResultados.Controls.Add(dataGridView1);
-            PageResultados.Location = new Point(4, 24);
-            PageResultados.Name = "PageResultados";
-            PageResultados.Size = new Size(811, 405);
-            PageResultados.TabIndex = 2;
-            PageResultados.Text = "Resultados";
-            PageResultados.UseVisualStyleBackColor = true;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(0, 0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(811, 405);
-            dataGridView1.TabIndex = 0;
             // 
             // ButtonRunTest
             // 
@@ -775,6 +786,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load_1;
             guna2Panel1.ResumeLayout(false);
             guna2Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).EndInit();
@@ -787,8 +799,6 @@
             ((System.ComponentModel.ISupportInitialize)PictureBoxModelImage).EndInit();
             PageGrafico.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)webViewChart).EndInit();
-            PageResultados.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             guna2Panel3.ResumeLayout(false);
             guna2Panel3.PerformLayout();
             guna2Panel8.ResumeLayout(false);
@@ -825,16 +835,10 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel LabelParametrosDeTeste;
         private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel6;
-        private Microsoft.Web.WebView2.WinForms.WebView2 webViewChart;
-        private TabControl tabControl1;
-        private TabPage PageVisualizador;
-        private TabPage PageGrafico;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel5;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel7;
         public Guna.UI2.WinForms.Guna2Button ButtonZY;
         public Guna.UI2.WinForms.Guna2Button ButtonYX;
-        private Guna.UI2.WinForms.Guna2HtmlLabel LabelWingType;
-        private Guna.UI2.WinForms.Guna2PictureBox PictureBoxModelImage;
         private Guna.UI2.WinForms.Guna2HtmlLabel LabelAreaAsa;
         private Guna.UI2.WinForms.Guna2HtmlLabel LabelDensidadeAr;
         private Guna.UI2.WinForms.Guna2HtmlLabel LabelVelocidadeVento;
@@ -849,9 +853,17 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel8;
         private Guna.UI2.WinForms.Guna2ComboBox ComboCameraPerspective;
-        private TabPage PageResultados;
         private ToolStripDropDownButton toolStripDropDownButton1;
-        private ToolStripMenuItem exportXmlToolStripMenuItem;
-        private DataGridView dataGridView1;
+        private ToolStripDropDownButton toolStripDropDownButton2;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem toolStripMenuItem2;
+        private ToolStripMenuItem resultsToolStripMenuItem;
+        private TabControl tabControl1;
+        private TabPage PageVisualizador;
+        private Guna.UI2.WinForms.Guna2HtmlLabel LabelWingType;
+        private Guna.UI2.WinForms.Guna2PictureBox PictureBoxModelImage;
+        private TabPage PageGrafico;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webViewChart;
+        private ToolStripComboBox toolStripComboBox1;
     }
 }

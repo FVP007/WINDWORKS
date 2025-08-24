@@ -29,18 +29,18 @@ namespace WinFormsApp1
         private bool PageGraficoEnabled = false;
         private bool PageResultadosEnabled = false;
         private string connectionString = "Server=localhost;Database=LiftForceDb;Uid=root;";
-
+        ResultsForm resultsForm;
         // Responsive layout variables
         private Size originalFormSize;
         private bool isResponsiveInitialized = false;
 
-       
+
         private Process vrmlProcess = null;
 
         public Form1()
         {
             InitializeComponent();
-
+            ResultsForm resultsForm = new ResultsForm();
             // Existing setup
             ComboWindSpeed.DropDownStyle = ComboBoxStyle.DropDown;
             ComboAirDensity.DropDownStyle = ComboBoxStyle.DropDown;
@@ -106,7 +106,7 @@ namespace WinFormsApp1
             ComboWingType.SelectedIndexChanged += ComboWingType_SelectedIndexChanged;
             originalFormSize = this.Size;
             isResponsiveInitialized = true;
-            LoadDataToGridView();
+
         }
 
         private void Form1_Resize(object sender, EventArgs e)
@@ -122,7 +122,7 @@ namespace WinFormsApp1
             int centerX = guna2Panel2.Width / 2;
             int buttonWidth = ButtonRunTest.Width;
             ButtonRunTest.Location = new Point(centerX - buttonWidth / 2, guna2Panel2.Height - ButtonRunTest.Height - 10);
-            
+
         }
 
         private void AdjustTabControlSize()
@@ -172,108 +172,6 @@ namespace WinFormsApp1
             }
             base.WndProc(ref m);
         }
-
-        private void SaveTestResult(string wingType, double windSpeed, double airDensity, double wingArea, double coefficient, double liftForce, string cameraPerspective)
-        {
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    string insertQuery = @"
-                INSERT INTO TestResults 
-                (WingType, WindSpeed, AirDensity, WingArea, Coefficient, LiftForce, CameraPerspective)
-                VALUES 
-                (@WingType, @WindSpeed, @AirDensity, @WingArea, @Coefficient, @LiftForce, @CameraPerspective)";
-
-                    using (MySqlCommand command = new MySqlCommand(insertQuery, connection))
-                    {
-                        command.Parameters.AddWithValue("@WingType", wingType);
-                        command.Parameters.AddWithValue("@WindSpeed", windSpeed);
-                        command.Parameters.AddWithValue("@AirDensity", airDensity);
-                        command.Parameters.AddWithValue("@WingArea", wingArea);
-                        command.Parameters.AddWithValue("@Coefficient", coefficient);
-                        command.Parameters.AddWithValue("@LiftForce", liftForce);
-                        command.Parameters.AddWithValue("@CameraPerspective", cameraPerspective ?? "");
-
-                        command.ExecuteNonQuery();
-                    }
-                }
-                MessageBox.Show("Resultado salvo no banco de dados com sucesso!", "Sucesso",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao salvar no banco de dados: {ex.Message}", "Erro",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private DataTable GetAllTestResults()
-        {
-            DataTable dataTable = new DataTable();
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    string selectQuery = @"
-                SELECT 
-                    Id,
-                    TestDate,
-                    WingType,
-                    WindSpeed,
-                    AirDensity,
-                    WingArea,
-                    Coefficient,
-                    LiftForce,
-                    CameraPerspective
-                FROM TestResults 
-                ORDER BY TestDate DESC";
-
-                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(selectQuery, connection))
-                    {
-                        adapter.Fill(dataTable);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao recuperar dados do banco: {ex.Message}", "Erro",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return dataTable;
-        }
-
- 
-        private DataTable GetWingTypeStatistics(string wingType = null)
-        {
-            DataTable dataTable = new DataTable();
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    using (MySqlCommand command = new MySqlCommand("sp_GetWingTypeStatistics", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@p_WingType", wingType);
-
-                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
-                        {
-                            adapter.Fill(dataTable);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao recuperar estatísticas: {ex.Message}", "Erro",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return dataTable;
-        }
-
         private void ComboWingType_SelectedIndexChanged(object sender, EventArgs e)
         {
             //achei interessante talvez usemos
@@ -294,7 +192,7 @@ namespace WinFormsApp1
                 string scenePath = "C:\\TCC_2025\\Vrml\\cena.wrl";
                 string programPath = "C:\\Program Files\\ParallelGraphics\\RapidAuthorViewer\\RapidAuthorViewer.exe";
 
-                
+
                 if (!File.Exists(programPath))
                 {
                     MessageBox.Show($"RapidAuthorViewer não encontrado em:\n{programPath}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -394,6 +292,7 @@ namespace WinFormsApp1
         public void ButtonRunTest_Click(object sender, EventArgs e)
         {
             // Get values from interface fields
+
             if (!double.TryParse(ComboWindSpeed.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double windSpeed))
             {
                 MessageBox.Show("Please enter a valid value for Wind Speed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -421,21 +320,21 @@ namespace WinFormsApp1
             guna2HtmlLabelLiftForceValue.Text = $"{liftForce:F2}N";
 
             // Save to database
-            SaveTestResult(wingType, windSpeed, airDensity, wingArea, coefficient, liftForce, cameraPerspective);
+            ClassResults.SaveTestResult(wingType, windSpeed, airDensity, wingArea, coefficient, liftForce, cameraPerspective);
 
             LoadVRMLModel(sender, e);
             // Show Highcharts graph
             ShowChart(airDensity, windSpeed, wingArea, coefficient);
 
             PageGraficoEnabled = true;
-            PageResultadosEnabled = true;
-
+            ResultsForm resultsForm = new ResultsForm();
+            resultsForm.UpdateResults();
         }
 
 
         private async void ShowChart(double density, double maxSpeed, double area, double coefficient)
         {
-            
+
             List<object[]> dataPoints = new List<object[]>();
             for (double v = 0; v <= maxSpeed; v += 1)
             {
@@ -445,7 +344,7 @@ namespace WinFormsApp1
 
             string dataPointsJson = JsonSerializer.Serialize(dataPoints);
 
-            
+
             string html = $@"<!DOCTYPE html>
 <html lang='en'>
 <head>
@@ -647,78 +546,7 @@ namespace WinFormsApp1
             {
                 e.Cancel = true;
             }
-            if (e.TabPage == PageResultados && !PageResultadosEnabled)
-            {
-                e.Cancel = true;
-            }
-            if (e.TabPage == PageResultados)
-            {
-                ButtonRunTest.Visible = false;
-                
-            }
-            else
-            {
-                ButtonRunTest.Visible = true;
-                
-            }
 
-        }
-
-        
-        
-
-        private void ButtonGenerateXML_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DataTable results = GetAllTestResults();
-                if (results.Rows.Count == 0)
-                {
-                    MessageBox.Show("Nenhum resultado encontrado para exportar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
-                // Criação do XML
-                XmlWriterSettings settings = new XmlWriterSettings
-                {
-                    Indent = true,
-                    Encoding = System.Text.Encoding.UTF8,
-                    OmitXmlDeclaration = false
-                };
-
-                // Caminho para salvar o arquivo
-                string filePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Resultados.xml");
-
-                using (XmlWriter writer = XmlWriter.Create(filePath, settings))
-                {
-                    writer.WriteStartDocument(true);
-                    writer.WriteStartElement("TestResults"); // Tag raiz corrigida
-
-                    foreach (DataRow row in results.Rows)
-                    {
-                        writer.WriteStartElement("TestResult"); // Elemento individual
-                                                                // Removido o elemento WingType duplicado
-                        writer.WriteElementString("WingType", row["WingType"]?.ToString() ?? "");
-                        writer.WriteElementString("CameraPerspective", row["CameraPerspective"]?.ToString() ?? "");
-                        writer.WriteElementString("WindSpeed", row["WindSpeed"]?.ToString() ?? "");
-                        writer.WriteElementString("AirDensity", row["AirDensity"]?.ToString() ?? "");
-                        writer.WriteElementString("WingArea", row["WingArea"]?.ToString() ?? "");
-                        writer.WriteElementString("Coefficient", row["Coefficient"]?.ToString() ?? "");
-                        writer.WriteElementString("LiftForce", row["LiftForce"]?.ToString() ?? "");
-                        writer.WriteElementString("TestDate", row["TestDate"]?.ToString() ?? "");
-                        writer.WriteEndElement(); // TestResult
-                    }
-
-                    writer.WriteEndElement(); // TestResults
-                    writer.WriteEndDocument();
-                }
-
-                MessageBox.Show($"Arquivo XML gerado com sucesso em:\n{filePath}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao gerar XML: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         // Adicione este método na sua classe Form1
@@ -735,7 +563,7 @@ namespace WinFormsApp1
                     Console.WriteLine("Processo VRML anterior fechado.");
                 }
 
-                
+
                 Process[] processes = Process.GetProcessesByName("Electron");
                 foreach (Process process in processes)
                 {
@@ -749,7 +577,7 @@ namespace WinFormsApp1
                         Console.WriteLine($"Erro ao fechar processo: {ex.Message}");
                     }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -764,203 +592,67 @@ namespace WinFormsApp1
             CloseExistingVRMLProcesses();
         }
 
-        // Use o nome correto do controle do seu Designer
-        private DataGridView dataGridViewResults => dataGridView1;
-
-        // Carrega todos os dados no DataGridView
-        private void LoadDataToGridView()
+        private void Form1_Load_1(object sender, EventArgs e)
         {
-            try
+
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                DataTable dataTable = GetAllTestResults();
-                if (dataTable.Rows.Count == 0)
+                openFileDialog.Filter = "Arquivos XML (*.xml)|*.xml";
+                openFileDialog.Title = "Selecione um arquivo XML";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    MessageBox.Show("Nenhum resultado encontrado no banco de dados.", "Informação",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    dataGridViewResults.DataSource = null;
-                    return;
-                }
+                    string caminhoArquivo = openFileDialog.FileName;
 
-                ConfigureDataGridView();
-                dataGridViewResults.DataSource = dataTable;
-                ConfigureColumns();
-                dataGridViewResults.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-                Console.WriteLine($"Carregados {dataTable.Rows.Count} registros no DataGridView.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao carregar dados: {ex.Message}", "Erro",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        
-        private void ConfigureDataGridView()
-        {
-            dataGridViewResults.AllowUserToAddRows = false;
-            dataGridViewResults.AllowUserToDeleteRows = false;
-            dataGridViewResults.ReadOnly = true;
-            dataGridViewResults.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewResults.MultiSelect = false;
-            dataGridViewResults.AutoGenerateColumns = true;
-            dataGridViewResults.BackgroundColor = Color.White;
-            dataGridViewResults.BorderStyle = BorderStyle.Fixed3D;
-            dataGridViewResults.CellBorderStyle = DataGridViewCellBorderStyle.Single;
-            dataGridViewResults.GridColor = Color.LightGray;
-            dataGridViewResults.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
-            dataGridViewResults.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dataGridViewResults.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 9, FontStyle.Bold);
-            dataGridViewResults.ColumnHeadersHeight = 30;
-            dataGridViewResults.AlternatingRowsDefaultCellStyle.BackColor = Color.LightBlue;
-            dataGridViewResults.DefaultCellStyle.SelectionBackColor = Color.DarkBlue;
-            dataGridViewResults.DefaultCellStyle.SelectionForeColor = Color.White;
-        }
-
-        
-        private void ConfigureColumns()
-        {
-            if (dataGridViewResults.Columns.Count == 0) return;
-
-            if (dataGridViewResults.Columns.Contains("Id"))
-                dataGridViewResults.Columns["Id"].Visible = false;
-
-            var columnHeaders = new Dictionary<string, string>
-            {
-                ["WingType"] = "Tipo de Asa",
-                ["CameraPerspective"] = "Perspectiva da Câmera",
-                ["WindSpeed"] = "Velocidade do Vento (m/s)",
-                ["AirDensity"] = "Densidade do Ar (kg/m³)",
-                ["WingArea"] = "Área da Asa (m²)",
-                ["Coefficient"] = "Coeficiente",
-                ["LiftForce"] = "Força de Sustentação (N)",
-                ["TestDate"] = "Data do Teste"
-            };
-
-            foreach (var header in columnHeaders)
-            {
-                if (dataGridViewResults.Columns.Contains(header.Key))
-                    dataGridViewResults.Columns[header.Key].HeaderText = header.Value;
-            }
-
-            if (dataGridViewResults.Columns.Contains("WindSpeed"))
-            {
-                dataGridViewResults.Columns["WindSpeed"].DefaultCellStyle.Format = "F1";
-                dataGridViewResults.Columns["WindSpeed"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            }
-            if (dataGridViewResults.Columns.Contains("AirDensity"))
-            {
-                dataGridViewResults.Columns["AirDensity"].DefaultCellStyle.Format = "F3";
-                dataGridViewResults.Columns["AirDensity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            }
-            if (dataGridViewResults.Columns.Contains("WingArea"))
-            {
-                dataGridViewResults.Columns["WingArea"].DefaultCellStyle.Format = "F2";
-                dataGridViewResults.Columns["WingArea"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            }
-            if (dataGridViewResults.Columns.Contains("LiftForce"))
-            {
-                dataGridViewResults.Columns["LiftForce"].DefaultCellStyle.Format = "F2";
-                dataGridViewResults.Columns["LiftForce"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            }
-            if (dataGridViewResults.Columns.Contains("Coefficient"))
-            {
-                dataGridViewResults.Columns["Coefficient"].DefaultCellStyle.Format = "F2";
-                dataGridViewResults.Columns["Coefficient"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            }
-            if (dataGridViewResults.Columns.Contains("TestDate"))
-            {
-                dataGridViewResults.Columns["TestDate"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
-                dataGridViewResults.Columns["TestDate"].Width = 150;
-            }
-        }
-
-        // Atualiza o DataGridView (chame após inserir/atualizar registros)
-        private void RefreshDataGridView()
-        {
-            LoadDataToGridView();
-        }
-
-        // Filtra dados por tipo de asa
-        private void LoadFilteredData(string wingType = null)
-        {
-            try
-            {
-                DataTable dataTable = string.IsNullOrEmpty(wingType)
-                    ? GetAllTestResults()
-                    : GetFilteredTestResults(wingType);
-
-                ConfigureDataGridView();
-                dataGridViewResults.DataSource = dataTable;
-                ConfigureColumns();
-                dataGridViewResults.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao filtrar dados: {ex.Message}", "Erro",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        // Busca dados filtrados
-        private DataTable GetFilteredTestResults(string wingType)
-        {
-            DataTable dataTable = new DataTable();
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    string selectQuery = @"
-                SELECT 
-                    Id,
-                    TestDate,
-                    WingType,
-                    WindSpeed,
-                    AirDensity,
-                    WingArea,
-                    Coefficient,
-                    LiftForce,
-                    CameraPerspective
-                FROM TestResults 
-                WHERE WingType = @WingType
-                ORDER BY TestDate DESC";
-
-                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(selectQuery, connection))
+                    try
                     {
-                        adapter.SelectCommand.Parameters.AddWithValue("@WingType", wingType);
-                        adapter.Fill(dataTable);
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                        {
+                            FileName = "rundll32.exe",
+                            Arguments = "shell32.dll,OpenAs_RunDLL " + caminhoArquivo,
+                            UseShellExecute = true
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erro ao abrir: " + ex.Message);
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao recuperar dados filtrados: {ex.Message}", "Erro",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return dataTable;
         }
 
-        // Evento para botão "Carregar Dados"
-        private void ButtonLoadData_Click(object sender, EventArgs e)
+        private void resultsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadDataToGridView();
-        }
-
-       
-
-        
-        private void DataGridViewResults_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dataGridViewResults.SelectedRows.Count > 0)
+            if (resultsForm == null || resultsForm.IsDisposed)
             {
-                DataGridViewRow selectedRow = dataGridViewResults.SelectedRows[0];
-                string wingType = selectedRow.Cells["WingType"].Value?.ToString();
-                double liftForce = Convert.ToDouble(selectedRow.Cells["LiftForce"].Value ?? 0);
-                Console.WriteLine($"Selecionado: {wingType} - Força: {liftForce}N");
-                
+                resultsForm = new ResultsForm();
+                resultsForm.Owner = this; 
             }
+            resultsForm.Show();
+            resultsForm.BringToFront();
+        }
+        public void ReceiveDataFromResults(
+        string wingType,
+        string cameraPerspective,
+        string windSpeed,
+        string airDensity,
+        string wingArea,
+        string coefficient,
+        string liftForce,
+        string testDate
+        )
+        {
+            ComboWingType.Text = wingType;
+            ComboCameraPerspective.Text = cameraPerspective;
+            ComboWindSpeed.Text = windSpeed;
+            ComboAirDensity.Text = airDensity;
+            ComboWingArea.Text = wingArea;
+            guna2HtmlLabelLiftForceValue.Text = liftForce;
         }
 
-        
     }
 }
