@@ -29,11 +29,15 @@ namespace WinFormsApp1
         private bool PageGraficoEnabled = false;
         private bool PageResultadosEnabled = false;
         private string connectionString = "Server=localhost;Database=LiftForceDb;Uid=root;";
-        ResultsForm resultsForm;
         // Responsive layout variables
         private Size originalFormSize;
         private bool isResponsiveInitialized = false;
-
+        ResultsForm ResultsForm = new ResultsForm();
+        // Adicione estas propriedades na classe Form1:
+        private RectangularWingControl rectangularControl;
+        private EllipticalWingControl ellipticalControl;
+        private TrapezoidalWingControl trapezoidalControl;
+        private DeltaWingControl deltaControl;
 
         private Process vrmlProcess = null;
 
@@ -44,7 +48,6 @@ namespace WinFormsApp1
             // Existing setup
             ComboWindSpeed.DropDownStyle = ComboBoxStyle.DropDown;
             ComboAirDensity.DropDownStyle = ComboBoxStyle.DropDown;
-            ComboWingArea.DropDownStyle = ComboBoxStyle.DropDown;
             this.Load += Form1_Load;
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
@@ -94,18 +97,18 @@ namespace WinFormsApp1
             ComboCameraPerspective.Items.AddRange(new object[] { "Front View", "Side View", "Isometric View" });
             ComboWindSpeed.Items.AddRange(new object[] { 10, 20, 30, 40, 50 });
             ComboAirDensity.Items.AddRange(new object[] { 1.225, 1.18, 1.15, 1.12, 1.10 });
-            ComboWingArea.Items.AddRange(new object[] { 0.1, 0.25, 0.5, 1.0, 2.0, 5.0 });
+            comboBox1.Items.AddRange(new object[] { 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0 });
             ComboWingType.SelectedIndex = 0;
             ComboCameraPerspective.SelectedIndex = 0;
+            comboBox1.SelectedIndex = 0;
             ComboWindSpeed.SelectedIndex = 0;
             ComboAirDensity.SelectedIndex = 0;
-            ComboWingArea.SelectedIndex = 0;
             ComboWindSpeed.SelectedIndexChanged += CheckFieldsFilled;
             ComboAirDensity.SelectedIndexChanged += CheckFieldsFilled;
-            ComboWingArea.SelectedIndexChanged += CheckFieldsFilled;
             ComboWingType.SelectedIndexChanged += ComboWingType_SelectedIndexChanged;
             originalFormSize = this.Size;
             isResponsiveInitialized = true;
+
 
         }
 
@@ -172,9 +175,102 @@ namespace WinFormsApp1
             }
             base.WndProc(ref m);
         }
-        private void ComboWingType_SelectedIndexChanged(object sender, EventArgs e)
+
+        private string GetFormulaHtmlForWingType(string wingType)
         {
-            //achei interessante talvez usemos
+            string mathJaxHeader = @"
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script src='https://polyfill.io/v3/polyfill.min.js?features=es6'></script>
+        <script type='text/javascript' id='MathJax-script' async
+            src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'>
+        </script>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                overflow: hidden;
+            }
+            body { 
+                font-family: 'Segoe UI', Arial, sans-serif;
+                color: #333;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0;
+                background: #f5f5f5;
+            }
+            .formula {
+                background: white;
+                border-radius: 8px;
+                padding: 20px;
+                text-align: center;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                max-width: 90%;
+                width: auto;
+            }
+            .description {
+                margin-top: 15px;
+                font-size: 0.9em;
+                line-height: 1.6;
+            }
+            .mjx-chtml {
+                margin: 0 !important;
+            }
+        </style>
+    </head>";
+
+            string formulaBody = wingType switch
+            {
+                "Rectangular" => @"
+        <div class='formula'>
+            $$ S = b \times c $$
+            <div class='description'>
+                <b>S</b>: Área da asa<br>
+                <b>b</b>: Envergadura<br>
+                <b>c</b>: Corda
+            </div>
+        </div>",
+
+                "Trapezoidal" => @"
+        <div class='formula'>
+            $$ S = \frac{c_{root} + c_{tip}}{2} \times b $$
+            <div class='description'>
+                <b>c<sub>root</sub></b>: Corda na raiz<br>
+                <b>c<sub>tip</sub></b>: Corda na ponta<br>
+                <b>b</b>: Envergadura
+            </div>
+        </div>",
+
+                "Elliptical" => @"
+        <div class='formula'>
+            $$ S = \frac{\pi}{4} \times b \times c_{root} $$
+            <div class='description'>
+                <b>π</b>: Pi<br>
+                <b>b</b>: Envergadura<br>
+                <b>c<sub>root</sub></b>: Corda na raiz
+            </div>
+        </div>",
+
+                "Delta" => @"
+        <div class='formula'>
+            $$ S = \frac{b \times c_{root}}{2} $$
+            <div class='description'>
+                <b>b</b>: Envergadura<br>
+                <b>c<sub>root</sub></b>: Corda na raiz
+            </div>
+        </div>",
+
+                _ => @"<div class='formula'>Selecione um tipo de asa para ver a fórmula.</div>"
+            };
+
+            return $@"<!DOCTYPE html>
+<html lang='pt-BR'>
+    {mathJaxHeader}
+    <body>{formulaBody}</body>
+</html>";
         }
 
         private void LoadVRMLModel(object sender, EventArgs e)
@@ -303,9 +399,9 @@ namespace WinFormsApp1
                 MessageBox.Show("Please enter a valid value for Air Density.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (!double.TryParse(ComboWingArea.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double wingArea))
+            if (!double.TryParse(comboBox1.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double wingArea))
             {
-                MessageBox.Show("Please enter a valid value for Wing Area", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please enter a valid value for Air Density.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -457,7 +553,7 @@ namespace WinFormsApp1
             ButtonRunTest.Enabled =
                 !string.IsNullOrWhiteSpace(ComboWindSpeed.Text) &&
                 !string.IsNullOrWhiteSpace(ComboAirDensity.Text) &&
-                !string.IsNullOrWhiteSpace(ComboWingArea.Text);
+                !string.IsNullOrWhiteSpace(comboBox1.Text);
         }
         private void ValidateNumericInput(object sender, KeyPressEventArgs e)
         {
@@ -549,6 +645,14 @@ namespace WinFormsApp1
 
         }
 
+        private void ComboWingType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selected = ComboWingType.SelectedItem?.ToString() ?? "";
+            string formulaHtml = GetFormulaHtmlForWingType(selected);
+
+
+        }
+
         // Adicione este método na sua classe Form1
         private void CloseExistingVRMLProcesses()
         {
@@ -627,10 +731,11 @@ namespace WinFormsApp1
 
         private void resultsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ResultsForm resultsForm = this.ResultsForm;
             if (resultsForm == null || resultsForm.IsDisposed)
             {
                 resultsForm = new ResultsForm();
-                resultsForm.Owner = this; 
+                resultsForm.Owner = this;
             }
             resultsForm.Show();
             resultsForm.BringToFront();
@@ -650,9 +755,351 @@ namespace WinFormsApp1
             ComboCameraPerspective.Text = cameraPerspective;
             ComboWindSpeed.Text = windSpeed;
             ComboAirDensity.Text = airDensity;
-            ComboWingArea.Text = wingArea;
+            comboBox1.Text = wingArea;
             guna2HtmlLabelLiftForceValue.Text = liftForce;
         }
 
+        private void xmlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Dialog para escolher o tipo de exportação
+                DialogResult choice = MessageBox.Show(
+                    "Escolha o tipo de exportação:\n\n" +
+                    "SIM - Exportar apenas o teste atual\n" +
+                    "NÃO - Exportar todos os resultados salvos\n" +
+                    "CANCELAR - Cancelar operação",
+                    "Tipo de Exportação XML",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question
+                );
+
+                if (choice == DialogResult.Cancel)
+                    return;
+
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Arquivos XML (*.xml)|*.xml";
+                    saveFileDialog.Title = "Salvar arquivo XML";
+                    saveFileDialog.FileName = choice == DialogResult.Yes ?
+                        $"TestResult_{DateTime.Now:yyyyMMdd_HHmmss}.xml" :
+                        $"AllResults_{DateTime.Now:yyyyMMdd_HHmmss}.xml";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string filePath = saveFileDialog.FileName;
+
+                        if (choice == DialogResult.Yes)
+                        {
+                            ExportCurrentTestToXml(filePath);
+                        }
+                        else
+                        {
+                            ExportAllResultsToXml(filePath);
+                        }
+
+                        MessageBox.Show($"Dados exportados com sucesso para:\n{filePath}",
+                            "Exportação Concluída",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+
+                        // Opção para abrir o arquivo após exportar
+                        if (MessageBox.Show("Deseja abrir o arquivo XML exportado?",
+                            "Abrir Arquivo",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                            {
+                                FileName = filePath,
+                                UseShellExecute = true
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao exportar XML: {ex.Message}",
+                    "Erro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void ExportCurrentTestToXml(string filePath)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+
+            // Declaração XML
+            XmlDeclaration xmlDeclaration = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            xmlDoc.InsertBefore(xmlDeclaration, xmlDoc.DocumentElement);
+
+            // Elemento raiz
+            XmlElement root = xmlDoc.CreateElement("LiftForceTest");
+            xmlDoc.AppendChild(root);
+
+            // Informações do teste
+            XmlElement testInfo = xmlDoc.CreateElement("TestInformation");
+            root.AppendChild(testInfo);
+
+            AddXmlElement(xmlDoc, testInfo, "ExportDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            AddXmlElement(xmlDoc, testInfo, "ExportType", "CurrentTest");
+            AddXmlElement(xmlDoc, testInfo, "Application", "Lift Force Calculator");
+            AddXmlElement(xmlDoc, testInfo, "Version", "1.0");
+
+            // Dados do teste atual
+            XmlElement testData = xmlDoc.CreateElement("TestData");
+            root.AppendChild(testData);
+
+            AddXmlElement(xmlDoc, testData, "WingType", ComboWingType.Text);
+            AddXmlElement(xmlDoc, testData, "CameraPerspective", ComboCameraPerspective.Text);
+            AddXmlElement(xmlDoc, testData, "WindSpeed", ComboWindSpeed.Text);
+            AddXmlElement(xmlDoc, testData, "WindSpeedUnit", "m/s");
+            AddXmlElement(xmlDoc, testData, "AirDensity", ComboAirDensity.Text);
+            AddXmlElement(xmlDoc, testData, "AirDensityUnit", "kg/m³");
+            AddXmlElement(xmlDoc, testData, "WingArea", comboBox1.Text);
+            AddXmlElement(xmlDoc, testData, "WingAreaUnit", "m²");
+            AddXmlElement(xmlDoc, testData, "LiftCoefficient", coefficient.ToString("F2", CultureInfo.InvariantCulture));
+            AddXmlElement(xmlDoc, testData, "LiftForce", guna2HtmlLabelLiftForceValue.Text.Replace("N", ""));
+            AddXmlElement(xmlDoc, testData, "LiftForceUnit", "N");
+            AddXmlElement(xmlDoc, testData, "TestDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+            // Fórmula utilizada
+            XmlElement formula = xmlDoc.CreateElement("Formula");
+            testData.AppendChild(formula);
+            AddXmlElement(xmlDoc, formula, "Expression", "F = 0.5 × ρ × v² × S × Cl");
+            AddXmlElement(xmlDoc, formula, "Description", "Lift Force = 0.5 × Air Density × Wind Speed² × Wing Area × Lift Coefficient");
+
+            // Cálculo detalhado
+            XmlElement calculation = xmlDoc.CreateElement("DetailedCalculation");
+            testData.AppendChild(calculation);
+
+            if (double.TryParse(ComboAirDensity.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double density) &&
+                double.TryParse(ComboWindSpeed.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double speed) &&
+                double.TryParse(comboBox1.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double area))
+            {
+                double calculatedForce = CalculateLiftForce(density, speed, area, coefficient);
+
+                AddXmlElement(xmlDoc, calculation, "Step1", $"F = 0.5 × {density} × {speed}² × {area} × {coefficient}");
+                AddXmlElement(xmlDoc, calculation, "Step2", $"F = 0.5 × {density} × {Math.Pow(speed, 2)} × {area} × {coefficient}");
+                AddXmlElement(xmlDoc, calculation, "Result", $"F = {calculatedForce:F2} N");
+            }
+
+            xmlDoc.Save(filePath);
+        }
+
+        private void ExportAllResultsToXml(string filePath)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+
+            // Declaração XML
+            XmlDeclaration xmlDeclaration = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            xmlDoc.InsertBefore(xmlDeclaration, xmlDoc.DocumentElement);
+
+            // Elemento raiz
+            XmlElement root = xmlDoc.CreateElement("LiftForceTestResults");
+            xmlDoc.AppendChild(root);
+
+            // Informações da exportação
+            XmlElement exportInfo = xmlDoc.CreateElement("ExportInformation");
+            root.AppendChild(exportInfo);
+
+            AddXmlElement(xmlDoc, exportInfo, "ExportDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            AddXmlElement(xmlDoc, exportInfo, "ExportType", "AllResults");
+            AddXmlElement(xmlDoc, exportInfo, "Application", "Lift Force Calculator");
+            AddXmlElement(xmlDoc, exportInfo, "Version", "1.0");
+
+            // Container para todos os testes
+            XmlElement testsContainer = xmlDoc.CreateElement("Tests");
+            root.AppendChild(testsContainer);
+
+            try
+            {
+                // Primeiro, vamos descobrir quais colunas existem na tabela
+                List<string> availableColumns = new List<string>();
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Verificar estrutura da tabela
+                    string checkColumnsQuery = "DESCRIBE TestResults";
+                    using (MySqlCommand checkCommand = new MySqlCommand(checkColumnsQuery, connection))
+                    {
+                        using (MySqlDataReader checkReader = checkCommand.ExecuteReader())
+                        {
+                            while (checkReader.Read())
+                            {
+                                availableColumns.Add(checkReader["Field"].ToString());
+                            }
+                        }
+                    }
+
+                    // Construir query baseada nas colunas disponíveis
+                    string baseQuery = "SELECT ";
+                    List<string> selectColumns = new List<string>();
+
+                    // Colunas obrigatórias que devem existir
+                    string[] requiredColumns = { "Id", "WingType", "WindSpeed", "AirDensity", "WingArea", "LiftForce", "TestDate" };
+                    foreach (string col in requiredColumns)
+                    {
+                        if (availableColumns.Contains(col))
+                            selectColumns.Add(col);
+                    }
+
+                    // Colunas opcionais
+                    string[] optionalColumns = { "CameraPerspective", "LiftCoefficient", "Coefficient" };
+                    foreach (string col in optionalColumns)
+                    {
+                        if (availableColumns.Contains(col))
+                            selectColumns.Add(col);
+                    }
+
+                    if (selectColumns.Count == 0)
+                    {
+                        throw new Exception("Nenhuma coluna reconhecida encontrada na tabela TestResults");
+                    }
+
+                    string query = baseQuery + string.Join(", ", selectColumns) + " FROM TestResults ORDER BY TestDate DESC";
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            int testCount = 0;
+                            while (reader.Read())
+                            {
+                                testCount++;
+                                XmlElement test = xmlDoc.CreateElement("Test");
+                                test.SetAttribute("id", GetSafeValue(reader, "Id"));
+                                test.SetAttribute("number", testCount.ToString());
+                                testsContainer.AppendChild(test);
+
+                                // Dados básicos do teste
+                                XmlElement basicData = xmlDoc.CreateElement("BasicData");
+                                test.AppendChild(basicData);
+
+                                AddXmlElement(xmlDoc, basicData, "WingType", GetSafeValue(reader, "WingType"));
+                                if (availableColumns.Contains("CameraPerspective"))
+                                    AddXmlElement(xmlDoc, basicData, "CameraPerspective", GetSafeValue(reader, "CameraPerspective"));
+
+                                if (availableColumns.Contains("TestDate"))
+                                {
+                                    string dateValue = GetSafeValue(reader, "TestDate");
+                                    if (DateTime.TryParse(dateValue, out DateTime testDate))
+                                        AddXmlElement(xmlDoc, basicData, "TestDate", testDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                                    else
+                                        AddXmlElement(xmlDoc, basicData, "TestDate", dateValue);
+                                }
+
+                                // Parâmetros de entrada
+                                XmlElement inputParams = xmlDoc.CreateElement("InputParameters");
+                                test.AppendChild(inputParams);
+
+                                AddXmlElement(xmlDoc, inputParams, "WindSpeed", GetSafeValue(reader, "WindSpeed"));
+                                AddXmlElement(xmlDoc, inputParams, "WindSpeedUnit", "m/s");
+                                AddXmlElement(xmlDoc, inputParams, "AirDensity", GetSafeValue(reader, "AirDensity"));
+                                AddXmlElement(xmlDoc, inputParams, "AirDensityUnit", "kg/m³");
+                                AddXmlElement(xmlDoc, inputParams, "WingArea", GetSafeValue(reader, "WingArea"));
+                                AddXmlElement(xmlDoc, inputParams, "WingAreaUnit", "m²");
+
+                                // Tentar pegar o coeficiente de diferentes colunas possíveis
+                                string coefficientValue = coefficient.ToString("F2", CultureInfo.InvariantCulture); // valor padrão
+                                if (availableColumns.Contains("LiftCoefficient"))
+                                    coefficientValue = GetSafeValue(reader, "LiftCoefficient");
+                                else if (availableColumns.Contains("Coefficient"))
+                                    coefficientValue = GetSafeValue(reader, "Coefficient");
+
+                                AddXmlElement(xmlDoc, inputParams, "LiftCoefficient", coefficientValue);
+
+                                // Resultado
+                                XmlElement result = xmlDoc.CreateElement("Result");
+                                test.AppendChild(result);
+
+                                AddXmlElement(xmlDoc, result, "LiftForce", GetSafeValue(reader, "LiftForce"));
+                                AddXmlElement(xmlDoc, result, "LiftForceUnit", "N");
+
+                                // Fórmula (mesma para todos)
+                                XmlElement formula = xmlDoc.CreateElement("Formula");
+                                result.AppendChild(formula);
+                                AddXmlElement(xmlDoc, formula, "Expression", "F = 0.5 × ρ × v² × S × Cl");
+                                AddXmlElement(xmlDoc, formula, "Description", "Lift Force = 0.5 × Air Density × Wind Speed² × Wing Area × Lift Coefficient");
+                            }
+
+
+                            XmlElement statistics = xmlDoc.CreateElement("Statistics");
+                            root.AppendChild(statistics);
+                            AddXmlElement(xmlDoc, statistics, "TotalTests", testCount.ToString());
+                            AddXmlElement(xmlDoc, statistics, "DatabaseColumns", string.Join(", ", availableColumns));
+                            AddXmlElement(xmlDoc, statistics, "ExportDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                XmlElement errorInfo = xmlDoc.CreateElement("Error");
+                testsContainer.AppendChild(errorInfo);
+                AddXmlElement(xmlDoc, errorInfo, "Message", "Erro ao acessar banco de dados");
+                AddXmlElement(xmlDoc, errorInfo, "Details", ex.Message);
+                AddXmlElement(xmlDoc, errorInfo, "Note", "Exportação realizada sem dados do banco");
+            }
+
+            xmlDoc.Save(filePath);
+        }
+
+        private string GetSafeValue(MySqlDataReader reader, string columnName)
+        {
+            try
+            {
+                int ordinal = reader.GetOrdinal(columnName);
+                return reader.IsDBNull(ordinal) ? "" : reader.GetValue(ordinal).ToString();
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        private void AddXmlElement(XmlDocument doc, XmlElement parent, string elementName, string elementValue)
+        {
+            XmlElement element = doc.CreateElement(elementName);
+            element.InnerText = elementValue ?? "";
+            parent.AppendChild(element);
+        }
+        private void LoadWingControl(string type)
+        {
+            panelWingArea.Controls.Clear();
+
+            UserControl control = null;
+            switch (type)
+            {
+                case "Rectangular":
+                    control = new RectangularWingControl();
+                    break;
+                case "Elliptical":
+                    control = new EllipticalWingControl();
+                    break;
+                case "Trapezoidal":
+                    control = new TrapezoidalWingControl();
+                    break;
+                case "Delta":
+                    control = new DeltaWingControl();
+                    break;
+            }
+
+            if (control != null)
+            {
+                control.Dock = DockStyle.Fill;
+                panelWingArea.Controls.Add(control);
+            }
+        }
+
+        private void ComboWingType_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            LoadWingControl(ComboWingType.SelectedItem?.ToString() ?? "");
+        }
     }
 }
