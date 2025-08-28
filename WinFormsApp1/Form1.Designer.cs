@@ -102,8 +102,6 @@
             ComboCameraPerspective = new Guna.UI2.WinForms.Guna2ComboBox();
             guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2Panel7 = new Guna.UI2.WinForms.Guna2Panel();
-            comboBox1 = new ComboBox();
-            guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             ComboAirDensity = new ComboBox();
             ComboWindSpeed = new ComboBox();
             LabelDensidadeAr = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -501,8 +499,6 @@
             guna2Panel7.BorderColor = Color.Black;
             guna2Panel7.BorderRadius = 1;
             guna2Panel7.BorderThickness = 1;
-            guna2Panel7.Controls.Add(comboBox1);
-            guna2Panel7.Controls.Add(guna2HtmlLabel5);
             guna2Panel7.Controls.Add(ComboAirDensity);
             guna2Panel7.Controls.Add(ComboWindSpeed);
             guna2Panel7.Controls.Add(LabelDensidadeAr);
@@ -513,26 +509,6 @@
             guna2Panel7.ShadowDecoration.CustomizableEdges = customizableEdges22;
             guna2Panel7.Size = new Size(188, 211);
             guna2Panel7.TabIndex = 16;
-            // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(18, 167);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(153, 23);
-            comboBox1.TabIndex = 23;
-            comboBox1.TextChanged += CheckFieldsFilled;
-            comboBox1.KeyPress += ValidateNumericInput;
-            // 
-            // guna2HtmlLabel5
-            // 
-            guna2HtmlLabel5.BackColor = Color.Transparent;
-            guna2HtmlLabel5.Font = new Font("Segoe UI", 11.25F);
-            guna2HtmlLabel5.Location = new Point(51, 139);
-            guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            guna2HtmlLabel5.Size = new Size(73, 22);
-            guna2HtmlLabel5.TabIndex = 22;
-            guna2HtmlLabel5.Text = "Wing  Area";
             // 
             // ComboAirDensity
             // 
@@ -935,8 +911,6 @@
         private Guna.UI2.WinForms.Guna2Panel guna2Panel9;
         private Guna.UI2.WinForms.Guna2Panel panelWingArea;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
-        private ComboBox comboBox1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
         private ToolStripMenuItem exportToolStripMenuItem;
         private ToolStripMenuItem xmlToolStripMenuItem;
     }

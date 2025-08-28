@@ -10,13 +10,35 @@ using System.Windows.Forms;
 
 namespace WinFormsApp1
 {
-    public partial class DeltaWingControl : UserControl
-    {   public DeltaWingControl()
+    public partial class DeltaWingControl : UserControl, IWingControl
+    {
+        // Propriedades públicas para acessar os valores
+        public double Rope
         {
-            InitializeComponent();
-
+            get
+            {
+                if (ComboRope.SelectedItem != null && double.TryParse(ComboRope.SelectedItem.ToString(), out double value))
+                    return value;
+                return 0.0;
+            }
         }
 
+        public double Wingspan
+        {
+            get
+            {
+                if (ComboWingspan.SelectedItem != null && double.TryParse(ComboWingspan.SelectedItem.ToString(), out double value))
+                    return value;
+                return 0.0;
+            }
+        }
 
+        // Propriedade para calcular a área da asa delta
+        public double WingArea => (Wingspan * Rope) / 2;
+
+        public DeltaWingControl()
+        {
+            InitializeComponent();
+        }
     }
 }

@@ -31,10 +31,10 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2Panel7 = new Guna.UI2.WinForms.Guna2Panel();
-            comboBox1 = new ComboBox();
+            comboRopeAtEnd = new ComboBox();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            ComboAirDensity = new ComboBox();
-            ComboWindSpeed = new ComboBox();
+            ComboRopeAtRoot = new ComboBox();
+            ComboWingspan = new ComboBox();
             LabelDensidadeAr = new Guna.UI2.WinForms.Guna2HtmlLabel();
             LabelVelocidadeVento = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2Panel7.SuspendLayout();
@@ -42,13 +42,14 @@
             // 
             // guna2Panel7
             // 
+            guna2Panel7.BackColor = Color.Black;
             guna2Panel7.BorderColor = Color.Black;
             guna2Panel7.BorderRadius = 1;
             guna2Panel7.BorderThickness = 1;
-            guna2Panel7.Controls.Add(comboBox1);
+            guna2Panel7.Controls.Add(comboRopeAtEnd);
             guna2Panel7.Controls.Add(guna2HtmlLabel1);
-            guna2Panel7.Controls.Add(ComboAirDensity);
-            guna2Panel7.Controls.Add(ComboWindSpeed);
+            guna2Panel7.Controls.Add(ComboRopeAtRoot);
+            guna2Panel7.Controls.Add(ComboWingspan);
             guna2Panel7.Controls.Add(LabelDensidadeAr);
             guna2Panel7.Controls.Add(LabelVelocidadeVento);
             guna2Panel7.CustomizableEdges = customizableEdges1;
@@ -56,62 +57,62 @@
             guna2Panel7.Location = new Point(0, 0);
             guna2Panel7.Name = "guna2Panel7";
             guna2Panel7.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            guna2Panel7.Size = new Size(203, 237);
+            guna2Panel7.Size = new Size(348, 312);
             guna2Panel7.TabIndex = 18;
             guna2Panel7.Visible = false;
             // 
-            // comboBox1
+            // comboRopeAtEnd
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(22, 171);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(153, 23);
-            comboBox1.TabIndex = 23;
+            comboRopeAtEnd.FormattingEnabled = true;
+            comboRopeAtEnd.Location = new Point(98, 216);
+            comboRopeAtEnd.Name = "comboRopeAtEnd";
+            comboRopeAtEnd.Size = new Size(153, 23);
+            comboRopeAtEnd.TabIndex = 29;
             // 
             // guna2HtmlLabel1
             // 
             guna2HtmlLabel1.BackColor = Color.Transparent;
             guna2HtmlLabel1.Font = new Font("Segoe UI", 11.25F);
-            guna2HtmlLabel1.Location = new Point(51, 143);
+            guna2HtmlLabel1.Location = new Point(127, 188);
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             guna2HtmlLabel1.Size = new Size(109, 22);
-            guna2HtmlLabel1.TabIndex = 22;
+            guna2HtmlLabel1.TabIndex = 28;
             guna2HtmlLabel1.Text = "Rope at the end";
             // 
-            // ComboAirDensity
+            // ComboRopeAtRoot
             // 
-            ComboAirDensity.FormattingEnabled = true;
-            ComboAirDensity.Location = new Point(22, 114);
-            ComboAirDensity.Name = "ComboAirDensity";
-            ComboAirDensity.Size = new Size(153, 23);
-            ComboAirDensity.TabIndex = 21;
+            ComboRopeAtRoot.FormattingEnabled = true;
+            ComboRopeAtRoot.Location = new Point(98, 159);
+            ComboRopeAtRoot.Name = "ComboRopeAtRoot";
+            ComboRopeAtRoot.Size = new Size(153, 23);
+            ComboRopeAtRoot.TabIndex = 27;
             // 
-            // ComboWindSpeed
+            // ComboWingspan
             // 
-            ComboWindSpeed.FormattingEnabled = true;
-            ComboWindSpeed.Location = new Point(22, 57);
-            ComboWindSpeed.Name = "ComboWindSpeed";
-            ComboWindSpeed.Size = new Size(153, 23);
-            ComboWindSpeed.TabIndex = 20;
+            ComboWingspan.FormattingEnabled = true;
+            ComboWingspan.Location = new Point(98, 102);
+            ComboWingspan.Name = "ComboWingspan";
+            ComboWingspan.Size = new Size(153, 23);
+            ComboWingspan.TabIndex = 26;
             // 
             // LabelDensidadeAr
             // 
             LabelDensidadeAr.BackColor = Color.Transparent;
             LabelDensidadeAr.Font = new Font("Segoe UI", 11.25F);
-            LabelDensidadeAr.Location = new Point(48, 86);
+            LabelDensidadeAr.Location = new Point(124, 131);
             LabelDensidadeAr.Name = "LabelDensidadeAr";
             LabelDensidadeAr.Size = new Size(112, 22);
-            LabelDensidadeAr.TabIndex = 18;
+            LabelDensidadeAr.TabIndex = 25;
             LabelDensidadeAr.Text = "Rope at the root";
             // 
             // LabelVelocidadeVento
             // 
             LabelVelocidadeVento.BackColor = Color.Transparent;
             LabelVelocidadeVento.Font = new Font("Segoe UI", 11.25F);
-            LabelVelocidadeVento.Location = new Point(61, 29);
+            LabelVelocidadeVento.Location = new Point(137, 74);
             LabelVelocidadeVento.Name = "LabelVelocidadeVento";
             LabelVelocidadeVento.Size = new Size(69, 22);
-            LabelVelocidadeVento.TabIndex = 17;
+            LabelVelocidadeVento.TabIndex = 24;
             LabelVelocidadeVento.Text = "Wingspan";
             // 
             // TrapezoidalWingControl
@@ -120,7 +121,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(guna2Panel7);
             Name = "TrapezoidalWingControl";
-            Size = new Size(203, 237);
+            Size = new Size(348, 312);
             guna2Panel7.ResumeLayout(false);
             guna2Panel7.PerformLayout();
             ResumeLayout(false);
@@ -129,11 +130,11 @@
         #endregion
 
         private Guna.UI2.WinForms.Guna2Panel guna2Panel7;
-        private ComboBox ComboAirDensity;
-        private ComboBox ComboWindSpeed;
+        public ComboBox comboRopeAtEnd;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
+        public ComboBox ComboRopeAtRoot;
+        public ComboBox ComboWingspan;
         private Guna.UI2.WinForms.Guna2HtmlLabel LabelDensidadeAr;
         private Guna.UI2.WinForms.Guna2HtmlLabel LabelVelocidadeVento;
-        private ComboBox comboBox1;
-        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
     }
 }

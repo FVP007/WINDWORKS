@@ -106,8 +106,8 @@
         #endregion
 
         private Guna.UI2.WinForms.Guna2Panel guna2Panel7;
-        private ComboBox ComboAirDensity;
-        private ComboBox ComboWindSpeed;
+        public ComboBox ComboAirDensity;
+        public ComboBox ComboWindSpeed;
         private Guna.UI2.WinForms.Guna2HtmlLabel LabelDensidadeAr;
         private Guna.UI2.WinForms.Guna2HtmlLabel LabelVelocidadeVento;
     }
