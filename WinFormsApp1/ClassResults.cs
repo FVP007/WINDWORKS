@@ -36,12 +36,17 @@ namespace WinFormsApp1
         /// <param name="wingType">Tipo da asa</param>
         /// <param name="windSpeed">Velocidade do vento</param>
         /// <param name="airDensity">Densidade do ar</param>
-        /// <param name="wingArea">Área da asa</param>
+        /// <param name="wingArea">Área da asa calculada</param>
         /// <param name="coefficient">Coeficiente de sustentação</param>
         /// <param name="liftForce">Força de sustentação calculada</param>
         /// <param name="cameraPerspective">Perspectiva da câmera</param>
+        /// <param name="wingspan">Envergadura da asa</param>
+        /// <param name="rope">Corda da asa</param>
+        /// <param name="ropeAtRoot">Corda na raiz (para asas trapezoidais)</param>
+        /// <param name="ropeAtEnd">Corda na ponta (para asas trapezoidais)</param>
         public static void SaveTestResult(string wingType, double windSpeed, double airDensity,
-            double wingArea, double coefficient, double liftForce, string cameraPerspective)
+            double wingArea, double coefficient, double liftForce, string cameraPerspective,
+            double wingspan = 0, double rope = 0, double ropeAtRoot = 0, double ropeAtEnd = 0)
         {
             try
             {
@@ -50,9 +55,11 @@ namespace WinFormsApp1
                     connection.Open();
                     string insertQuery = @"
                     INSERT INTO TestResults 
-                    (WingType, WindSpeed, AirDensity, WingArea, Coefficient, LiftForce, CameraPerspective)
+                    (WingType, WindSpeed, AirDensity, WingArea, Coefficient, LiftForce, CameraPerspective, 
+                     Wingspan, Rope, RopeAtRoot, RopeAtEnd)
                     VALUES 
-                    (@WingType, @WindSpeed, @AirDensity, @WingArea, @Coefficient, @LiftForce, @CameraPerspective)";
+                    (@WingType, @WindSpeed, @AirDensity, @WingArea, @Coefficient, @LiftForce, @CameraPerspective,
+                     @Wingspan, @Rope, @RopeAtRoot, @RopeAtEnd)";
 
                     using (MySqlCommand command = new MySqlCommand(insertQuery, connection))
                     {
@@ -63,6 +70,10 @@ namespace WinFormsApp1
                         command.Parameters.AddWithValue("@Coefficient", coefficient);
                         command.Parameters.AddWithValue("@LiftForce", liftForce);
                         command.Parameters.AddWithValue("@CameraPerspective", cameraPerspective ?? "");
+                        command.Parameters.AddWithValue("@Wingspan", wingspan);
+                        command.Parameters.AddWithValue("@Rope", rope);
+                        command.Parameters.AddWithValue("@RopeAtRoot", ropeAtRoot);
+                        command.Parameters.AddWithValue("@RopeAtEnd", ropeAtEnd);
 
                         command.ExecuteNonQuery();
                     }
@@ -98,7 +109,11 @@ namespace WinFormsApp1
                         WingArea,
                         Coefficient,
                         LiftForce,
-                        CameraPerspective
+                        CameraPerspective,
+                        Wingspan,
+                        Rope,
+                        RopeAtRoot,
+                        RopeAtEnd
                     FROM TestResults 
                     ORDER BY TestDate DESC";
 
@@ -186,7 +201,11 @@ namespace WinFormsApp1
                         WingArea,
                         Coefficient,
                         LiftForce,
-                        CameraPerspective
+                        CameraPerspective,
+                        Wingspan,
+                        Rope,
+                        RopeAtRoot,
+                        RopeAtEnd
                     FROM TestResults 
                     WHERE WingType = @WingType
                     ORDER BY TestDate DESC";
@@ -339,7 +358,11 @@ namespace WinFormsApp1
                 ["WingArea"] = "Área da Asa (m²)",
                 ["Coefficient"] = "Coeficiente",
                 ["LiftForce"] = "Força de Sustentação (N)",
-                ["TestDate"] = "Data do Teste"
+                ["TestDate"] = "Data do Teste",
+                ["Wingspan"] = "Envergadura (m)",
+                ["Rope"] = "Corda (m)",
+                ["RopeAtRoot"] = "Corda na Raiz (m)",
+                ["RopeAtEnd"] = "Corda na Ponta (m)"
             };
 
             foreach (var header in columnHeaders)
@@ -354,6 +377,10 @@ namespace WinFormsApp1
             ConfigureNumericColumn(dataGridView, "WingArea", "F2");
             ConfigureNumericColumn(dataGridView, "LiftForce", "F2");
             ConfigureNumericColumn(dataGridView, "Coefficient", "F2");
+            ConfigureNumericColumn(dataGridView, "Wingspan", "F2");
+            ConfigureNumericColumn(dataGridView, "Rope", "F2");
+            ConfigureNumericColumn(dataGridView, "RopeAtRoot", "F2");
+            ConfigureNumericColumn(dataGridView, "RopeAtEnd", "F2");
 
             // Configura coluna de data
             if (dataGridView.Columns.Contains("TestDate"))
@@ -463,6 +490,10 @@ namespace WinFormsApp1
                     WriteXmlElement(writer, "Coefficient", row["Coefficient"]);
                     WriteXmlElement(writer, "LiftForce", row["LiftForce"]);
                     WriteXmlElement(writer, "TestDate", row["TestDate"]);
+                    WriteXmlElement(writer, "Wingspan", row["Wingspan"]);
+                    WriteXmlElement(writer, "Rope", row["Rope"]);
+                    WriteXmlElement(writer, "RopeAtRoot", row["RopeAtRoot"]);
+                    WriteXmlElement(writer, "RopeAtEnd", row["RopeAtEnd"]);
 
                     writer.WriteEndElement(); // TestResult
                 }

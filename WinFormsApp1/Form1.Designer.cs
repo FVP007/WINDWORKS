@@ -64,10 +64,14 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges28 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges29 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges30 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges41 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges42 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges37 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges38 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges36 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges39 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges40 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2DragControl1 = new Guna.UI2.WinForms.Guna2DragControl(components);
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -79,6 +83,8 @@
             toolStripDropDownButton2 = new ToolStripDropDownButton();
             toolStripMenuItem1 = new ToolStripMenuItem();
             toolStripMenuItem2 = new ToolStripMenuItem();
+            exportToolStripMenuItem = new ToolStripMenuItem();
+            xmlToolStripMenuItem = new ToolStripMenuItem();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             resultsToolStripMenuItem = new ToolStripMenuItem();
             toolStripComboBox1 = new ToolStripComboBox();
@@ -96,10 +102,8 @@
             ComboCameraPerspective = new Guna.UI2.WinForms.Guna2ComboBox();
             guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2Panel7 = new Guna.UI2.WinForms.Guna2Panel();
-            ComboWingArea = new ComboBox();
             ComboAirDensity = new ComboBox();
             ComboWindSpeed = new ComboBox();
-            LabelAreaAsa = new Guna.UI2.WinForms.Guna2HtmlLabel();
             LabelDensidadeAr = new Guna.UI2.WinForms.Guna2HtmlLabel();
             LabelVelocidadeVento = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2Panel5 = new Guna.UI2.WinForms.Guna2Panel();
@@ -110,6 +114,9 @@
             guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             LabelParametrosDeTeste = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2Panel6 = new Guna.UI2.WinForms.Guna2Panel();
+            guna2Panel9 = new Guna.UI2.WinForms.Guna2Panel();
+            panelWingArea = new Guna.UI2.WinForms.Guna2Panel();
+            guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2Panel4 = new Guna.UI2.WinForms.Guna2Panel();
             guna2HtmlLabelLiftForceValue = new Guna.UI2.WinForms.Guna2HtmlLabel();
             guna2HtmlLabelTituloResultados = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -135,6 +142,7 @@
             guna2Panel7.SuspendLayout();
             guna2Panel5.SuspendLayout();
             guna2Panel6.SuspendLayout();
+            guna2Panel9.SuspendLayout();
             guna2Panel4.SuspendLayout();
             SuspendLayout();
             // 
@@ -234,7 +242,7 @@
             // toolStripDropDownButton2
             // 
             toolStripDropDownButton2.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripDropDownButton2.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem1 });
+            toolStripDropDownButton2.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem1, exportToolStripMenuItem });
             toolStripDropDownButton2.Image = (Image)resources.GetObject("toolStripDropDownButton2.Image");
             toolStripDropDownButton2.ImageTransparentColor = Color.Magenta;
             toolStripDropDownButton2.Name = "toolStripDropDownButton2";
@@ -246,7 +254,7 @@
             // 
             toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2 });
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Size = new Size(131, 22);
             toolStripMenuItem1.Text = "Open With";
             toolStripMenuItem1.ToolTipText = "Export All Data for XML";
             // 
@@ -256,6 +264,20 @@
             toolStripMenuItem2.Size = new Size(100, 22);
             toolStripMenuItem2.Text = "Excel";
             toolStripMenuItem2.Click += toolStripMenuItem2_Click;
+            // 
+            // exportToolStripMenuItem
+            // 
+            exportToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { xmlToolStripMenuItem });
+            exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            exportToolStripMenuItem.Size = new Size(131, 22);
+            exportToolStripMenuItem.Text = "Export To";
+            // 
+            // xmlToolStripMenuItem
+            // 
+            xmlToolStripMenuItem.Name = "xmlToolStripMenuItem";
+            xmlToolStripMenuItem.Size = new Size(95, 22);
+            xmlToolStripMenuItem.Text = "Xml";
+            xmlToolStripMenuItem.Click += xmlToolStripMenuItem_Click;
             // 
             // toolStripDropDownButton1
             // 
@@ -286,7 +308,7 @@
             tableLayoutPanel1.ColumnCount = 3;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 211F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 211F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 216F));
             tableLayoutPanel1.Controls.Add(guna2Panel2, 1, 0);
             tableLayoutPanel1.Controls.Add(guna2Panel3, 0, 0);
             tableLayoutPanel1.Controls.Add(guna2Panel6, 2, 0);
@@ -311,7 +333,7 @@
             guna2Panel2.Location = new Point(222, 3);
             guna2Panel2.Name = "guna2Panel2";
             guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges16;
-            guna2Panel2.Size = new Size(819, 482);
+            guna2Panel2.Size = new Size(814, 482);
             guna2Panel2.TabIndex = 0;
             // 
             // tabControl1
@@ -322,7 +344,7 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(819, 433);
+            tabControl1.Size = new Size(814, 433);
             tabControl1.TabIndex = 0;
             tabControl1.Selecting += tabControl1_Selecting;
             // 
@@ -333,7 +355,7 @@
             PageVisualizador.Location = new Point(4, 24);
             PageVisualizador.Name = "PageVisualizador";
             PageVisualizador.Padding = new Padding(3);
-            PageVisualizador.Size = new Size(811, 405);
+            PageVisualizador.Size = new Size(806, 405);
             PageVisualizador.TabIndex = 0;
             PageVisualizador.Text = "3D Viewer";
             PageVisualizador.UseVisualStyleBackColor = true;
@@ -346,7 +368,7 @@
             LabelWingType.Font = new Font("Segoe UI", 20.75F);
             LabelWingType.Location = new Point(3, 3);
             LabelWingType.Name = "LabelWingType";
-            LabelWingType.Size = new Size(805, 42);
+            LabelWingType.Size = new Size(800, 42);
             LabelWingType.TabIndex = 17;
             LabelWingType.Text = null;
             LabelWingType.TextAlignment = ContentAlignment.MiddleCenter;
@@ -361,7 +383,7 @@
             PictureBoxModelImage.Location = new Point(3, 72);
             PictureBoxModelImage.Name = "PictureBoxModelImage";
             PictureBoxModelImage.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            PictureBoxModelImage.Size = new Size(805, 330);
+            PictureBoxModelImage.Size = new Size(800, 330);
             PictureBoxModelImage.SizeMode = PictureBoxSizeMode.StretchImage;
             PictureBoxModelImage.TabIndex = 0;
             PictureBoxModelImage.TabStop = false;
@@ -372,7 +394,7 @@
             PageGrafico.Location = new Point(4, 24);
             PageGrafico.Name = "PageGrafico";
             PageGrafico.Padding = new Padding(3);
-            PageGrafico.Size = new Size(811, 405);
+            PageGrafico.Size = new Size(806, 405);
             PageGrafico.TabIndex = 1;
             PageGrafico.Text = "Chart";
             PageGrafico.UseVisualStyleBackColor = true;
@@ -386,7 +408,7 @@
             webViewChart.ForeColor = Color.Black;
             webViewChart.Location = new Point(3, 3);
             webViewChart.Name = "webViewChart";
-            webViewChart.Size = new Size(805, 399);
+            webViewChart.Size = new Size(800, 399);
             webViewChart.TabIndex = 7;
             webViewChart.ZoomFactor = 1D;
             // 
@@ -403,7 +425,7 @@
             ButtonRunTest.ForeColor = Color.White;
             ButtonRunTest.ImageAlign = HorizontalAlignment.Left;
             ButtonRunTest.ImageSize = new Size(30, 30);
-            ButtonRunTest.Location = new Point(310, 444);
+            ButtonRunTest.Location = new Point(308, 444);
             ButtonRunTest.Name = "ButtonRunTest";
             ButtonRunTest.ShadowDecoration.CustomizableEdges = customizableEdges14;
             ButtonRunTest.Size = new Size(195, 35);
@@ -477,10 +499,8 @@
             guna2Panel7.BorderColor = Color.Black;
             guna2Panel7.BorderRadius = 1;
             guna2Panel7.BorderThickness = 1;
-            guna2Panel7.Controls.Add(ComboWingArea);
             guna2Panel7.Controls.Add(ComboAirDensity);
             guna2Panel7.Controls.Add(ComboWindSpeed);
-            guna2Panel7.Controls.Add(LabelAreaAsa);
             guna2Panel7.Controls.Add(LabelDensidadeAr);
             guna2Panel7.Controls.Add(LabelVelocidadeVento);
             guna2Panel7.CustomizableEdges = customizableEdges21;
@@ -489,16 +509,6 @@
             guna2Panel7.ShadowDecoration.CustomizableEdges = customizableEdges22;
             guna2Panel7.Size = new Size(188, 211);
             guna2Panel7.TabIndex = 16;
-            // 
-            // ComboWingArea
-            // 
-            ComboWingArea.FormattingEnabled = true;
-            ComboWingArea.Location = new Point(18, 172);
-            ComboWingArea.Name = "ComboWingArea";
-            ComboWingArea.Size = new Size(153, 23);
-            ComboWingArea.TabIndex = 22;
-            ComboWingArea.TextChanged += CheckFieldsFilled;
-            ComboWingArea.KeyPress += ValidateNumericInput;
             // 
             // ComboAirDensity
             // 
@@ -519,16 +529,6 @@
             ComboWindSpeed.TabIndex = 20;
             ComboWindSpeed.TextChanged += CheckFieldsFilled;
             ComboWindSpeed.KeyPress += ValidateNumericInput;
-            // 
-            // LabelAreaAsa
-            // 
-            LabelAreaAsa.BackColor = Color.Transparent;
-            LabelAreaAsa.Font = new Font("Segoe UI", 11.25F);
-            LabelAreaAsa.Location = new Point(32, 144);
-            LabelAreaAsa.Name = "LabelAreaAsa";
-            LabelAreaAsa.Size = new Size(106, 22);
-            LabelAreaAsa.TabIndex = 19;
-            LabelAreaAsa.Text = "Wing Area (m²)";
             // 
             // LabelDensidadeAr
             // 
@@ -653,6 +653,7 @@
             ComboWingType.ShadowDecoration.CustomizableEdges = customizableEdges30;
             ComboWingType.Size = new Size(154, 36);
             ComboWingType.TabIndex = 10;
+            ComboWingType.SelectedIndexChanged += ComboWingType_SelectedIndexChanged_1;
             // 
             // guna2HtmlLabel2
             // 
@@ -676,15 +677,57 @@
             // 
             // guna2Panel6
             // 
+            guna2Panel6.Controls.Add(guna2Panel9);
             guna2Panel6.Controls.Add(guna2Panel4);
-            guna2Panel6.CustomizableEdges = customizableEdges37;
+            guna2Panel6.CustomizableEdges = customizableEdges41;
             guna2Panel6.Dock = DockStyle.Fill;
-            guna2Panel6.Location = new Point(1047, 3);
+            guna2Panel6.Location = new Point(1042, 3);
             guna2Panel6.Name = "guna2Panel6";
-            guna2Panel6.ShadowDecoration.CustomizableEdges = customizableEdges38;
+            guna2Panel6.ShadowDecoration.CustomizableEdges = customizableEdges42;
             guna2Panel6.ShadowDecoration.Depth = 10;
-            guna2Panel6.Size = new Size(205, 482);
+            guna2Panel6.Size = new Size(210, 482);
             guna2Panel6.TabIndex = 4;
+            // 
+            // guna2Panel9
+            // 
+            guna2Panel9.AutoRoundedCorners = true;
+            guna2Panel9.BackColor = Color.White;
+            guna2Panel9.Controls.Add(panelWingArea);
+            guna2Panel9.Controls.Add(guna2HtmlLabel4);
+            guna2Panel9.CustomizableEdges = customizableEdges37;
+            guna2Panel9.FillColor = Color.FromArgb(0, 0, 248, 249);
+            guna2Panel9.Location = new Point(0, 0);
+            guna2Panel9.Name = "guna2Panel9";
+            guna2Panel9.ShadowDecoration.CustomizableEdges = customizableEdges38;
+            guna2Panel9.ShadowDecoration.Depth = 10;
+            guna2Panel9.ShadowDecoration.Enabled = true;
+            guna2Panel9.ShadowDecoration.Shadow = new Padding(6);
+            guna2Panel9.Size = new Size(210, 277);
+            guna2Panel9.TabIndex = 3;
+            guna2Panel9.TabStop = true;
+            // 
+            // panelWingArea
+            // 
+            panelWingArea.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            panelWingArea.BorderColor = Color.Black;
+            panelWingArea.BorderRadius = 1;
+            panelWingArea.BorderThickness = 1;
+            panelWingArea.CustomizableEdges = customizableEdges35;
+            panelWingArea.Location = new Point(15, 36);
+            panelWingArea.Name = "panelWingArea";
+            panelWingArea.ShadowDecoration.CustomizableEdges = customizableEdges36;
+            panelWingArea.Size = new Size(180, 211);
+            panelWingArea.TabIndex = 23;
+            // 
+            // guna2HtmlLabel4
+            // 
+            guna2HtmlLabel4.BackColor = Color.Transparent;
+            guna2HtmlLabel4.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            guna2HtmlLabel4.Location = new Point(3, 3);
+            guna2HtmlLabel4.Name = "guna2HtmlLabel4";
+            guna2HtmlLabel4.Size = new Size(97, 27);
+            guna2HtmlLabel4.TabIndex = 18;
+            guna2HtmlLabel4.Text = "Wing Area";
             // 
             // guna2Panel4
             // 
@@ -694,16 +737,16 @@
             guna2Panel4.Controls.Add(guna2HtmlLabelTituloResultados);
             guna2Panel4.Controls.Add(guna2Separator1);
             guna2Panel4.Controls.Add(guna2HtmlLabelForcaSustentacao);
-            guna2Panel4.CustomizableEdges = customizableEdges35;
-            guna2Panel4.Dock = DockStyle.Top;
+            guna2Panel4.CustomizableEdges = customizableEdges39;
+            guna2Panel4.Dock = DockStyle.Bottom;
             guna2Panel4.FillColor = Color.FromArgb(0, 0, 248, 249);
-            guna2Panel4.Location = new Point(0, 0);
+            guna2Panel4.Location = new Point(0, 363);
             guna2Panel4.Name = "guna2Panel4";
-            guna2Panel4.ShadowDecoration.CustomizableEdges = customizableEdges36;
+            guna2Panel4.ShadowDecoration.CustomizableEdges = customizableEdges40;
             guna2Panel4.ShadowDecoration.Depth = 10;
             guna2Panel4.ShadowDecoration.Enabled = true;
             guna2Panel4.ShadowDecoration.Shadow = new Padding(6);
-            guna2Panel4.Size = new Size(205, 119);
+            guna2Panel4.Size = new Size(210, 119);
             guna2Panel4.TabIndex = 2;
             guna2Panel4.TabStop = true;
             // 
@@ -734,7 +777,7 @@
             guna2Separator1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             guna2Separator1.Location = new Point(3, 34);
             guna2Separator1.Name = "guna2Separator1";
-            guna2Separator1.Size = new Size(199, 14);
+            guna2Separator1.Size = new Size(204, 14);
             guna2Separator1.TabIndex = 2;
             // 
             // guna2HtmlLabelForcaSustentacao
@@ -806,6 +849,8 @@
             guna2Panel7.PerformLayout();
             guna2Panel5.ResumeLayout(false);
             guna2Panel6.ResumeLayout(false);
+            guna2Panel9.ResumeLayout(false);
+            guna2Panel9.PerformLayout();
             guna2Panel4.ResumeLayout(false);
             guna2Panel4.PerformLayout();
             ResumeLayout(false);
@@ -839,12 +884,10 @@
         private Guna.UI2.WinForms.Guna2Panel guna2Panel7;
         public Guna.UI2.WinForms.Guna2Button ButtonZY;
         public Guna.UI2.WinForms.Guna2Button ButtonYX;
-        private Guna.UI2.WinForms.Guna2HtmlLabel LabelAreaAsa;
         private Guna.UI2.WinForms.Guna2HtmlLabel LabelDensidadeAr;
         private Guna.UI2.WinForms.Guna2HtmlLabel LabelVelocidadeVento;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabelLiftForceValue;
         public Guna.UI2.WinForms.Guna2Button ButtonZX;
-        private ComboBox ComboWingArea;
         private ComboBox ComboAirDensity;
         private ComboBox ComboWindSpeed;
         private Guna.UI2.WinForms.Guna2HtmlToolTip guna2HtmlToolTip1;
@@ -865,5 +908,10 @@
         private TabPage PageGrafico;
         private Microsoft.Web.WebView2.WinForms.WebView2 webViewChart;
         private ToolStripComboBox toolStripComboBox1;
+        private Guna.UI2.WinForms.Guna2Panel guna2Panel9;
+        private Guna.UI2.WinForms.Guna2Panel panelWingArea;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
+        private ToolStripMenuItem exportToolStripMenuItem;
+        private ToolStripMenuItem xmlToolStripMenuItem;
     }
 }

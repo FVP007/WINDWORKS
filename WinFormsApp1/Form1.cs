@@ -29,11 +29,15 @@ namespace WinFormsApp1
         private bool PageGraficoEnabled = false;
         private bool PageResultadosEnabled = false;
         private string connectionString = "Server=localhost;Database=LiftForceDb;Uid=root;";
-        ResultsForm resultsForm;
         // Responsive layout variables
         private Size originalFormSize;
         private bool isResponsiveInitialized = false;
-
+        ResultsForm ResultsForm = new ResultsForm();
+        // Adicione estas propriedades na classe Form1:
+        private RectangularWingControl rectangularControl;
+        private EllipticalWingControl ellipticalControl;
+        private TrapezoidalWingControl trapezoidalControl;
+        private DeltaWingControl deltaControl;
 
         private Process vrmlProcess = null;
 
@@ -44,7 +48,6 @@ namespace WinFormsApp1
             // Existing setup
             ComboWindSpeed.DropDownStyle = ComboBoxStyle.DropDown;
             ComboAirDensity.DropDownStyle = ComboBoxStyle.DropDown;
-            ComboWingArea.DropDownStyle = ComboBoxStyle.DropDown;
             this.Load += Form1_Load;
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
@@ -94,18 +97,19 @@ namespace WinFormsApp1
             ComboCameraPerspective.Items.AddRange(new object[] { "Front View", "Side View", "Isometric View" });
             ComboWindSpeed.Items.AddRange(new object[] { 10, 20, 30, 40, 50 });
             ComboAirDensity.Items.AddRange(new object[] { 1.225, 1.18, 1.15, 1.12, 1.10 });
-            ComboWingArea.Items.AddRange(new object[] { 0.1, 0.25, 0.5, 1.0, 2.0, 5.0 });
             ComboWingType.SelectedIndex = 0;
             ComboCameraPerspective.SelectedIndex = 0;
             ComboWindSpeed.SelectedIndex = 0;
             ComboAirDensity.SelectedIndex = 0;
-            ComboWingArea.SelectedIndex = 0;
             ComboWindSpeed.SelectedIndexChanged += CheckFieldsFilled;
             ComboAirDensity.SelectedIndexChanged += CheckFieldsFilled;
-            ComboWingArea.SelectedIndexChanged += CheckFieldsFilled;
             ComboWingType.SelectedIndexChanged += ComboWingType_SelectedIndexChanged;
+            
+            // Carregar o primeiro UserControl (Rectangular)
+            LoadWingControl("Rectangular");
             originalFormSize = this.Size;
             isResponsiveInitialized = true;
+
 
         }
 
@@ -172,9 +176,102 @@ namespace WinFormsApp1
             }
             base.WndProc(ref m);
         }
-        private void ComboWingType_SelectedIndexChanged(object sender, EventArgs e)
+
+        private string GetFormulaHtmlForWingType(string wingType)
         {
-            //achei interessante talvez usemos
+            string mathJaxHeader = @"
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <script src='https://polyfill.io/v3/polyfill.min.js?features=es6'></script>
+        <script type='text/javascript' id='MathJax-script' async
+            src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'>
+        </script>
+        <style>
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                overflow: hidden;
+            }
+            body { 
+                font-family: 'Segoe UI', Arial, sans-serif;
+                color: #333;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0;
+                background: #f5f5f5;
+            }
+            .formula {
+                background: white;
+                border-radius: 8px;
+                padding: 20px;
+                text-align: center;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                max-width: 90%;
+                width: auto;
+            }
+            .description {
+                margin-top: 15px;
+                font-size: 0.9em;
+                line-height: 1.6;
+            }
+            .mjx-chtml {
+                margin: 0 !important;
+            }
+        </style>
+    </head>";
+
+            string formulaBody = wingType switch
+            {
+                "Rectangular" => @"
+        <div class='formula'>
+            $$ S = b \times c $$
+            <div class='description'>
+                <b>S</b>: Área da asa<br>
+                <b>b</b>: Envergadura<br>
+                <b>c</b>: Corda
+            </div>
+        </div>",
+
+                "Trapezoidal" => @"
+        <div class='formula'>
+            $$ S = \frac{c_{root} + c_{tip}}{2} \times b $$
+            <div class='description'>
+                <b>c<sub>root</sub></b>: Corda na raiz<br>
+                <b>c<sub>tip</sub></b>: Corda na ponta<br>
+                <b>b</b>: Envergadura
+            </div>
+        </div>",
+
+                "Elliptical" => @"
+        <div class='formula'>
+            $$ S = \frac{\pi}{4} \times b \times c_{root} $$
+            <div class='description'>
+                <b>π</b>: Pi<br>
+                <b>b</b>: Envergadura<br>
+                <b>c<sub>root</sub></b>: Corda na raiz
+            </div>
+        </div>",
+
+                "Delta" => @"
+        <div class='formula'>
+            $$ S = \frac{b \times c_{root}}{2} $$
+            <div class='description'>
+                <b>b</b>: Envergadura<br>
+                <b>c<sub>root</sub></b>: Corda na raiz
+            </div>
+        </div>",
+
+                _ => @"<div class='formula'>Selecione um tipo de asa para ver a fórmula.</div>"
+            };
+
+            return $@"<!DOCTYPE html>
+<html lang='pt-BR'>
+    {mathJaxHeader}
+    <body>{formulaBody}</body>
+</html>";
         }
 
         private void LoadVRMLModel(object sender, EventArgs e)
@@ -291,44 +388,101 @@ namespace WinFormsApp1
 
         public void ButtonRunTest_Click(object sender, EventArgs e)
         {
-            // Get values from interface fields
-
-            if (!double.TryParse(ComboWindSpeed.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double windSpeed))
+            try
             {
-                MessageBox.Show("Please enter a valid value for Wind Speed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (!double.TryParse(ComboAirDensity.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double airDensity))
+                // Desabilitar o botão durante o processamento
+                ButtonRunTest.Enabled = false;
+                ButtonRunTest.Text = "Processando...";
+
+                // Get values from interface fields
+                if (!double.TryParse(ComboWindSpeed.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double windSpeed))
+                {
+                    MessageBox.Show("Por favor, insira um valor válido para a Velocidade do Vento", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (!double.TryParse(ComboAirDensity.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double airDensity))
+                {
+                    MessageBox.Show("Por favor, insira um valor válido para a Densidade do Ar.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                double wingArea = GetCurrentWingArea();
+                Console.WriteLine($"Área calculada: {wingArea:F4}");
+
+                if (wingArea <= 0)
+                {
+                    var wingControl1 = GetCurrentWingControl();
+                    string errorMsg = "Parâmetros da asa inválidos.\n\n";
+                    if (wingControl1 != null)
+                    {
+                        errorMsg += $"Envergadura: {wingControl1.Wingspan:F2} m\n";
+                        errorMsg += $"Corda: {wingControl1.Rope:F2} m\n";
+                        errorMsg += $"Área calculada: {wingArea:F4} m²\n\n";
+                        errorMsg += "Verifique se todos os campos estão preenchidos corretamente.";
+                    }
+
+                    MessageBox.Show(errorMsg, "Erro de Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Get wing type and camera perspective
+                string wingType = ComboWingType.SelectedItem?.ToString() ?? "Rectangular";
+                string cameraPerspective = ComboCameraPerspective.SelectedItem?.ToString() ?? "";
+
+                // Calculate lift force
+                double liftForce = CalculateLiftForce(airDensity, windSpeed, wingArea, coefficient);
+
+                // Show result
+                guna2HtmlLabelLiftForceValue.Text = $"{liftForce:F2}N";
+
+                // Mostrar informações detalhadas da asa
+                ShowWingDetails();
+
+                            // Save to database with wing parameters
+            var wingControl = GetCurrentWingControl();
+            if (wingControl != null)
             {
-                MessageBox.Show("Please enter a valid value for Air Density.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                ClassResults.SaveTestResult(
+                    wingType, 
+                    windSpeed, 
+                    airDensity, 
+                    wingArea, 
+                    coefficient, 
+                    liftForce, 
+                    cameraPerspective,
+                    wingControl.Wingspan,
+                    wingControl.Rope,
+                    wingControl is TrapezoidalWingControl trapControl ? trapControl.RopeAtRoot : 0,
+                    wingControl is TrapezoidalWingControl trapControl2 ? trapControl2.RopeAtEnd : 0
+                );
             }
-            if (!double.TryParse(ComboWingArea.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double wingArea))
+            else
             {
-                MessageBox.Show("Please enter a valid value for Wing Area", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                // Fallback para compatibilidade
+                ClassResults.SaveTestResult(wingType, windSpeed, airDensity, wingArea, coefficient, liftForce, cameraPerspective);
             }
 
-            // Get wing type and camera perspective
-            string wingType = ComboWingType.SelectedItem?.ToString() ?? "Rectangular";
-            string cameraPerspective = ComboCameraPerspective.SelectedItem?.ToString() ?? "";
+                LoadVRMLModel(sender, e);
+                // Show Highcharts graph
+                ShowChart(airDensity, windSpeed, wingArea, coefficient);
 
-            // Calculate lift force
-            double liftForce = CalculateLiftForce(airDensity, windSpeed, wingArea, coefficient);
+                PageGraficoEnabled = true;
+                ResultsForm resultsForm = new ResultsForm();
+                resultsForm.UpdateResults();
 
-            // Show result
-            guna2HtmlLabelLiftForceValue.Text = $"{liftForce:F2}N";
+                // Restaurar o botão
+                ButtonRunTest.Text = "Run Test";
+                ButtonRunTest.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro durante o teste: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine($"Erro no ButtonRunTest_Click: {ex.Message}");
 
-            // Save to database
-            ClassResults.SaveTestResult(wingType, windSpeed, airDensity, wingArea, coefficient, liftForce, cameraPerspective);
-
-            LoadVRMLModel(sender, e);
-            // Show Highcharts graph
-            ShowChart(airDensity, windSpeed, wingArea, coefficient);
-
-            PageGraficoEnabled = true;
-            ResultsForm resultsForm = new ResultsForm();
-            resultsForm.UpdateResults();
+                // Restaurar o botão em caso de erro
+                ButtonRunTest.Text = "Run Test";
+                ButtonRunTest.Enabled = true;
+            }
         }
 
 
@@ -454,10 +608,22 @@ namespace WinFormsApp1
 
         private void CheckFieldsFilled(object sender, EventArgs e)
         {
-            ButtonRunTest.Enabled =
-                !string.IsNullOrWhiteSpace(ComboWindSpeed.Text) &&
-                !string.IsNullOrWhiteSpace(ComboAirDensity.Text) &&
-                !string.IsNullOrWhiteSpace(ComboWingArea.Text);
+            try
+            {
+                bool windSpeedValid = !string.IsNullOrWhiteSpace(ComboWindSpeed.Text);
+                bool airDensityValid = !string.IsNullOrWhiteSpace(ComboAirDensity.Text);
+                bool wingAreaValid = GetCurrentWingArea() > 0;
+                
+                ButtonRunTest.Enabled = windSpeedValid && airDensityValid && wingAreaValid;
+                
+                // Debug apenas quando necessário (comentado para performance)
+                // Console.WriteLine($"WindSpeed: {windSpeedValid}, AirDensity: {airDensityValid}, WingArea: {wingAreaValid} (Área: {GetCurrentWingArea():F2})");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro na validação: {ex.Message}");
+                ButtonRunTest.Enabled = false;
+            }
         }
         private void ValidateNumericInput(object sender, KeyPressEventArgs e)
         {
@@ -549,6 +715,14 @@ namespace WinFormsApp1
 
         }
 
+        private void ComboWingType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selected = ComboWingType.SelectedItem?.ToString() ?? "";
+            string formulaHtml = GetFormulaHtmlForWingType(selected);
+
+
+        }
+
         // Adicione este método na sua classe Form1
         private void CloseExistingVRMLProcesses()
         {
@@ -627,10 +801,11 @@ namespace WinFormsApp1
 
         private void resultsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            ResultsForm resultsForm = this.ResultsForm;
             if (resultsForm == null || resultsForm.IsDisposed)
             {
                 resultsForm = new ResultsForm();
-                resultsForm.Owner = this; 
+                resultsForm.Owner = this;
             }
             resultsForm.Show();
             resultsForm.BringToFront();
@@ -650,9 +825,620 @@ namespace WinFormsApp1
             ComboCameraPerspective.Text = cameraPerspective;
             ComboWindSpeed.Text = windSpeed;
             ComboAirDensity.Text = airDensity;
-            ComboWingArea.Text = wingArea;
+            // Não precisamos mais definir a área diretamente, ela será calculada pelos UserControls
             guna2HtmlLabelLiftForceValue.Text = liftForce;
         }
 
+        private void xmlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Dialog para escolher o tipo de exportação
+                DialogResult choice = MessageBox.Show(
+                    "Escolha o tipo de exportação:\n\n" +
+                    "SIM - Exportar apenas o teste atual\n" +
+                    "NÃO - Exportar todos os resultados salvos\n" +
+                    "CANCELAR - Cancelar operação",
+                    "Tipo de Exportação XML",
+                    MessageBoxButtons.YesNoCancel,
+                    MessageBoxIcon.Question
+                );
+
+                if (choice == DialogResult.Cancel)
+                    return;
+
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                {
+                    saveFileDialog.Filter = "Arquivos XML (*.xml)|*.xml";
+                    saveFileDialog.Title = "Salvar arquivo XML";
+                    saveFileDialog.FileName = choice == DialogResult.Yes ?
+                        $"TestResult_{DateTime.Now:yyyyMMdd_HHmmss}.xml" :
+                        $"AllResults_{DateTime.Now:yyyyMMdd_HHmmss}.xml";
+
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        string filePath = saveFileDialog.FileName;
+
+                        if (choice == DialogResult.Yes)
+                        {
+                            ExportCurrentTestToXml(filePath);
+                        }
+                        else
+                        {
+                            ExportAllResultsToXml(filePath);
+                        }
+
+                        MessageBox.Show($"Dados exportados com sucesso para:\n{filePath}",
+                            "Exportação Concluída",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+
+                        // Opção para abrir o arquivo após exportar
+                        if (MessageBox.Show("Deseja abrir o arquivo XML exportado?",
+                            "Abrir Arquivo",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                            {
+                                FileName = filePath,
+                                UseShellExecute = true
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao exportar XML: {ex.Message}",
+                    "Erro",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+
+        private void ExportCurrentTestToXml(string filePath)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+
+            // Declaração XML
+            XmlDeclaration xmlDeclaration = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            xmlDoc.InsertBefore(xmlDeclaration, xmlDoc.DocumentElement);
+
+            // Elemento raiz
+            XmlElement root = xmlDoc.CreateElement("LiftForceTest");
+            xmlDoc.AppendChild(root);
+
+            // Informações do teste
+            XmlElement testInfo = xmlDoc.CreateElement("TestInformation");
+            root.AppendChild(testInfo);
+
+            AddXmlElement(xmlDoc, testInfo, "ExportDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            AddXmlElement(xmlDoc, testInfo, "ExportType", "CurrentTest");
+            AddXmlElement(xmlDoc, testInfo, "Application", "Lift Force Calculator");
+            AddXmlElement(xmlDoc, testInfo, "Version", "1.0");
+
+            // Dados do teste atual
+            XmlElement testData = xmlDoc.CreateElement("TestData");
+            root.AppendChild(testData);
+
+            AddXmlElement(xmlDoc, testData, "WingType", ComboWingType.Text);
+            AddXmlElement(xmlDoc, testData, "CameraPerspective", ComboCameraPerspective.Text);
+            AddXmlElement(xmlDoc, testData, "WindSpeed", ComboWindSpeed.Text);
+            AddXmlElement(xmlDoc, testData, "WindSpeedUnit", "m/s");
+            AddXmlElement(xmlDoc, testData, "AirDensity", ComboAirDensity.Text);
+            AddXmlElement(xmlDoc, testData, "AirDensityUnit", "kg/m³");
+            AddXmlElement(xmlDoc, testData, "WingArea", GetCurrentWingArea().ToString("F2", CultureInfo.InvariantCulture));
+            AddXmlElement(xmlDoc, testData, "WingAreaUnit", "m²");
+            AddXmlElement(xmlDoc, testData, "LiftCoefficient", coefficient.ToString("F2", CultureInfo.InvariantCulture));
+            AddXmlElement(xmlDoc, testData, "LiftForce", guna2HtmlLabelLiftForceValue.Text.Replace("N", ""));
+            AddXmlElement(xmlDoc, testData, "LiftForceUnit", "N");
+            AddXmlElement(xmlDoc, testData, "TestDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+            // Parâmetros da asa
+            var wingControl = GetCurrentWingControl();
+            if (wingControl != null)
+            {
+                AddXmlElement(xmlDoc, testData, "Wingspan", wingControl.Wingspan.ToString("F2", CultureInfo.InvariantCulture));
+                AddXmlElement(xmlDoc, testData, "WingspanUnit", "m");
+                AddXmlElement(xmlDoc, testData, "Rope", wingControl.Rope.ToString("F2", CultureInfo.InvariantCulture));
+                AddXmlElement(xmlDoc, testData, "RopeUnit", "m");
+                
+                if (wingControl is TrapezoidalWingControl trapControl)
+                {
+                    AddXmlElement(xmlDoc, testData, "RopeAtRoot", trapControl.RopeAtRoot.ToString("F2", CultureInfo.InvariantCulture));
+                    AddXmlElement(xmlDoc, testData, "RopeAtRootUnit", "m");
+                    AddXmlElement(xmlDoc, testData, "RopeAtEnd", trapControl.RopeAtEnd.ToString("F2", CultureInfo.InvariantCulture));
+                    AddXmlElement(xmlDoc, testData, "RopeAtEndUnit", "m");
+                }
+            }
+
+            // Fórmula utilizada
+            XmlElement formula = xmlDoc.CreateElement("Formula");
+            testData.AppendChild(formula);
+            AddXmlElement(xmlDoc, formula, "Expression", "F = 0.5 × ρ × v² × S × Cl");
+            AddXmlElement(xmlDoc, formula, "Description", "Lift Force = 0.5 × Air Density × Wind Speed² × Wing Area × Lift Coefficient");
+
+            // Cálculo detalhado
+            XmlElement calculation = xmlDoc.CreateElement("DetailedCalculation");
+            testData.AppendChild(calculation);
+
+            if (double.TryParse(ComboAirDensity.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double density) &&
+                double.TryParse(ComboWindSpeed.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double speed))
+            {
+                double area = GetCurrentWingArea();
+                double calculatedForce = CalculateLiftForce(density, speed, area, coefficient);
+
+                AddXmlElement(xmlDoc, calculation, "Step1", $"F = 0.5 × {density} × {speed}² × {area} × {coefficient}");
+                AddXmlElement(xmlDoc, calculation, "Step2", $"F = 0.5 × {density} × {Math.Pow(speed, 2)} × {area} × {coefficient}");
+                AddXmlElement(xmlDoc, calculation, "Result", $"F = {calculatedForce:F2} N");
+            }
+
+            xmlDoc.Save(filePath);
+        }
+
+        private void ExportAllResultsToXml(string filePath)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+
+            // Declaração XML
+            XmlDeclaration xmlDeclaration = xmlDoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            xmlDoc.InsertBefore(xmlDeclaration, xmlDoc.DocumentElement);
+
+            // Elemento raiz
+            XmlElement root = xmlDoc.CreateElement("LiftForceTestResults");
+            xmlDoc.AppendChild(root);
+
+            // Informações da exportação
+            XmlElement exportInfo = xmlDoc.CreateElement("ExportInformation");
+            root.AppendChild(exportInfo);
+
+            AddXmlElement(xmlDoc, exportInfo, "ExportDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            AddXmlElement(xmlDoc, exportInfo, "ExportType", "AllResults");
+            AddXmlElement(xmlDoc, exportInfo, "Application", "Lift Force Calculator");
+            AddXmlElement(xmlDoc, exportInfo, "Version", "1.0");
+
+            // Container para todos os testes
+            XmlElement testsContainer = xmlDoc.CreateElement("Tests");
+            root.AppendChild(testsContainer);
+
+            try
+            {
+                // Primeiro, vamos descobrir quais colunas existem na tabela
+                List<string> availableColumns = new List<string>();
+
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    // Verificar estrutura da tabela
+                    string checkColumnsQuery = "DESCRIBE TestResults";
+                    using (MySqlCommand checkCommand = new MySqlCommand(checkColumnsQuery, connection))
+                    {
+                        using (MySqlDataReader checkReader = checkCommand.ExecuteReader())
+                        {
+                            while (checkReader.Read())
+                            {
+                                availableColumns.Add(checkReader["Field"].ToString());
+                            }
+                        }
+                    }
+
+                    // Construir query baseada nas colunas disponíveis
+                    string baseQuery = "SELECT ";
+                    List<string> selectColumns = new List<string>();
+
+                    // Colunas obrigatórias que devem existir
+                    string[] requiredColumns = { "Id", "WingType", "WindSpeed", "AirDensity", "WingArea", "LiftForce", "TestDate" };
+                    foreach (string col in requiredColumns)
+                    {
+                        if (availableColumns.Contains(col))
+                            selectColumns.Add(col);
+                    }
+
+                    // Colunas opcionais
+                    string[] optionalColumns = { "CameraPerspective", "LiftCoefficient", "Coefficient", "Wingspan", "Rope", "RopeAtRoot", "RopeAtEnd" };
+                    foreach (string col in optionalColumns)
+                    {
+                        if (availableColumns.Contains(col))
+                            selectColumns.Add(col);
+                    }
+
+                    if (selectColumns.Count == 0)
+                    {
+                        throw new Exception("Nenhuma coluna reconhecida encontrada na tabela TestResults");
+                    }
+
+                    string query = baseQuery + string.Join(", ", selectColumns) + " FROM TestResults ORDER BY TestDate DESC";
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        using (MySqlDataReader reader = command.ExecuteReader())
+                        {
+                            int testCount = 0;
+                            while (reader.Read())
+                            {
+                                testCount++;
+                                XmlElement test = xmlDoc.CreateElement("Test");
+                                test.SetAttribute("id", GetSafeValue(reader, "Id"));
+                                test.SetAttribute("number", testCount.ToString());
+                                testsContainer.AppendChild(test);
+
+                                // Dados básicos do teste
+                                XmlElement basicData = xmlDoc.CreateElement("BasicData");
+                                test.AppendChild(basicData);
+
+                                AddXmlElement(xmlDoc, basicData, "WingType", GetSafeValue(reader, "WingType"));
+                                if (availableColumns.Contains("CameraPerspective"))
+                                    AddXmlElement(xmlDoc, basicData, "CameraPerspective", GetSafeValue(reader, "CameraPerspective"));
+
+                                if (availableColumns.Contains("TestDate"))
+                                {
+                                    string dateValue = GetSafeValue(reader, "TestDate");
+                                    if (DateTime.TryParse(dateValue, out DateTime testDate))
+                                        AddXmlElement(xmlDoc, basicData, "TestDate", testDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                                    else
+                                        AddXmlElement(xmlDoc, basicData, "TestDate", dateValue);
+                                }
+
+                                // Parâmetros de entrada
+                                XmlElement inputParams = xmlDoc.CreateElement("InputParameters");
+                                test.AppendChild(inputParams);
+
+                                AddXmlElement(xmlDoc, inputParams, "WindSpeed", GetSafeValue(reader, "WindSpeed"));
+                                AddXmlElement(xmlDoc, inputParams, "WindSpeedUnit", "m/s");
+                                AddXmlElement(xmlDoc, inputParams, "AirDensity", GetSafeValue(reader, "AirDensity"));
+                                AddXmlElement(xmlDoc, inputParams, "AirDensityUnit", "kg/m³");
+                                AddXmlElement(xmlDoc, inputParams, "WingArea", GetSafeValue(reader, "WingArea"));
+                                AddXmlElement(xmlDoc, inputParams, "WingAreaUnit", "m²");
+
+                                // Parâmetros da asa (se disponíveis no banco)
+                                if (availableColumns.Contains("Wingspan"))
+                                {
+                                    AddXmlElement(xmlDoc, inputParams, "Wingspan", GetSafeValue(reader, "Wingspan"));
+                                    AddXmlElement(xmlDoc, inputParams, "WingspanUnit", "m");
+                                }
+                                if (availableColumns.Contains("Rope"))
+                                {
+                                    AddXmlElement(xmlDoc, inputParams, "Rope", GetSafeValue(reader, "Rope"));
+                                    AddXmlElement(xmlDoc, inputParams, "RopeUnit", "m");
+                                }
+                                if (availableColumns.Contains("RopeAtRoot"))
+                                {
+                                    AddXmlElement(xmlDoc, inputParams, "RopeAtRoot", GetSafeValue(reader, "RopeAtRoot"));
+                                    AddXmlElement(xmlDoc, inputParams, "RopeAtRootUnit", "m");
+                                }
+                                if (availableColumns.Contains("RopeAtEnd"))
+                                {
+                                    AddXmlElement(xmlDoc, inputParams, "RopeAtEnd", GetSafeValue(reader, "RopeAtEnd"));
+                                    AddXmlElement(xmlDoc, inputParams, "RopeAtEndUnit", "m");
+                                }
+
+                                // Tentar pegar o coeficiente de diferentes colunas possíveis
+                                string coefficientValue = coefficient.ToString("F2", CultureInfo.InvariantCulture); // valor padrão
+                                if (availableColumns.Contains("LiftCoefficient"))
+                                    coefficientValue = GetSafeValue(reader, "LiftCoefficient");
+                                else if (availableColumns.Contains("Coefficient"))
+                                    coefficientValue = GetSafeValue(reader, "Coefficient");
+
+                                AddXmlElement(xmlDoc, inputParams, "LiftCoefficient", coefficientValue);
+
+                                // Resultado
+                                XmlElement result = xmlDoc.CreateElement("Result");
+                                test.AppendChild(result);
+
+                                AddXmlElement(xmlDoc, result, "LiftForce", GetSafeValue(reader, "LiftForce"));
+                                AddXmlElement(xmlDoc, result, "LiftForceUnit", "N");
+
+                                // Fórmula (mesma para todos)
+                                XmlElement formula = xmlDoc.CreateElement("Formula");
+                                result.AppendChild(formula);
+                                AddXmlElement(xmlDoc, formula, "Expression", "F = 0.5 × ρ × v² × S × Cl");
+                                AddXmlElement(xmlDoc, formula, "Description", "Lift Force = 0.5 × Air Density × Wind Speed² × Wing Area × Lift Coefficient");
+                            }
+
+
+                            XmlElement statistics = xmlDoc.CreateElement("Statistics");
+                            root.AppendChild(statistics);
+                            AddXmlElement(xmlDoc, statistics, "TotalTests", testCount.ToString());
+                            AddXmlElement(xmlDoc, statistics, "DatabaseColumns", string.Join(", ", availableColumns));
+                            AddXmlElement(xmlDoc, statistics, "ExportDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                XmlElement errorInfo = xmlDoc.CreateElement("Error");
+                testsContainer.AppendChild(errorInfo);
+                AddXmlElement(xmlDoc, errorInfo, "Message", "Erro ao acessar banco de dados");
+                AddXmlElement(xmlDoc, errorInfo, "Details", ex.Message);
+                AddXmlElement(xmlDoc, errorInfo, "Note", "Exportação realizada sem dados do banco");
+            }
+
+            xmlDoc.Save(filePath);
+        }
+
+        private string GetSafeValue(MySqlDataReader reader, string columnName)
+        {
+            try
+            {
+                int ordinal = reader.GetOrdinal(columnName);
+                return reader.IsDBNull(ordinal) ? "" : reader.GetValue(ordinal).ToString();
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        private void AddXmlElement(XmlDocument doc, XmlElement parent, string elementName, string elementValue)
+        {
+            XmlElement element = doc.CreateElement(elementName);
+            element.InnerText = elementValue ?? "";
+            parent.AppendChild(element);
+        }
+        private void LoadWingControl(string type)
+        {
+            panelWingArea.Controls.Clear();
+
+            UserControl control = null;
+            switch (type)
+            {
+                case "Rectangular":
+                    control = new RectangularWingControl();
+                    break;
+                case "Elliptical":
+                    control = new EllipticalWingControl();
+                    break;
+                case "Trapezoidal":
+                    control = new TrapezoidalWingControl();
+                    break;
+                case "Delta":
+                    control = new DeltaWingControl();
+                    break;
+            }
+
+            if (control != null)
+            {
+                control.Dock = DockStyle.Fill;
+                panelWingArea.Controls.Add(control);
+                
+                // Popular as comboboxes com valores padrão
+                PopulateWingControlValues(control);
+                
+                // Adicionar evento para verificar campos quando os valores mudarem
+                if (control is IWingControl wingControl)
+                {
+                    // Adicionar eventos para as comboboxes dos UserControls
+                    AddWingControlEvents(control);
+                }
+            }
+        }
+
+        private void PopulateWingControlValues(UserControl control)
+        {
+            try
+            {
+                // Valores padrão para as comboboxes
+                double[] ropeValues = { 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0 };
+                double[] wingspanValues = { 5.0, 10.0, 15.0, 20.0, 25.0, 30.0, 35.0, 40.0, 45.0, 50.0 };
+
+                if (control is RectangularWingControl rectControl)
+                {
+                    rectControl.ComboWindSpeed.Items.Clear();
+                    rectControl.ComboAirDensity.Items.Clear();
+                    
+                    rectControl.ComboWindSpeed.Items.AddRange(wingspanValues.Cast<object>().ToArray());
+                    rectControl.ComboAirDensity.Items.AddRange(ropeValues.Cast<object>().ToArray());
+                    
+                    if (rectControl.ComboWindSpeed.Items.Count > 0) rectControl.ComboWindSpeed.SelectedIndex = 0;
+                    if (rectControl.ComboAirDensity.Items.Count > 0) rectControl.ComboAirDensity.SelectedIndex = 0;
+                    
+                    Console.WriteLine($"Rectangular: Wingspan={rectControl.ComboWindSpeed.SelectedItem}, Rope={rectControl.ComboAirDensity.SelectedItem}");
+                }
+                else if (control is TrapezoidalWingControl trapControl)
+                {
+                    trapControl.ComboWingspan.Items.Clear();
+                    trapControl.ComboRopeAtRoot.Items.Clear();
+                    trapControl.comboRopeAtEnd.Items.Clear();
+                    
+                    trapControl.ComboWingspan.Items.AddRange(wingspanValues.Cast<object>().ToArray());
+                    trapControl.ComboRopeAtRoot.Items.AddRange(ropeValues.Cast<object>().ToArray());
+                    trapControl.comboRopeAtEnd.Items.AddRange(ropeValues.Cast<object>().ToArray());
+                    
+                    if (trapControl.ComboWingspan.Items.Count > 0) trapControl.ComboWingspan.SelectedIndex = 0;
+                    if (trapControl.ComboRopeAtRoot.Items.Count > 0) trapControl.ComboRopeAtRoot.SelectedIndex = 0;
+                    if (trapControl.comboRopeAtEnd.Items.Count > 0) trapControl.comboRopeAtEnd.SelectedIndex = 0;
+                    
+                    Console.WriteLine($"Trapezoidal: Wingspan={trapControl.ComboWingspan.SelectedItem}, RopeRoot={trapControl.ComboRopeAtRoot.SelectedItem}, RopeEnd={trapControl.comboRopeAtEnd.SelectedItem}");
+                }
+                else if (control is EllipticalWingControl ellipControl)
+                {
+                    ellipControl.ComboWingspan.Items.Clear();
+                    ellipControl.ComboRope.Items.Clear();
+                    
+                    ellipControl.ComboWingspan.Items.AddRange(wingspanValues.Cast<object>().ToArray());
+                    ellipControl.ComboRope.Items.AddRange(ropeValues.Cast<object>().ToArray());
+                    
+                    if (ellipControl.ComboWingspan.Items.Count > 0) ellipControl.ComboWingspan.SelectedIndex = 0;
+                    if (ellipControl.ComboRope.Items.Count > 0) ellipControl.ComboRope.SelectedIndex = 0;
+                    
+                    Console.WriteLine($"Elliptical: Wingspan={ellipControl.ComboWingspan.SelectedItem}, Rope={ellipControl.ComboRope.SelectedItem}");
+                }
+                else if (control is DeltaWingControl deltaControl)
+                {
+                    deltaControl.ComboWingspan.Items.Clear();
+                    deltaControl.ComboRope.Items.Clear();
+                    
+                    deltaControl.ComboWingspan.Items.AddRange(wingspanValues.Cast<object>().ToArray());
+                    deltaControl.ComboRope.Items.AddRange(ropeValues.Cast<object>().ToArray());
+                    
+                    if (deltaControl.ComboWingspan.Items.Count > 0) deltaControl.ComboWingspan.SelectedIndex = 0;
+                    if (deltaControl.ComboRope.Items.Count > 0) deltaControl.ComboRope.SelectedIndex = 0;
+                    
+                    Console.WriteLine($"Delta: Wingspan={deltaControl.ComboWingspan.SelectedItem}, Rope={deltaControl.ComboRope.SelectedItem}");
+                }
+                
+                // Aguardar um pouco para garantir que os valores sejam definidos
+                System.Threading.Thread.Sleep(100);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao popular valores: {ex.Message}");
+            }
+        }
+
+        private void AddWingControlEvents(UserControl control)
+        {
+            try
+            {
+                // Remover eventos existentes primeiro para evitar duplicação
+                if (control is RectangularWingControl rectControl)
+                {
+                    rectControl.ComboWindSpeed.SelectedIndexChanged -= CheckFieldsFilled;
+                    rectControl.ComboAirDensity.SelectedIndexChanged -= CheckFieldsFilled;
+                    
+                    rectControl.ComboWindSpeed.SelectedIndexChanged += CheckFieldsFilled;
+                    rectControl.ComboAirDensity.SelectedIndexChanged += CheckFieldsFilled;
+                }
+                else if (control is TrapezoidalWingControl trapControl)
+                {
+                    trapControl.ComboWingspan.SelectedIndexChanged -= CheckFieldsFilled;
+                    trapControl.ComboRopeAtRoot.SelectedIndexChanged -= CheckFieldsFilled;
+                    trapControl.comboRopeAtEnd.SelectedIndexChanged -= CheckFieldsFilled;
+                    
+                    trapControl.ComboWingspan.SelectedIndexChanged += CheckFieldsFilled;
+                    trapControl.ComboRopeAtRoot.SelectedIndexChanged += CheckFieldsFilled;
+                    trapControl.comboRopeAtEnd.SelectedIndexChanged += CheckFieldsFilled;
+                }
+                else if (control is EllipticalWingControl ellipControl)
+                {
+                    ellipControl.ComboWingspan.SelectedIndexChanged -= CheckFieldsFilled;
+                    ellipControl.ComboRope.SelectedIndexChanged -= CheckFieldsFilled;
+                    
+                    ellipControl.ComboWingspan.SelectedIndexChanged += CheckFieldsFilled;
+                    ellipControl.ComboRope.SelectedIndexChanged += CheckFieldsFilled;
+                }
+                else if (control is DeltaWingControl deltaControl)
+                {
+                    deltaControl.ComboWingspan.SelectedIndexChanged -= CheckFieldsFilled;
+                    deltaControl.ComboRope.SelectedIndexChanged -= CheckFieldsFilled;
+                    
+                    deltaControl.ComboWingspan.SelectedIndexChanged += CheckFieldsFilled;
+                    deltaControl.ComboRope.SelectedIndexChanged += CheckFieldsFilled;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao adicionar eventos: {ex.Message}");
+            }
+        }
+
+        private double GetCurrentWingArea()
+        {
+            try
+            {
+                if (panelWingArea.Controls.Count > 0)
+                {
+                    var control = panelWingArea.Controls[0];
+                    if (control is IWingControl wingControl)
+                    {
+                        double area = wingControl.WingArea;
+                        
+                        // Debug para identificar problemas
+                        if (area <= 0)
+                        {
+                            Console.WriteLine($"Área calculada: {area}, Wingspan: {wingControl.Wingspan}, Rope: {wingControl.Rope}");
+                        }
+                        
+                        return area;
+                    }
+                }
+                return 0.0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao calcular área da asa: {ex.Message}");
+                return 0.0;
+            }
+        }
+
+        private IWingControl GetCurrentWingControl()
+        {
+            if (panelWingArea.Controls.Count > 0)
+            {
+                var control = panelWingArea.Controls[0];
+                if (control is IWingControl wingControl)
+                {
+                    return wingControl;
+                }
+            }
+            return null;
+        }
+
+        private void ShowWingDetails()
+        {
+            var wingControl = GetCurrentWingControl();
+            if (wingControl != null)
+            {
+                string wingType = ComboWingType.SelectedItem?.ToString() ?? "";
+                string details = $"Tipo de Asa: {wingType}\n";
+                details += $"Envergadura: {wingControl.Wingspan:F2} m\n";
+                details += $"Corda: {wingControl.Rope:F2} m\n";
+                
+                if (wingControl is TrapezoidalWingControl trapControl)
+                {
+                    details += $"Corda na Raiz: {trapControl.RopeAtRoot:F2} m\n";
+                    details += $"Corda na Ponta: {trapControl.RopeAtEnd:F2} m\n";
+                }
+                
+                details += $"Área da Asa: {wingControl.WingArea:F2} m²";
+                
+                // Você pode usar isso para mostrar em um MessageBox ou em um label
+                Console.WriteLine(details);
+            }
+        }
+
+        private void ComboWingType_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            string selectedType = ComboWingType.SelectedItem?.ToString() ?? "";
+            LoadWingControl(selectedType);
+            
+            // Atualizar a imagem da asa
+            if (!string.IsNullOrEmpty(selectedType))
+            {
+                selectedWingType = selectedType;
+                LabelWingType.Text = selectedType;
+            }
+            
+            // Testar o UserControl carregado
+            TestCurrentWingControl();
+        }
+        
+        private void TestCurrentWingControl()
+        {
+            try
+            {
+                var wingControl = GetCurrentWingControl();
+                if (wingControl != null)
+                {
+                    Console.WriteLine($"=== Teste do UserControl: {wingControl.GetType().Name} ===");
+                    Console.WriteLine($"Wingspan: {wingControl.Wingspan:F4}");
+                    Console.WriteLine($"Rope: {wingControl.Rope:F4}");
+                    Console.WriteLine($"WingArea: {wingControl.WingArea:F4}");
+                    Console.WriteLine("=====================================");
+                }
+                else
+                {
+                    Console.WriteLine("Nenhum UserControl encontrado!");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro no teste: {ex.Message}");
+            }
+        }
     }
 }
