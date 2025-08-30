@@ -286,7 +286,7 @@ namespace WinFormsApp1
 
                 UpdateVRMLFile(wingType, windSpeed);
 
-                string scenePath = "C:\\TCC_2025\\Vrml\\cena.wrl";
+                string scenePath = "C:\\WINDWORKS\\Vrml\\cena.wrl";
                 string programPath = "C:\\Program Files\\ParallelGraphics\\RapidAuthorViewer\\RapidAuthorViewer.exe";
 
 
@@ -319,7 +319,7 @@ namespace WinFormsApp1
         {
             try
             {
-                string vrmlPath = "C:\\TCC_2025\\Vrml\\cena.wrl";
+                string vrmlPath = "C:\\WINDWORKS\\Vrml\\cena.wrl";
                 string vrmlContent = File.ReadAllText(vrmlPath);
                 string pattern = @"Inline { url "":WingTypes/\w+.wrl"" }";
                 string replacement = $@"Inline {{ url "":WingTypes/{airplaneType}.wrl"" }}";
@@ -693,7 +693,7 @@ namespace WinFormsApp1
 
         private string GetImagePath(string wingType, string viewType)
         {
-            string basePath = @"C:\TCC_2025\Prints";
+            string basePath = @"C:\WINDWORKS\Prints";
 
             return wingType switch
             {
@@ -1241,18 +1241,18 @@ namespace WinFormsApp1
                 else if (control is TrapezoidalWingControl trapControl)
                 {
                     trapControl.ComboWingspan.Items.Clear();
-                    trapControl.ComboRopeAtRoot.Items.Clear();
-                    trapControl.comboRopeAtEnd.Items.Clear();
+                    trapControl.ComboRopeAtRootComboRopeAtRoot.Items.Clear();
+                    trapControl.ComboRopeAtEnd.Items.Clear();
                     
                     trapControl.ComboWingspan.Items.AddRange(wingspanValues.Cast<object>().ToArray());
-                    trapControl.ComboRopeAtRoot.Items.AddRange(ropeValues.Cast<object>().ToArray());
-                    trapControl.comboRopeAtEnd.Items.AddRange(ropeValues.Cast<object>().ToArray());
+                    trapControl.ComboRopeAtRootComboRopeAtRoot.Items.AddRange(ropeValues.Cast<object>().ToArray());
+                    trapControl.ComboRopeAtEnd.Items.AddRange(ropeValues.Cast<object>().ToArray());
                     
                     if (trapControl.ComboWingspan.Items.Count > 0) trapControl.ComboWingspan.SelectedIndex = 0;
-                    if (trapControl.ComboRopeAtRoot.Items.Count > 0) trapControl.ComboRopeAtRoot.SelectedIndex = 0;
-                    if (trapControl.comboRopeAtEnd.Items.Count > 0) trapControl.comboRopeAtEnd.SelectedIndex = 0;
+                    if (trapControl.ComboRopeAtRootComboRopeAtRoot.Items.Count > 0) trapControl.ComboRopeAtRootComboRopeAtRoot.SelectedIndex = 0;
+                    if (trapControl.ComboRopeAtEnd.Items.Count > 0) trapControl.ComboRopeAtEnd.SelectedIndex = 0;
                     
-                    Console.WriteLine($"Trapezoidal: Wingspan={trapControl.ComboWingspan.SelectedItem}, RopeRoot={trapControl.ComboRopeAtRoot.SelectedItem}, RopeEnd={trapControl.comboRopeAtEnd.SelectedItem}");
+                    Console.WriteLine($"Trapezoidal: Wingspan={trapControl.ComboWingspan.SelectedItem}, RopeRoot={trapControl.ComboRopeAtRootComboRopeAtRoot.SelectedItem}, RopeEnd={trapControl.ComboRopeAtEnd.SelectedItem}");
                 }
                 else if (control is EllipticalWingControl ellipControl)
                 {
@@ -1306,12 +1306,12 @@ namespace WinFormsApp1
                 else if (control is TrapezoidalWingControl trapControl)
                 {
                     trapControl.ComboWingspan.SelectedIndexChanged -= CheckFieldsFilled;
-                    trapControl.ComboRopeAtRoot.SelectedIndexChanged -= CheckFieldsFilled;
-                    trapControl.comboRopeAtEnd.SelectedIndexChanged -= CheckFieldsFilled;
+                    trapControl.ComboRopeAtRootComboRopeAtRoot.SelectedIndexChanged -= CheckFieldsFilled;
+                    trapControl.ComboRopeAtEnd.SelectedIndexChanged -= CheckFieldsFilled;
                     
                     trapControl.ComboWingspan.SelectedIndexChanged += CheckFieldsFilled;
-                    trapControl.ComboRopeAtRoot.SelectedIndexChanged += CheckFieldsFilled;
-                    trapControl.comboRopeAtEnd.SelectedIndexChanged += CheckFieldsFilled;
+                    trapControl.ComboRopeAtRootComboRopeAtRoot.SelectedIndexChanged += CheckFieldsFilled;
+                    trapControl.ComboRopeAtEnd.SelectedIndexChanged += CheckFieldsFilled;
                 }
                 else if (control is EllipticalWingControl ellipControl)
                 {

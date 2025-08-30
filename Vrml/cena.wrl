@@ -10,7 +10,7 @@ NavigationInfo {
 
 # Timer para o ventilador
 DEF VENTILADOR_TIMER TimeSensor {
-    cycleInterval 0.052333333
+    cycleInterval 0.0785
     loop TRUE
 }
 
@@ -75,7 +75,7 @@ Group {
                     children [
                         DEF AVIAO_RETANGULAR Transform {
                             children [
-                                Inline { url ":WingTypes/Rectangular.wrl" }
+                                Inline { url ":WingTypes/Trapezoidal.wrl" }
                             ]
                         }
                     ]
@@ -125,8 +125,8 @@ Group {
         
         # Ponto de vista 
         Viewpoint {
-            position 35.78701577186584 3.219329833984 40.6202430725098 #Camera Position
-            orientation 0.1 -1.1 -1.2 3 #Camera Orientation
+            position 25 -138 35.6202430725098 #Camera Position
+            orientation 1.1 -1.1 -1.1 2.1 #Camera Orientation
             description "vista Frontal"
         }
         # ponto de vista

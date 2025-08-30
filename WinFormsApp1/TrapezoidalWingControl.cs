@@ -17,7 +17,7 @@ namespace WinFormsApp1
         {
             get
             {
-                if (ComboRopeAtRoot.SelectedItem != null && double.TryParse(ComboRopeAtRoot.SelectedItem.ToString(), out double value))
+                if (ComboRopeAtRootComboRopeAtRoot.SelectedItem != null && double.TryParse(ComboRopeAtRootComboRopeAtRoot.SelectedItem.ToString(), out double value))
                     return value;
                 return 0.0;
             }
@@ -37,7 +37,7 @@ namespace WinFormsApp1
         {
             get
             {
-                if (ComboRopeAtRoot.SelectedItem != null && double.TryParse(ComboRopeAtRoot.SelectedItem.ToString(), out double value))
+                if (ComboRopeAtRootComboRopeAtRoot.SelectedItem != null && double.TryParse(ComboRopeAtRootComboRopeAtRoot.SelectedItem.ToString(), out double value))
                     return value;
                 return 0.0;
             }
@@ -47,7 +47,7 @@ namespace WinFormsApp1
         {
             get
             {
-                if (comboRopeAtEnd.SelectedItem != null && double.TryParse(comboRopeAtEnd.SelectedItem.ToString(), out double value))
+                if (ComboRopeAtEnd.SelectedItem != null && double.TryParse(ComboRopeAtEnd.SelectedItem.ToString(), out double value))
                     return value;
                 return 0.0;
             }
