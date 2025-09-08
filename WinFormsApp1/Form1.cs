@@ -103,7 +103,6 @@ namespace WinFormsApp1
             ComboAirDensity.SelectedIndex = 0;
             ComboWindSpeed.SelectedIndexChanged += CheckFieldsFilled;
             ComboAirDensity.SelectedIndexChanged += CheckFieldsFilled;
-            ComboWingType.SelectedIndexChanged += ComboWingType_SelectedIndexChanged;
             
             // Carregar o primeiro UserControl (Rectangular)
             LoadWingControl("Rectangular");
@@ -326,7 +325,7 @@ namespace WinFormsApp1
 
                 vrmlContent = Regex.Replace(vrmlContent, pattern, replacement);
 
-                float cycleInterval = (float)(6.28 / (windSpeed / 0.25)); //alterar o 0.25 (raio do ventilador) se necessário
+                float cycleInterval = (float)(6.28 / (windSpeed / 0.5)); // alterar o 0.5 (raio do ventilador) para ajustar a velocidade
                 pattern = @"cycleInterval\s+\d+(\.\d+)?";
                 replacement = $@"cycleInterval {cycleInterval}";
                 vrmlContent = Regex.Replace(vrmlContent, pattern, replacement);
@@ -693,7 +692,7 @@ namespace WinFormsApp1
 
         private string GetImagePath(string wingType, string viewType)
         {
-            string basePath = @"C:\WINDWORKS\Prints";
+            string basePath = @"C:\WINDWORKS    \Prints";
 
             return wingType switch
             {
@@ -1405,6 +1404,7 @@ namespace WinFormsApp1
         {
             string selectedType = ComboWingType.SelectedItem?.ToString() ?? "";
             LoadWingControl(selectedType);
+
             
             // Atualizar a imagem da asa
             if (!string.IsNullOrEmpty(selectedType))
@@ -1415,6 +1415,7 @@ namespace WinFormsApp1
             
             // Testar o UserControl carregado
             TestCurrentWingControl();
+            LoadWingImage("Cima");
         }
         
         private void TestCurrentWingControl()

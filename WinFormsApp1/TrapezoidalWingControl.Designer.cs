@@ -91,7 +91,7 @@
             LabelDensidadeAr.Name = "LabelDensidadeAr";
             LabelDensidadeAr.Size = new Size(116, 22);
             LabelDensidadeAr.TabIndex = 18;
-            LabelDensidadeAr.Text = "Rope at the Root";
+            LabelDensidadeAr.Text = "Rope at the Root (m)";
             // 
             // LabelVelocidadeVento
             // 
@@ -101,7 +101,7 @@
             LabelVelocidadeVento.Name = "LabelVelocidadeVento";
             LabelVelocidadeVento.Size = new Size(69, 22);
             LabelVelocidadeVento.TabIndex = 17;
-            LabelVelocidadeVento.Text = "Wingspan";
+            LabelVelocidadeVento.Text = "Wingspan (m)";
             // 
             // guna2HtmlLabel1
             // 
@@ -111,7 +111,7 @@
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             guna2HtmlLabel1.Size = new Size(109, 22);
             guna2HtmlLabel1.TabIndex = 23;
-            guna2HtmlLabel1.Text = "Rope at the End";
+            guna2HtmlLabel1.Text = "Rope at the End (m)";
             // 
             // TrapezoidalWingControl
             // 

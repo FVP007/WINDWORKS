@@ -79,7 +79,7 @@
             LabelDensidadeAr.Name = "LabelDensidadeAr";
             LabelDensidadeAr.Size = new Size(38, 22);
             LabelDensidadeAr.TabIndex = 18;
-            LabelDensidadeAr.Text = "Rope";
+            LabelDensidadeAr.Text = "Rope (m)";
             // 
             // LabelVelocidadeVento
             // 
@@ -89,7 +89,7 @@
             LabelVelocidadeVento.Name = "LabelVelocidadeVento";
             LabelVelocidadeVento.Size = new Size(69, 22);
             LabelVelocidadeVento.TabIndex = 17;
-            LabelVelocidadeVento.Text = "Wingspan";
+            LabelVelocidadeVento.Text = "Wingspan (m)";
             // 
             // RectangularWingControl
             // 

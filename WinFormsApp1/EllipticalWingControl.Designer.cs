@@ -48,7 +48,7 @@
             LabelVelocidadeVento.Name = "LabelVelocidadeVento";
             LabelVelocidadeVento.Size = new Size(69, 22);
             LabelVelocidadeVento.TabIndex = 17;
-            LabelVelocidadeVento.Text = "Wingspan";
+            LabelVelocidadeVento.Text = "Wingspan (m)";
             // 
             // LabelDensidadeAr
             // 
@@ -101,7 +101,7 @@
             guna2HtmlLabel1.Name = "guna2HtmlLabel1";
             guna2HtmlLabel1.Size = new Size(38, 22);
             guna2HtmlLabel1.TabIndex = 18;
-            guna2HtmlLabel1.Text = "Rope";
+            guna2HtmlLabel1.Text = "Rope (m)";
             // 
             // guna2HtmlLabel2
             // 
