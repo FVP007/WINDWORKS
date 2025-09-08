@@ -9,7 +9,7 @@ Shape{
         shininess 6
     }
     texture ImageTexture {
-      url "../Textures/metal1.jpg"
+      url "../Textures/BlueMetal.jpg"
       repeatS TRUE
       repeatT TRUE
     }

@@ -325,7 +325,7 @@ namespace WinFormsApp1
 
                 vrmlContent = Regex.Replace(vrmlContent, pattern, replacement);
 
-                float cycleInterval = (float)(6.28 / (windSpeed / 0.5)); // alterar o 0.5 (raio do ventilador) para ajustar a velocidade
+                float cycleInterval = (float)(6.28 / (windSpeed / 3)); // alterar o 3 (raio do ventilador) para ajustar a velocidade
                 pattern = @"cycleInterval\s+\d+(\.\d+)?";
                 replacement = $@"cycleInterval {cycleInterval}";
                 vrmlContent = Regex.Replace(vrmlContent, pattern, replacement);
@@ -692,7 +692,7 @@ namespace WinFormsApp1
 
         private string GetImagePath(string wingType, string viewType)
         {
-            string basePath = @"C:\WINDWORKS    \Prints";
+            string basePath = @"C:\WINDWORKS\Prints";
 
             return wingType switch
             {

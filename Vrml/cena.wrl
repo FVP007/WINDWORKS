@@ -2,7 +2,16 @@
 # ----------------------------------------------------------------
 # Cena criada em 18, junho de 2025 às 10:40
 # ---------------------------------------------------------------
+Background {
+  skyColor [ 0 0 0 ]  # preto
+}
 
+# Luzes da cena
+DirectionalLight {
+  direction 0 -1 -1
+  color 1 1 1
+  intensity 1
+}
 NavigationInfo {
     headlight TRUE
     type ["EXAMINE"]
@@ -10,7 +19,7 @@ NavigationInfo {
 
 # Timer para o ventilador
 DEF VENTILADOR_TIMER TimeSensor {
-    cycleInterval 0.0785
+    cycleInterval 2.0933332
     loop TRUE
 }
 
@@ -75,7 +84,7 @@ Group {
                     children [
                         DEF AVIAO_RETANGULAR Transform {
                             children [
-                                Inline { url ":WingTypes/Trapezoidal.wrl" }
+                                Inline { url ":WingTypes/Elliptical.wrl" }
                             ]
                         }
                     ]
