@@ -2,7 +2,16 @@
 # ----------------------------------------------------------------
 # Cena criada em 18, junho de 2025 às 10:40
 # ---------------------------------------------------------------
+Background {
+  skyColor [ 0 0 0 ]  # preto
+}
 
+# Luzes da cena
+DirectionalLight {
+  direction 0 -1 -1
+  color 1 1 1
+  intensity 1
+}
 NavigationInfo {
     headlight TRUE
     type ["EXAMINE"]
@@ -125,8 +134,8 @@ Group {
         
         # Ponto de vista 
         Viewpoint {
-            position 35.78701577186584 3.219329833984 40.6202430725098 #Camera Position
-            orientation 0.1 -1.1 -1.2 3 #Camera Orientation
+            position 15.78701577186584 -128.219329833984 37.6202430725098 #Camera Position
+            orientation 0.728832358121872 -0.999999999999 -0.999999999999 2.23173069953918 #Camera Orientation
             description "vista Frontal"
         }
         # ponto de vista
