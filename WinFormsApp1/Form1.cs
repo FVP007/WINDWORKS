@@ -29,6 +29,16 @@ namespace WinFormsApp1
         private bool PageGraficoEnabled = false;
         private bool PageResultadosEnabled = false;
         private string connectionString = "Server=localhost;Database=LiftForceDb;Uid=root;";
+        
+        // Variáveis para controle dos ComboBoxes de seleção de tipos de asa
+        private Dictionary<string, bool> wingTypeSelections = new Dictionary<string, bool>
+        {
+            { "Rectangular", true },
+            { "Trapezoidal", false },
+            { "Elliptical", false },
+            { "Delta", false }
+        };
+        private string currentSimulatedWingType = "Rectangular";
         // Responsive layout variables
         private Size originalFormSize;
         private bool isResponsiveInitialized = false;
@@ -106,6 +116,10 @@ namespace WinFormsApp1
             
             // Carregar o primeiro UserControl (Rectangular)
             LoadWingControl("Rectangular");
+            
+            // Sincronizar checkboxes com as seleções iniciais
+            SyncCheckBoxesWithSelections();
+            
             originalFormSize = this.Size;
             isResponsiveInitialized = true;
 
@@ -385,6 +399,44 @@ namespace WinFormsApp1
             return 0.5 * density * Math.Pow(speed, 2) * area * coefficient;
         }
 
+        // Métodos de cálculo de área por envergadura fixa
+        static double AreaAsaRetangular(double b)
+        {
+            double c = b / 5.0;
+            return b * c;
+        }
+
+        static double AreaAsaTrapezoidal(double b)
+        {
+            double cRaiz = b / 4.0;
+            double cPonta = b / 8.0;
+            return ((cRaiz + cPonta) / 2.0) * b;
+        }
+
+        static double AreaAsaEliptica(double b)
+        {
+            double cRaiz = b / 6.0;
+            return (Math.PI / 4.0) * b * cRaiz;
+        }
+
+        static double AreaAsaDelta(double b)
+        {
+            double cRaiz = b / 3.0;
+            return (b * cRaiz) / 2.0;
+        }
+
+        private double CalculateWingAreaByType(string wingType, double wingspan)
+        {
+            return wingType switch
+            {
+                "Rectangular" => AreaAsaRetangular(wingspan),
+                "Trapezoidal" => AreaAsaTrapezoidal(wingspan),
+                "Elliptical" => AreaAsaEliptica(wingspan),
+                "Delta" => AreaAsaDelta(wingspan),
+                _ => AreaAsaRetangular(wingspan)
+            };
+        }
+
         public void ButtonRunTest_Click(object sender, EventArgs e)
         {
             try
@@ -428,6 +480,9 @@ namespace WinFormsApp1
                 string wingType = ComboWingType.SelectedItem?.ToString() ?? "Rectangular";
                 string cameraPerspective = ComboCameraPerspective.SelectedItem?.ToString() ?? "";
 
+                // Atualizar o tipo de asa sendo simulado
+                currentSimulatedWingType = wingType;
+
                 // Calculate lift force
                 double liftForce = CalculateLiftForce(airDensity, windSpeed, wingArea, coefficient);
 
@@ -462,8 +517,8 @@ namespace WinFormsApp1
             }
 
                 LoadVRMLModel(sender, e);
-                // Show Highcharts graph
-                ShowChart(airDensity, windSpeed, wingArea, coefficient);
+                // Show Highcharts graph with multiple wing types
+                ShowChart(airDensity, windSpeed, coefficient);
 
                 PageGraficoEnabled = true;
                 ResultsForm resultsForm = new ResultsForm();
@@ -485,18 +540,70 @@ namespace WinFormsApp1
         }
 
 
-        private async void ShowChart(double density, double maxSpeed, double area, double coefficient)
+        private void RecalculateChart()
         {
-
-            List<object[]> dataPoints = new List<object[]>();
-            for (double v = 0; v <= maxSpeed; v += 1)
+            if (PageGraficoEnabled)
             {
-                double force = CalculateLiftForce(density, v, area, coefficient);
-                dataPoints.Add(new object[] { v, Math.Round(force, 2) });
+                try
+                {
+                    double density = double.Parse(ComboAirDensity.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture);
+                    double maxSpeed = double.Parse(ComboWindSpeed.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture);
+                    ShowChart(density, maxSpeed, coefficient);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Erro ao recalcular gráfico: {ex.Message}");
+                }
+            }
+        }
+
+        private async void ShowChart(double density, double maxSpeed, double coefficient)
+        {
+            // Obter a envergadura do tipo de asa principal sendo simulada
+            double wingspan = GetCurrentWingArea() > 0 ? GetCurrentWingControl()?.Wingspan ?? 10.0 : 10.0;
+            
+            // Criar lista de séries para o gráfico
+            List<object> series = new List<object>();
+            
+            // Cores específicas para cada tipo de asa
+            var wingColors = new Dictionary<string, string>
+            {
+                { "Rectangular", "#FF0000" },  // Vermelho
+                { "Trapezoidal", "#0000FF" },  // Azul
+                { "Elliptical", "#FFFF00" },   // Amarelo
+                { "Delta", "#00FF00" }         // Verde
+            };
+
+            // Gerar dados para cada tipo de asa selecionado
+            foreach (var kvp in wingTypeSelections.Where(x => x.Value))
+            {
+                string wingType = kvp.Key;
+                double area = CalculateWingAreaByType(wingType, wingspan);
+                
+                List<object[]> dataPoints = new List<object[]>();
+                for (double v = 0; v <= maxSpeed; v += 1)
+                {
+                    double force = CalculateLiftForce(density, v, area, coefficient);
+                    dataPoints.Add(new object[] { v, Math.Round(force, 2) });
+                }
+
+                series.Add(new
+                {
+                    name = wingType,
+                    data = dataPoints,
+                    color = wingColors[wingType],
+                    lineWidth = 3,
+                    marker = new { enabled = true, radius = 3 }
+                });
             }
 
-            string dataPointsJson = JsonSerializer.Serialize(dataPoints);
+            string seriesJson = JsonSerializer.Serialize(series);
 
+
+            // Criar legenda dinâmica
+            string legendItems = string.Join(" | ", wingTypeSelections
+                .Where(x => x.Value)
+                .Select(x => $"<span style='color: {wingColors[x.Key]}'>●</span> {x.Key}"));
 
             string html = $@"<!DOCTYPE html>
 <html lang='en'>
@@ -514,7 +621,7 @@ namespace WinFormsApp1
             box-sizing: border-box;
         }}
         #container {{
-            height: calc(100vh - 120px);
+            height: calc(100vh - 160px);
             width: 100%;
             margin: 0;
             padding: 0;
@@ -532,13 +639,21 @@ namespace WinFormsApp1
         .chart-subtitle {{
             font-size: 14px;
             color: #666;
+            margin-bottom: 10px;
+        }}
+        .chart-legend {{
+            font-size: 12px;
+            color: #555;
+            text-align: center;
+            margin-top: 10px;
         }}
     </style>
 </head>
 <body>
     <div class='chart-header'>
         <div class='chart-title'>Wind Speed vs Lift Force</div>
-        <div class='chart-subtitle'>Density: {density:F2} kg/m³ | Area: {area:F2} m² | Coefficient: {coefficient:F2}</div>
+        <div class='chart-subtitle'>Density: {density:F2} kg/m³ | Wingspan: {wingspan:F2} m | Coefficient: {coefficient:F2}</div>
+        <div class='chart-legend'>{legendItems}</div>
     </div>
     <div id='container'></div>
     <script>
@@ -565,24 +680,24 @@ namespace WinFormsApp1
                 gridLineColor: '#e6e6e6',
                 labels: {{ style: {{ fontSize: '11px' }} }}
             }},
-            legend: {{ enabled: false }},
+            legend: {{ 
+                enabled: true,
+                layout: 'horizontal',
+                align: 'center',
+                verticalAlign: 'bottom',
+                itemStyle: {{ fontSize: '11px' }}
+            }},
             plotOptions: {{
                 line: {{
                     marker: {{
                         enabled: true,
                         radius: 3,
-                        lineWidth: 1,
-                        lineColor: '#007bff',
-                        fillColor: '#ffffff'
+                        lineWidth: 1
                     }},
-                    lineWidth: 3,
-                    color: '#007bff'
+                    lineWidth: 3
                 }}
             }},
-            series: [{{
-                name: 'Lift',
-                data: {dataPointsJson}
-            }}],
+            series: {seriesJson},
             credits: {{ enabled: false }},
             responsive: {{
                 rules: [{{
@@ -1416,6 +1531,121 @@ namespace WinFormsApp1
             // Testar o UserControl carregado
             TestCurrentWingControl();
             LoadWingImage("Cima");
+        }
+
+        private void ComboWingTypeSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var comboBox = sender as Guna.UI2.WinForms.Guna2ComboBox;
+                if (comboBox == null) return;
+
+                string wingType = comboBox.Name.Replace("Combo", "");
+                bool isSelected = comboBox.SelectedIndex == 0;
+
+                // Verificar se é o tipo que está sendo simulado atualmente
+                if (wingType == currentSimulatedWingType && !isSelected)
+                {
+                    // Não permitir desmarcar o tipo que está sendo simulado
+                    comboBox.SelectedIndex = 0;
+                    MessageBox.Show($"Não é possível desmarcar o tipo '{wingType}' pois ele está sendo simulado atualmente.", 
+                                  "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Atualizar o dicionário de seleções
+                wingTypeSelections[wingType] = isSelected;
+
+                // Verificar se pelo menos um tipo está selecionado
+                if (!wingTypeSelections.Values.Any(selected => selected))
+                {
+                    comboBox.SelectedIndex = 0;
+                    wingTypeSelections[wingType] = true;
+                    MessageBox.Show("Pelo menos um tipo de asa deve estar selecionado.", 
+                                  "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Recalcular o gráfico se já estiver habilitado
+                if (PageGraficoEnabled)
+                {
+                    RecalculateChart();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao processar seleção de tipo de asa: {ex.Message}");
+            }
+        }
+
+        private void CheckBoxWingType_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var checkBox = sender as CheckBox;
+                if (checkBox == null) return;
+
+                // Mapear checkbox para tipo de asa
+                string wingType = checkBox.Name switch
+                {
+                    "checkBox1" => "Rectangular",
+                    "checkBox2" => "Trapezoidal", 
+                    "checkBox3" => "Elliptical",
+                    "checkBox4" => "Delta",
+                    _ => ""
+                };
+
+                if (string.IsNullOrEmpty(wingType)) return;
+
+                // Verificar se é o tipo que está sendo simulado atualmente
+                if (wingType == currentSimulatedWingType && !checkBox.Checked)
+                {
+                    // Não permitir desmarcar o tipo que está sendo simulado
+                    checkBox.Checked = true;
+                    MessageBox.Show($"Não é possível desmarcar o tipo '{wingType}' pois ele está sendo simulado atualmente.", 
+                                  "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Atualizar o dicionário de seleções
+                wingTypeSelections[wingType] = checkBox.Checked;
+
+                // Verificar se pelo menos um tipo está selecionado
+                if (!wingTypeSelections.Values.Any(selected => selected))
+                {
+                    checkBox.Checked = true;
+                    wingTypeSelections[wingType] = true;
+                    MessageBox.Show("Pelo menos um tipo de asa deve estar selecionado.", 
+                                  "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Recalcular o gráfico se já estiver habilitado
+                if (PageGraficoEnabled)
+                {
+                    RecalculateChart();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao processar mudança de checkbox: {ex.Message}");
+            }
+        }
+
+        private void SyncCheckBoxesWithSelections()
+        {
+            try
+            {
+                // Sincronizar checkboxes com o estado atual das seleções
+                checkBox1.Checked = wingTypeSelections["Rectangular"];
+                checkBox2.Checked = wingTypeSelections["Trapezoidal"];
+                checkBox3.Checked = wingTypeSelections["Elliptical"];
+                checkBox4.Checked = wingTypeSelections["Delta"];
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao sincronizar checkboxes: {ex.Message}");
+            }
         }
         
         private void TestCurrentWingControl()
