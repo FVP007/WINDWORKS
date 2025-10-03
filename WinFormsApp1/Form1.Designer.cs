@@ -44,6 +44,8 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges18 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges11 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges12 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges15 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges16 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges35 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
@@ -72,8 +74,6 @@
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges38 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges41 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges42 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges13 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges14 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             guna2DragControl1 = new Guna.UI2.WinForms.Guna2DragControl(components);
             guna2Panel1 = new Guna.UI2.WinForms.Guna2Panel();
             guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
@@ -89,7 +89,6 @@
             xmlToolStripMenuItem = new ToolStripMenuItem();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             resultsToolStripMenuItem = new ToolStripMenuItem();
-            toolStripComboBox1 = new ToolStripComboBox();
             tableLayoutPanel1 = new TableLayoutPanel();
             guna2Panel2 = new Guna.UI2.WinForms.Guna2Panel();
             tabControl1 = new TabControl();
@@ -97,6 +96,12 @@
             LabelWingType = new Guna.UI2.WinForms.Guna2HtmlLabel();
             PictureBoxModelImage = new Guna.UI2.WinForms.Guna2PictureBox();
             PageGrafico = new TabPage();
+            guna2Panel10 = new Guna.UI2.WinForms.Guna2Panel();
+            labelWingTypes = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            checkBox4 = new CheckBox();
+            checkBox3 = new CheckBox();
+            checkBox2 = new CheckBox();
+            checkBox1 = new CheckBox();
             webViewChart = new Microsoft.Web.WebView2.WinForms.WebView2();
             ButtonRunTest = new Guna.UI2.WinForms.Guna2Button();
             guna2Panel3 = new Guna.UI2.WinForms.Guna2Panel();
@@ -128,12 +133,6 @@
             guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(components);
             guna2HtmlToolTip1 = new Guna.UI2.WinForms.Guna2HtmlToolTip();
             guna2HtmlToolTip2 = new Guna.UI2.WinForms.Guna2HtmlToolTip();
-            guna2Panel10 = new Guna.UI2.WinForms.Guna2Panel();
-            labelWingTypes = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            checkBox1 = new CheckBox();
-            checkBox2 = new CheckBox();
-            checkBox3 = new CheckBox();
-            checkBox4 = new CheckBox();
             guna2Panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)guna2PictureBox1).BeginInit();
             toolStrip1.SuspendLayout();
@@ -143,6 +142,7 @@
             PageVisualizador.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PictureBoxModelImage).BeginInit();
             PageGrafico.SuspendLayout();
+            guna2Panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)webViewChart).BeginInit();
             guna2Panel3.SuspendLayout();
             guna2Panel8.SuspendLayout();
@@ -151,7 +151,6 @@
             guna2Panel6.SuspendLayout();
             guna2Panel9.SuspendLayout();
             guna2Panel4.SuspendLayout();
-            guna2Panel10.SuspendLayout();
             SuspendLayout();
             // 
             // guna2DragControl1
@@ -240,7 +239,7 @@
             // toolStrip1
             // 
             toolStrip1.GripStyle = ToolStripGripStyle.Hidden;
-            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton2, toolStripDropDownButton1, toolStripComboBox1 });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton2, toolStripDropDownButton1 });
             toolStrip1.Location = new Point(0, 32);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(1263, 25);
@@ -304,12 +303,6 @@
             resultsToolStripMenuItem.Size = new Size(111, 22);
             resultsToolStripMenuItem.Text = "Results";
             resultsToolStripMenuItem.Click += resultsToolStripMenuItem_Click;
-            // 
-            // toolStripComboBox1
-            // 
-            toolStripComboBox1.Items.AddRange(new object[] { "Rectangular", "Elliptical", "Trapezoidal", "Delta" });
-            toolStripComboBox1.Name = "toolStripComboBox1";
-            toolStripComboBox1.Size = new Size(121, 25);
             // 
             // tableLayoutPanel1
             // 
@@ -407,6 +400,95 @@
             PageGrafico.TabIndex = 1;
             PageGrafico.Text = "Chart";
             PageGrafico.UseVisualStyleBackColor = true;
+            // 
+            // guna2Panel10
+            // 
+            guna2Panel10.BackColor = Color.White;
+            guna2Panel10.BorderColor = Color.Gray;
+            guna2Panel10.BorderRadius = 5;
+            guna2Panel10.BorderThickness = 1;
+            guna2Panel10.Controls.Add(labelWingTypes);
+            guna2Panel10.Controls.Add(checkBox4);
+            guna2Panel10.Controls.Add(checkBox3);
+            guna2Panel10.Controls.Add(checkBox2);
+            guna2Panel10.Controls.Add(checkBox1);
+            guna2Panel10.CustomizableEdges = customizableEdges13;
+            guna2Panel10.Location = new Point(663, 6);
+            guna2Panel10.Name = "guna2Panel10";
+            guna2Panel10.ShadowDecoration.CustomizableEdges = customizableEdges14;
+            guna2Panel10.Size = new Size(130, 105);
+            guna2Panel10.TabIndex = 8;
+            // 
+            // labelWingTypes
+            // 
+            labelWingTypes.BackColor = Color.Transparent;
+            labelWingTypes.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            labelWingTypes.ForeColor = Color.Black;
+            labelWingTypes.Location = new Point(5, 5);
+            labelWingTypes.Name = "labelWingTypes";
+            labelWingTypes.Size = new Size(76, 19);
+            labelWingTypes.TabIndex = 4;
+            labelWingTypes.Text = "Wing Types";
+            // 
+            // checkBox4
+            // 
+            checkBox4.AutoSize = true;
+            checkBox4.Checked = true;
+            checkBox4.CheckState = CheckState.Checked;
+            checkBox4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            checkBox4.ForeColor = Color.Green;
+            checkBox4.Location = new Point(5, 82);
+            checkBox4.Name = "checkBox4";
+            checkBox4.Size = new Size(56, 19);
+            checkBox4.TabIndex = 3;
+            checkBox4.Text = "Delta";
+            checkBox4.UseVisualStyleBackColor = true;
+            checkBox4.CheckedChanged += CheckBoxWingType_CheckedChanged;
+            // 
+            // checkBox3
+            // 
+            checkBox3.AutoSize = true;
+            checkBox3.Checked = true;
+            checkBox3.CheckState = CheckState.Checked;
+            checkBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            checkBox3.ForeColor = Color.Goldenrod;
+            checkBox3.Location = new Point(5, 62);
+            checkBox3.Name = "checkBox3";
+            checkBox3.Size = new Size(71, 19);
+            checkBox3.TabIndex = 2;
+            checkBox3.Text = "Elliptical";
+            checkBox3.UseVisualStyleBackColor = true;
+            checkBox3.CheckedChanged += CheckBoxWingType_CheckedChanged;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Checked = true;
+            checkBox2.CheckState = CheckState.Checked;
+            checkBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            checkBox2.ForeColor = Color.Blue;
+            checkBox2.Location = new Point(5, 42);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(89, 19);
+            checkBox2.TabIndex = 1;
+            checkBox2.Text = "Trapezoidal";
+            checkBox2.UseVisualStyleBackColor = true;
+            checkBox2.CheckedChanged += CheckBoxWingType_CheckedChanged;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Checked = true;
+            checkBox1.CheckState = CheckState.Checked;
+            checkBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            checkBox1.ForeColor = Color.Red;
+            checkBox1.Location = new Point(5, 22);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(93, 19);
+            checkBox1.TabIndex = 0;
+            checkBox1.Text = "Rectangular";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += CheckBoxWingType_CheckedChanged;
             // 
             // webViewChart
             // 
@@ -821,95 +903,6 @@
             guna2HtmlToolTip2.AllowLinksHandling = true;
             guna2HtmlToolTip2.MaximumSize = new Size(0, 0);
             // 
-            // guna2Panel10
-            // 
-            guna2Panel10.BackColor = Color.White;
-            guna2Panel10.BorderColor = Color.Gray;
-            guna2Panel10.BorderRadius = 5;
-            guna2Panel10.BorderThickness = 1;
-            guna2Panel10.Controls.Add(labelWingTypes);
-            guna2Panel10.Controls.Add(checkBox4);
-            guna2Panel10.Controls.Add(checkBox3);
-            guna2Panel10.Controls.Add(checkBox2);
-            guna2Panel10.Controls.Add(checkBox1);
-            guna2Panel10.CustomizableEdges = customizableEdges13;
-            guna2Panel10.Location = new Point(672, 6);
-            guna2Panel10.Name = "guna2Panel10";
-            guna2Panel10.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            guna2Panel10.Size = new Size(130, 105);
-            guna2Panel10.TabIndex = 8;
-            // 
-            // labelWingTypes
-            // 
-            labelWingTypes.BackColor = Color.Transparent;
-            labelWingTypes.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            labelWingTypes.ForeColor = Color.Black;
-            labelWingTypes.Location = new Point(5, 5);
-            labelWingTypes.Name = "labelWingTypes";
-            labelWingTypes.Size = new Size(120, 17);
-            labelWingTypes.TabIndex = 4;
-            labelWingTypes.Text = "Wing Types";
-            // 
-            // checkBox1
-            // 
-            checkBox1.AutoSize = true;
-            checkBox1.Checked = true;
-            checkBox1.CheckState = CheckState.Checked;
-            checkBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            checkBox1.ForeColor = Color.Red;
-            checkBox1.Location = new Point(5, 22);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(95, 19);
-            checkBox1.TabIndex = 0;
-            checkBox1.Text = "Rectangular";
-            checkBox1.UseVisualStyleBackColor = true;
-            checkBox1.CheckedChanged += CheckBoxWingType_CheckedChanged;
-            // 
-            // checkBox2
-            // 
-            checkBox2.AutoSize = true;
-            checkBox2.Checked = true;
-            checkBox2.CheckState = CheckState.Checked;
-            checkBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            checkBox2.ForeColor = Color.Blue;
-            checkBox2.Location = new Point(5, 42);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(90, 19);
-            checkBox2.TabIndex = 1;
-            checkBox2.Text = "Trapezoidal";
-            checkBox2.UseVisualStyleBackColor = true;
-            checkBox2.CheckedChanged += CheckBoxWingType_CheckedChanged;
-            // 
-            // checkBox3
-            // 
-            checkBox3.AutoSize = true;
-            checkBox3.Checked = true;
-            checkBox3.CheckState = CheckState.Checked;
-            checkBox3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            checkBox3.ForeColor = Color.Goldenrod;
-            checkBox3.Location = new Point(5, 62);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(74, 19);
-            checkBox3.TabIndex = 2;
-            checkBox3.Text = "Elliptical";
-            checkBox3.UseVisualStyleBackColor = true;
-            checkBox3.CheckedChanged += CheckBoxWingType_CheckedChanged;
-            // 
-            // checkBox4
-            // 
-            checkBox4.AutoSize = true;
-            checkBox4.Checked = true;
-            checkBox4.CheckState = CheckState.Checked;
-            checkBox4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            checkBox4.ForeColor = Color.Green;
-            checkBox4.Location = new Point(5, 82);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(58, 19);
-            checkBox4.TabIndex = 3;
-            checkBox4.Text = "Delta";
-            checkBox4.UseVisualStyleBackColor = true;
-            checkBox4.CheckedChanged += CheckBoxWingType_CheckedChanged;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -933,6 +926,8 @@
             PageVisualizador.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PictureBoxModelImage).EndInit();
             PageGrafico.ResumeLayout(false);
+            guna2Panel10.ResumeLayout(false);
+            guna2Panel10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)webViewChart).EndInit();
             guna2Panel3.ResumeLayout(false);
             guna2Panel3.PerformLayout();
@@ -945,8 +940,6 @@
             guna2Panel9.PerformLayout();
             guna2Panel4.ResumeLayout(false);
             guna2Panel4.PerformLayout();
-            guna2Panel10.ResumeLayout(false);
-            guna2Panel10.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -997,10 +990,8 @@
         private TabControl tabControl1;
         private TabPage PageVisualizador;
         private Guna.UI2.WinForms.Guna2HtmlLabel LabelWingType;
-        private Guna.UI2.WinForms.Guna2PictureBox PictureBoxModelImage;
         private TabPage PageGrafico;
         private Microsoft.Web.WebView2.WinForms.WebView2 webViewChart;
-        private ToolStripComboBox toolStripComboBox1;
         private Guna.UI2.WinForms.Guna2Panel guna2Panel9;
         private Guna.UI2.WinForms.Guna2Panel panelWingArea;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
@@ -1012,5 +1003,6 @@
         private CheckBox checkBox3;
         private CheckBox checkBox2;
         private CheckBox checkBox1;
+        private Guna.UI2.WinForms.Guna2PictureBox PictureBoxModelImage;
     }
 }

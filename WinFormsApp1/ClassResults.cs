@@ -10,7 +10,7 @@ using MySql.Data.MySqlClient;
 namespace WinFormsApp1
 {
     /// <summary>
-    /// Classe responsável por gerenciar todos os dados e operações relacionadas aos resultados dos testes
+    /// Class responsible for managing all data and operations related to test results
     /// </summary>
     public static class ClassResults
     {
@@ -20,7 +20,7 @@ namespace WinFormsApp1
 
         #region Public Properties
         /// <summary>
-        /// String de conexão com o banco de dados
+        /// Database connection string
         /// </summary>
         public static string ConnectionString
         {
@@ -36,10 +36,10 @@ namespace WinFormsApp1
         /// <param name="wingType">Tipo da asa</param>
         /// <param name="windSpeed">Velocidade do vento</param>
         /// <param name="airDensity">Densidade do ar</param>
-        /// <param name="wingArea">Área da asa calculada</param>
-        /// <param name="coefficient">Coeficiente de sustentação</param>
-        /// <param name="liftForce">Força de sustentação calculada</param>
-        /// <param name="cameraPerspective">Perspectiva da câmera</param>
+        /// <param name="wingArea">Calculated wing area</param>
+        /// <param name="coefficient">Lift coefficient</param>
+        /// <param name="liftForce">Calculated lift force</param>
+        /// <param name="cameraPerspective">Camera perspective</param>
         /// <param name="wingspan">Envergadura da asa</param>
         /// <param name="rope">Corda da asa</param>
         /// <param name="ropeAtRoot">Corda na raiz (para asas trapezoidais)</param>
@@ -79,11 +79,11 @@ namespace WinFormsApp1
                     }
                 }
 
-                ShowSuccessMessage("Resultado salvo no banco de dados com sucesso!");
+                
             }
             catch (Exception ex)
             {
-                ShowErrorMessage($"Erro ao salvar no banco de dados: {ex.Message}");
+                ShowErrorMessage($"Error saving to database:{ex.Message}");
             }
         }
 
@@ -147,7 +147,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                ShowErrorMessage($"Erro ao contar testes: {ex.Message}");
+                ShowErrorMessage($"Error counting tests:{ex.Message}");
             }
             return count;
         }
@@ -173,7 +173,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                ShowErrorMessage($"Erro ao obter última atualização: {ex.Message}");
+                ShowErrorMessage($"Error getting last update: {ex.Message}");
             }
             return lastUpdate;
         }
@@ -219,7 +219,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                ShowErrorMessage($"Erro ao recuperar dados filtrados: {ex.Message}");
+                ShowErrorMessage($"Error retrieving filtered data {ex.Message}");
             }
             return dataTable;
         }
@@ -251,7 +251,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                ShowErrorMessage($"Erro ao recuperar estatísticas: {ex.Message}");
+                ShowErrorMessage($"Error retrieving statistics: {ex.Message}");
             }
             return dataTable;
         }
@@ -280,6 +280,35 @@ namespace WinFormsApp1
                 dataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
                 Console.WriteLine($"Carregados {dataTable.Rows.Count} registros no DataGridView.");
+            }
+            catch (Exception ex)
+            {
+                ShowErrorMessage($"Erro ao carregar dados: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Carrega todos os dados no Guna2DataGridView
+        /// </summary>
+        /// <param name="dataGridView">Guna2DataGridView a ser preenchido</param>
+        public static void LoadDataToGridView(Guna.UI2.WinForms.Guna2DataGridView dataGridView)
+        {
+            try
+            {
+                DataTable dataTable = GetAllTestResults();
+                if (dataTable.Rows.Count == 0)
+                {
+                    ShowInfoMessage("Nenhum resultado encontrado no banco de dados.");
+                    dataGridView.DataSource = null;
+                    return;
+                }
+
+                ConfigureGuna2DataGridView(dataGridView);
+                dataGridView.DataSource = dataTable;
+                ConfigureGuna2Columns(dataGridView);
+                dataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+                Console.WriteLine($"Carregados {dataTable.Rows.Count} registros no Guna2DataGridView.");
             }
             catch (Exception ex)
             {
@@ -351,18 +380,18 @@ namespace WinFormsApp1
             // Define cabeçalhos em português
             var columnHeaders = new Dictionary<string, string>
             {
-                ["WingType"] = "Tipo de Asa",
-                ["CameraPerspective"] = "Perspectiva da Câmera",
-                ["WindSpeed"] = "Velocidade do Vento (m/s)",
-                ["AirDensity"] = "Densidade do Ar (kg/m³)",
-                ["WingArea"] = "Área da Asa (m²)",
+                ["WingType"] = "Wing Type",
+                ["CameraPerspective"] = "Camera Perspective",
+                ["WindSpeed"] = "Wind Speed (m/s)",
+                ["AirDensity"] = "Air Density (kg/m³)",
+                ["WingArea"] = "Wing Area (m²)",
                 ["Coefficient"] = "Coeficiente",
-                ["LiftForce"] = "Força de Sustentação (N)",
-                ["TestDate"] = "Data do Teste",
-                ["Wingspan"] = "Envergadura (m)",
-                ["Rope"] = "Corda (m)",
-                ["RopeAtRoot"] = "Corda na Raiz (m)",
-                ["RopeAtEnd"] = "Corda na Ponta (m)"
+                ["LiftForce"] = "Lift Force (N)",
+                ["TestDate"] = "Test Date",
+                ["Wingspan"] = "Wingspan (m)",
+                ["Rope"] = "Chord (m)",
+                ["RopeAtRoot"] = "Root Chord (m)",
+                ["RopeAtEnd"] = "Tip Chord (m)"
             };
 
             foreach (var header in columnHeaders)
@@ -398,6 +427,94 @@ namespace WinFormsApp1
         {
             LoadDataToGridView(dataGridView);
         }
+
+        /// <summary>
+        /// Atualiza o Guna2DataGridView recarregando os dados
+        /// </summary>
+        /// <param name="dataGridView">Guna2DataGridView a ser atualizado</param>
+        public static void RefreshDataGridView(Guna.UI2.WinForms.Guna2DataGridView dataGridView)
+        {
+            LoadDataToGridView(dataGridView);
+        }
+
+        /// <summary>
+        /// Configura as propriedades visuais do Guna2DataGridView
+        /// </summary>
+        /// <param name="dataGridView">Guna2DataGridView a ser configurado</param>
+        public static void ConfigureGuna2DataGridView(Guna.UI2.WinForms.Guna2DataGridView dataGridView)
+        {
+            dataGridView.AllowUserToAddRows = false;
+            dataGridView.AllowUserToDeleteRows = false;
+            dataGridView.ReadOnly = true;
+            dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView.MultiSelect = false;
+            dataGridView.AutoGenerateColumns = true;
+        }
+
+        /// <summary>
+        /// Configura as colunas do Guna2DataGridView com formatação e cabeçalhos
+        /// </summary>
+        /// <param name="dataGridView">Guna2DataGridView a ser configurado</param>
+        public static void ConfigureGuna2Columns(Guna.UI2.WinForms.Guna2DataGridView dataGridView)
+        {
+            if (dataGridView.Columns.Count == 0) return;
+
+            // Oculta a coluna ID
+            if (dataGridView.Columns.Contains("Id"))
+                dataGridView.Columns["Id"].Visible = false;
+
+            // Define cabeçalhos em português
+            var columnHeaders = new Dictionary<string, string>
+            {
+                ["WingType"] = "Wing Type",
+                ["CameraPerspective"] = "Camera Perspective",
+                ["WindSpeed"] = "Wind Speed (m/s)",
+                ["AirDensity"] = "Air Density (kg/m³)",
+                ["WingArea"] = "Wing Area (m²)",
+                ["Coefficient"] = "Coeficiente",
+                ["LiftForce"] = "Lift Force (N)",
+                ["TestDate"] = "Test Date",
+                ["Wingspan"] = "Wingspan (m)",
+                ["Rope"] = "Chord (m)",
+                ["RopeAtRoot"] = "Root Chord (m)",
+                ["RopeAtEnd"] = "Tip Chord (m)"
+            };
+
+            foreach (var header in columnHeaders)
+            {
+                if (dataGridView.Columns.Contains(header.Key))
+                    dataGridView.Columns[header.Key].HeaderText = header.Value;
+            }
+
+            // Configura formatação das colunas numéricas
+            ConfigureGuna2NumericColumn(dataGridView, "WindSpeed", "F1");
+            ConfigureGuna2NumericColumn(dataGridView, "AirDensity", "F3");
+            ConfigureGuna2NumericColumn(dataGridView, "WingArea", "F2");
+            ConfigureGuna2NumericColumn(dataGridView, "LiftForce", "F2");
+            ConfigureGuna2NumericColumn(dataGridView, "Coefficient", "F2");
+            ConfigureGuna2NumericColumn(dataGridView, "Wingspan", "F2");
+            ConfigureGuna2NumericColumn(dataGridView, "Rope", "F2");
+            ConfigureGuna2NumericColumn(dataGridView, "RopeAtRoot", "F2");
+            ConfigureGuna2NumericColumn(dataGridView, "RopeAtEnd", "F2");
+
+            // Configura coluna de data
+            if (dataGridView.Columns.Contains("TestDate"))
+            {
+                dataGridView.Columns["TestDate"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+            }
+        }
+
+        /// <summary>
+        /// Configura formatação de uma coluna numérica específica no Guna2DataGridView
+        /// </summary>
+        private static void ConfigureGuna2NumericColumn(Guna.UI2.WinForms.Guna2DataGridView dataGridView, string columnName, string format)
+        {
+            if (dataGridView.Columns.Contains(columnName))
+            {
+                dataGridView.Columns[columnName].DefaultCellStyle.Format = format;
+                dataGridView.Columns[columnName].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+        }
         #endregion
 
         #region Data Export
@@ -411,7 +528,7 @@ namespace WinFormsApp1
                 DataTable results = GetAllTestResults();
                 if (results.Rows.Count == 0)
                 {
-                    ShowInfoMessage("Nenhum resultado encontrado para exportar.");
+                    ShowInfoMessage("No results found for export.");
                     return;
                 }
 
@@ -421,11 +538,11 @@ namespace WinFormsApp1
 
                 WriteXmlFile(results, filePath);
 
-                ShowSuccessMessage($"Arquivo XML gerado com sucesso em:\n{filePath}");
+                ShowSuccessMessage($"XML file successfully generated at:\n{filePath}");
             }
             catch (Exception ex)
             {
-                ShowErrorMessage($"Erro ao gerar XML: {ex.Message}");
+                ShowErrorMessage($"Error generating XML: {ex.Message}");
             }
         }
         #endregion
@@ -443,7 +560,7 @@ namespace WinFormsApp1
                 string wingType = selectedRow.Cells["WingType"].Value?.ToString();
                 double liftForce = Convert.ToDouble(selectedRow.Cells["LiftForce"].Value ?? 0);
 
-                Console.WriteLine($"Selecionado: {wingType} - Força: {liftForce}N");
+                Console.WriteLine($"Selected: {wingType} - Force: {liftForce}N");
             }
         }
         #endregion
@@ -516,7 +633,7 @@ namespace WinFormsApp1
         /// </summary>
         private static void ShowErrorMessage(string message)
         {
-            MessageBox.Show(message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -524,7 +641,7 @@ namespace WinFormsApp1
         /// </summary>
         private static void ShowSuccessMessage(string message)
         {
-            MessageBox.Show(message, "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(message, "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>
@@ -532,7 +649,7 @@ namespace WinFormsApp1
         /// </summary>
         private static void ShowInfoMessage(string message)
         {
-            MessageBox.Show(message, "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(message, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         #endregion
 
@@ -583,7 +700,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro ao calcular estatísticas: {ex.Message}");
+                Console.WriteLine($"Error calculating statistics: {ex.Message}");
                 stats["Error"] = ex.Message;
             }
 

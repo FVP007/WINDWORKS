@@ -34,7 +34,7 @@ namespace WinFormsApp1
                     }
                     else
                     {
-                        Console.WriteLine("ComboAirDensity.SelectedItem é null");
+                        Console.WriteLine("ComboAirDensity.SelectedItem is null");
                     }
                     return 0.0;
                 }
@@ -66,7 +66,7 @@ namespace WinFormsApp1
                     }
                     else
                     {
-                        Console.WriteLine("ComboWindSpeed.SelectedItem é null");
+                        Console.WriteLine("ComboWindSpeed.SelectedItem is null");
                     }
                     return 0.0;
                 }

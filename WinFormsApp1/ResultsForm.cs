@@ -22,7 +22,6 @@ namespace WinFormsApp1
         }
         public void UpdateResults()
         {
-            MessageBox.Show("Results updated successfully.");
             lblTotalCount.Text = ClassResults.GetTotalTestCount().ToString();
             lblLastUpdate.Text = ClassResults.GetLastUpdate().ToString();
             ClassResults.LoadDataToGridView(dataGridViewResults);
@@ -49,10 +48,11 @@ namespace WinFormsApp1
                         airDensity, wingArea, coefficient, liftForce, testDate
                     );
                 }
+                this.Close();
             }
             else
             {
-                MessageBox.Show("Selecione uma linha primeiro.");
+                MessageBox.Show("Select a line first.");
             }
         }
 
