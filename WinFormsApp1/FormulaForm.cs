@@ -16,7 +16,7 @@ namespace WinFormsApp1
 
         private void InitializeForm()
         {
-            this.Text = "Fórmulas Aerodinâmicas";
+            this.Text = "Aerodynamic Formulas";
             this.Width = 850;
             this.Height = 650;
             this.StartPosition = FormStartPosition.CenterScreen;

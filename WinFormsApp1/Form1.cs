@@ -1,23 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using System.IO;
-using StbImageSharp;
-using System.Globalization;
-using System.Threading;
-using System.Web;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.WinForms;
-using System.Text.Json;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Microsoft.Web.WebView2.Wpf;
-using System.Text.RegularExpressions;
-using System.Xml;
-using System.Data;
-using Microsoft.Data.SqlClient;
 using MySql.Data.MySqlClient;
+using StbImageSharp;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.Drawing; // <-- Needed for Size, Point, etc.
+using System.Globalization;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Text.Json;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web;
+using System.Windows.Forms;
+using System.Xml;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WinFormsApp1
 {
@@ -28,6 +29,7 @@ namespace WinFormsApp1
         private string selectedWingType = "Rectangular";
         private bool PageGraficoEnabled = false;
         private bool PageResultadosEnabled = false;
+        private bool isWebView3DReady = false;
         private string connectionString = "Server=localhost;Database=LiftForceDb;Uid=root;";
         
         // Variáveis para controle dos ComboBoxes de seleção de tipos de asa
@@ -64,7 +66,8 @@ namespace WinFormsApp1
             ButtonRunTest.Enabled = false;
             this.KeyPreview = true;
             SetupResponsiveLayout();
-
+            // Inicializar WebView3D
+            
         }
 
         private void SetupResponsiveLayout()
@@ -277,7 +280,7 @@ namespace WinFormsApp1
             </div>
         </div>",
 
-                _ => @"<div class='formula'>Selecione um tipo de asa para ver a fórmula.</div>"
+                _ => @"<div class='formula'>Select a wing type to see the formula.</div>"
             };
 
             return $@"<!DOCTYPE html>
@@ -305,12 +308,12 @@ namespace WinFormsApp1
 
                 if (!File.Exists(programPath))
                 {
-                    MessageBox.Show($"RapidAuthorViewer não encontrado em:\n{programPath}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"RapidAuthorViewer not found at:\n{programPath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 if (!File.Exists(scenePath))
                 {
-                    MessageBox.Show($"Arquivo VRML não encontrado em:\n{scenePath}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"VRML file not found at:\n{scenePath}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -324,7 +327,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao abrir VRML: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error opening VRML: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -354,11 +357,11 @@ namespace WinFormsApp1
 
                 File.WriteAllText(vrmlPath, vrmlContent);
 
-                Console.WriteLine($"VRML atualizado para tipo de avião: {airplaneType}");
+                Console.WriteLine($"VRML updated for airplane type: {airplaneType}");
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao atualizar VRML: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error updating VRML: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -443,36 +446,36 @@ namespace WinFormsApp1
             {
                 // Desabilitar o botão durante o processamento
                 ButtonRunTest.Enabled = false;
-                ButtonRunTest.Text = "Processando...";
+                ButtonRunTest.Text = "Processing...";
 
                 // Get values from interface fields
                 if (!double.TryParse(ComboWindSpeed.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double windSpeed))
                 {
-                    MessageBox.Show("Por favor, insira um valor válido para a Velocidade do Vento", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please enter a valid value for Wind Speed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 if (!double.TryParse(ComboAirDensity.Text.Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double airDensity))
                 {
-                    MessageBox.Show("Por favor, insira um valor válido para a Densidade do Ar.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please enter a valid value for Air Density.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 double wingArea = GetCurrentWingArea();
-                Console.WriteLine($"Área calculada: {wingArea:F4}");
+                Console.WriteLine($"Calculated area: {wingArea:F4}");
 
                 if (wingArea <= 0)
                 {
                     var wingControl1 = GetCurrentWingControl();
-                    string errorMsg = "Parâmetros da asa inválidos.\n\n";
+                    string errorMsg = "Invalid wing parameters.\n\n";
                     if (wingControl1 != null)
                     {
-                        errorMsg += $"Envergadura: {wingControl1.Wingspan:F2} m\n";
-                        errorMsg += $"Corda: {wingControl1.Rope:F2} m\n";
-                        errorMsg += $"Área calculada: {wingArea:F4} m²\n\n";
-                        errorMsg += "Verifique se todos os campos estão preenchidos corretamente.";
+                        errorMsg += $"Wingspan: {wingControl1.Wingspan:F2} m\n";
+                        errorMsg += $"Chord: {wingControl1.Rope:F2} m\n";
+                        errorMsg += $"Calculated Area: {wingArea:F4} m²\n\n";
+                        errorMsg += "Please check that all fields are filled correctly.";
                     }
 
-                    MessageBox.Show(errorMsg, "Erro de Validação", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(errorMsg, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -530,7 +533,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro durante o teste: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error during test: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine($"Erro no ButtonRunTest_Click: {ex.Message}");
 
                 // Restaurar o botão em caso de erro
@@ -552,7 +555,7 @@ namespace WinFormsApp1
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Erro ao recalcular gráfico: {ex.Message}");
+                    Console.WriteLine($"Error recalculating chart: {ex.Message}");
                 }
             }
         }
@@ -731,11 +734,11 @@ namespace WinFormsApp1
                 ButtonRunTest.Enabled = windSpeedValid && airDensityValid && wingAreaValid;
                 
                 // Debug apenas quando necessário (comentado para performance)
-                // Console.WriteLine($"WindSpeed: {windSpeedValid}, AirDensity: {airDensityValid}, WingArea: {wingAreaValid} (Área: {GetCurrentWingArea():F2})");
+                // Console.WriteLine($"WindSpeed: {windSpeedValid}, AirDensity: {airDensityValid}, WingArea: {wingAreaValid} (Area: {GetCurrentWingArea():F2})");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro na validação: {ex.Message}");
+                Console.WriteLine($"Validation error: {ex.Message}");
                 ButtonRunTest.Enabled = false;
             }
         }
@@ -747,19 +750,25 @@ namespace WinFormsApp1
             }
         }
 
-        private void ButtonYX_Click(object sender, EventArgs e)
+        private async void ButtonYX_Click(object sender, EventArgs e)
         {
-            LoadWingImage("Cima");
+            
+                LoadWingImage("Cima");
+            
         }
 
-        private void ButtonZY_Click(object sender, EventArgs e)
+        private async void ButtonZY_Click(object sender, EventArgs e)
         {
-            LoadWingImage("Frente");
+            
+                LoadWingImage("Frente");
+            
         }
 
-        private void ButtonZX_Click(object sender, EventArgs e)
+        private async void ButtonZX_Click(object sender, EventArgs e)
         {
-            LoadWingImage("Perfil");
+           
+                LoadWingImage("Perfil");
+            
         }
 
         private void LoadWingImage(string viewType)
@@ -768,7 +777,7 @@ namespace WinFormsApp1
             {
                 if (ComboWingType.SelectedItem == null)
                 {
-                    MessageBox.Show("Por favor, selecione um tipo de asa.", "Aviso",
+                    MessageBox.Show("Please select a wing type.", "Notice",
                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -777,13 +786,13 @@ namespace WinFormsApp1
                 string imagePath = GetImagePath(selectedWingType, viewType);
                 if (string.IsNullOrEmpty(imagePath))
                 {
-                    MessageBox.Show($"Tipo de asa '{selectedWingType}' não reconhecido.", "Erro",
+                    MessageBox.Show($"Wing type '{selectedWingType}' not recognized.", "Error",
                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 if (!File.Exists(imagePath))
                 {
-                    MessageBox.Show($"Imagem não encontrada: {imagePath}", "Erro",
+                    MessageBox.Show($"Image not found: {imagePath}", "Error",
                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -795,12 +804,12 @@ namespace WinFormsApp1
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show("Arquivo de imagem não encontrado.", "Erro",
+                MessageBox.Show("Image file not found.", "Error",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro inesperado ao carregar a imagem: {ex.Message}", "Erro",
+                MessageBox.Show($"Unexpected error loading image: {ex.Message}", "Error",
                               MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -907,7 +916,7 @@ namespace WinFormsApp1
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Erro ao abrir: " + ex.Message);
+                        MessageBox.Show("Error opening: " + ex.Message);
                     }
                 }
             }
@@ -949,11 +958,11 @@ namespace WinFormsApp1
             {
                 // Dialog para escolher o tipo de exportação
                 DialogResult choice = MessageBox.Show(
-                    "Escolha o tipo de exportação:\n\n" +
-                    "SIM - Exportar apenas o teste atual\n" +
-                    "NÃO - Exportar todos os resultados salvos\n" +
-                    "CANCELAR - Cancelar operação",
-                    "Tipo de Exportação XML",
+                    "Choose export type:\n\n" +
+                    "YES - Export current test only\n" +
+                    "NO - Export all saved results\n" +
+                    "CANCEL - Cancel operation",
+                    "XML Export Type",
                     MessageBoxButtons.YesNoCancel,
                     MessageBoxIcon.Question
                 );
@@ -982,14 +991,14 @@ namespace WinFormsApp1
                             ExportAllResultsToXml(filePath);
                         }
 
-                        MessageBox.Show($"Dados exportados com sucesso para:\n{filePath}",
-                            "Exportação Concluída",
+                        MessageBox.Show($"Data exported successfully to:\n{filePath}",
+                            "Export Completed",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information);
 
                         // Opção para abrir o arquivo após exportar
-                        if (MessageBox.Show("Deseja abrir o arquivo XML exportado?",
-                            "Abrir Arquivo",
+                        if (MessageBox.Show("Do you want to open the exported XML file?",
+                            "Open File",
                             MessageBoxButtons.YesNo,
                             MessageBoxIcon.Question) == DialogResult.Yes)
                         {
@@ -1004,8 +1013,8 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao exportar XML: {ex.Message}",
-                    "Erro",
+                MessageBox.Show($"Error exporting XML: {ex.Message}",
+                    "Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
@@ -1044,7 +1053,7 @@ namespace WinFormsApp1
             AddXmlElement(xmlDoc, testData, "AirDensityUnit", "kg/m³");
             AddXmlElement(xmlDoc, testData, "WingArea", GetCurrentWingArea().ToString("F2", CultureInfo.InvariantCulture));
             AddXmlElement(xmlDoc, testData, "WingAreaUnit", "m²");
-            AddXmlElement(xmlDoc, testData, "LiftCoefficient", coefficient.ToString("F2", CultureInfo.InvariantCulture));
+            AddXmlElement(xmlDoc, testData, "Coefficient", coefficient.ToString("F2", CultureInfo.InvariantCulture));
             AddXmlElement(xmlDoc, testData, "LiftForce", guna2HtmlLabelLiftForceValue.Text.Replace("N", ""));
             AddXmlElement(xmlDoc, testData, "LiftForceUnit", "N");
             AddXmlElement(xmlDoc, testData, "TestDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
@@ -1229,13 +1238,13 @@ namespace WinFormsApp1
                                 }
 
                                 // Tentar pegar o coeficiente de diferentes colunas possíveis
-                                string coefficientValue = coefficient.ToString("F2", CultureInfo.InvariantCulture); // valor padrão
-                                if (availableColumns.Contains("LiftCoefficient"))
-                                    coefficientValue = GetSafeValue(reader, "LiftCoefficient");
+                                string coefficientValue = coefficient.ToString("F2", CultureInfo.InvariantCulture); // default value
+                                if (availableColumns.Contains("Coefficient"))
+                                    coefficientValue = GetSafeValue(reader, "Coefficient");
                                 else if (availableColumns.Contains("Coefficient"))
                                     coefficientValue = GetSafeValue(reader, "Coefficient");
 
-                                AddXmlElement(xmlDoc, inputParams, "LiftCoefficient", coefficientValue);
+                                AddXmlElement(xmlDoc, inputParams, "Coefficient", coefficientValue);
 
                                 // Resultado
                                 XmlElement result = xmlDoc.CreateElement("Result");
@@ -1268,7 +1277,7 @@ namespace WinFormsApp1
                 testsContainer.AppendChild(errorInfo);
                 AddXmlElement(xmlDoc, errorInfo, "Message", "Erro ao acessar banco de dados");
                 AddXmlElement(xmlDoc, errorInfo, "Details", ex.Message);
-                AddXmlElement(xmlDoc, errorInfo, "Note", "Exportação realizada sem dados do banco");
+                AddXmlElement(xmlDoc, errorInfo, "Note", "Export performed without database data");
             }
 
             xmlDoc.Save(filePath);
@@ -1464,7 +1473,7 @@ namespace WinFormsApp1
                         // Debug para identificar problemas
                         if (area <= 0)
                         {
-                            Console.WriteLine($"Área calculada: {area}, Wingspan: {wingControl.Wingspan}, Rope: {wingControl.Rope}");
+                            Console.WriteLine($"Calculated area: {area}, Wingspan: {wingControl.Wingspan}, Rope: {wingControl.Rope}");
                         }
                         
                         return area;
@@ -1474,7 +1483,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro ao calcular área da asa: {ex.Message}");
+                Console.WriteLine($"Error calculating wing area: {ex.Message}");
                 return 0.0;
             }
         }
@@ -1508,29 +1517,25 @@ namespace WinFormsApp1
                     details += $"Corda na Ponta: {trapControl.RopeAtEnd:F2} m\n";
                 }
                 
-                details += $"Área da Asa: {wingControl.WingArea:F2} m²";
+                details += $"Wing Area: {wingControl.WingArea:F2} m²";
                 
                 // Você pode usar isso para mostrar em um MessageBox ou em um label
                 Console.WriteLine(details);
             }
         }
 
-        private void ComboWingType_SelectedIndexChanged_1(object sender, EventArgs e)
+        private async void ComboWingType_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             string selectedType = ComboWingType.SelectedItem?.ToString() ?? "";
             LoadWingControl(selectedType);
-
-            
-            // Atualizar a imagem da asa
             if (!string.IsNullOrEmpty(selectedType))
             {
                 selectedWingType = selectedType;
                 LabelWingType.Text = selectedType;
             }
-            
-            // Testar o UserControl carregado
             TestCurrentWingControl();
-            LoadWingImage("Cima");
+            
+            
         }
 
         private void ComboWingTypeSelection_SelectedIndexChanged(object sender, EventArgs e)
@@ -1548,8 +1553,8 @@ namespace WinFormsApp1
                 {
                     // Não permitir desmarcar o tipo que está sendo simulado
                     comboBox.SelectedIndex = 0;
-                    MessageBox.Show($"Não é possível desmarcar o tipo '{wingType}' pois ele está sendo simulado atualmente.", 
-                                  "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Cannot uncheck wing type '{wingType}' as it is currently being simulated.", 
+                                  "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -1561,8 +1566,8 @@ namespace WinFormsApp1
                 {
                     comboBox.SelectedIndex = 0;
                     wingTypeSelections[wingType] = true;
-                    MessageBox.Show("Pelo menos um tipo de asa deve estar selecionado.", 
-                                  "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("At least one wing type must be selected.", 
+                                  "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -1574,7 +1579,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro ao processar seleção de tipo de asa: {ex.Message}");
+                Console.WriteLine($"Error processing wing type selection: {ex.Message}");
             }
         }
 
@@ -1602,8 +1607,8 @@ namespace WinFormsApp1
                 {
                     // Não permitir desmarcar o tipo que está sendo simulado
                     checkBox.Checked = true;
-                    MessageBox.Show($"Não é possível desmarcar o tipo '{wingType}' pois ele está sendo simulado atualmente.", 
-                                  "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Cannot uncheck wing type '{wingType}' as it is currently being simulated.", 
+                                  "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -1615,8 +1620,8 @@ namespace WinFormsApp1
                 {
                     checkBox.Checked = true;
                     wingTypeSelections[wingType] = true;
-                    MessageBox.Show("Pelo menos um tipo de asa deve estar selecionado.", 
-                                  "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("At least one wing type must be selected.", 
+                                  "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -1628,7 +1633,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erro ao processar mudança de checkbox: {ex.Message}");
+                Console.WriteLine($"Error processing checkbox change: {ex.Message}");
             }
         }
 
@@ -1671,5 +1676,6 @@ namespace WinFormsApp1
                 Console.WriteLine($"Erro no teste: {ex.Message}");
             }
         }
+
     }
 }

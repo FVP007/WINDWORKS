@@ -6,12 +6,7 @@ Background {
   skyColor [ 0 0 0 ]  # preto
 }
 
-# Luzes da cena
-DirectionalLight {
-  direction 0 -1 -1
-  color 1 1 1
-  intensity 1
-}
+
 NavigationInfo {
     headlight TRUE
     type ["EXAMINE"]

@@ -1,24 +1,24 @@
-﻿namespace WinFormsApp1
-{
-    partial class ResultsForm
+﻿    namespace WinFormsApp1
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
+        partial class ResultsForm
         {
-            if (disposing && (components != null))
+            /// <summary>
+            /// Required designer variable.
+            /// </summary>
+            private System.ComponentModel.IContainer components = null;
+
+            /// <summary>
+            /// Clean up any resources being used.
+            /// </summary>
+            /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+            protected override void Dispose(bool disposing)
             {
-                components.Dispose();
+                if (disposing && (components != null))
+                {
+                    components.Dispose();
+                }
+                base.Dispose(disposing);
             }
-            base.Dispose(disposing);
-        }
 
         #region Windows Form Designer generated code
 
@@ -139,65 +139,69 @@
             dataGridViewResults.AllowUserToAddRows = false;
             dataGridViewResults.AllowUserToDeleteRows = false;
             dataGridViewResults.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(37, 47, 63);
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(40, 40, 40);
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(247, 248, 249);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(220, 220, 220);
+            dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(64, 64, 64);
             dataGridViewResults.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(55, 65, 81);
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(232, 234, 237);
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(55, 65, 81);
-            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.ForeColor = Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(200, 200, 200);
+            dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(50, 50, 50);
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dataGridViewResults.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            dataGridViewResults.ColumnHeadersHeight = 35;
+            dataGridViewResults.ColumnHeadersHeight = 40;
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(45, 45, 48);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(60, 60, 60);
-            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dataGridViewCellStyle3.BackColor = Color.White;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(239, 241, 243);
+            dataGridViewCellStyle3.SelectionForeColor = Color.Black;
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
             dataGridViewResults.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewResults.Dock = DockStyle.Fill;
-            dataGridViewResults.GridColor = Color.FromArgb(60, 60, 60);
+            dataGridViewResults.GridColor = Color.FromArgb(244, 245, 247);
             dataGridViewResults.Location = new Point(0, 50);
             dataGridViewResults.MultiSelect = false;
             dataGridViewResults.Name = "dataGridViewResults";
             dataGridViewResults.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(40, 40, 40);
+            dataGridViewCellStyle4.BackColor = Color.White;
             dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle4.ForeColor = Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(70, 130, 170);
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.ForeColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(220, 220, 220);
+            dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(64, 64, 64);
             dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
             dataGridViewResults.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewResults.RowHeadersVisible = false;
-            dataGridViewResults.RowTemplate.Height = 30;
+            dataGridViewResults.RowTemplate.Height = 32;
             dataGridViewResults.Size = new Size(1160, 418);
             dataGridViewResults.TabIndex = 0;
-            dataGridViewResults.ThemeStyle.AlternatingRowsStyle.BackColor = Color.FromArgb(37, 47, 63);
+            dataGridViewResults.Theme = Guna.UI2.WinForms.Enums.DataGridViewPresetThemes.Light;
+            dataGridViewResults.ThemeStyle.AlternatingRowsStyle.BackColor = Color.FromArgb(247, 248, 249);
             dataGridViewResults.ThemeStyle.AlternatingRowsStyle.Font = null;
-            dataGridViewResults.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.Empty;
-            dataGridViewResults.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.Empty;
-            dataGridViewResults.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.Empty;
+            dataGridViewResults.ThemeStyle.AlternatingRowsStyle.ForeColor = Color.FromArgb(64, 64, 64);
+            dataGridViewResults.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = Color.FromArgb(220, 220, 220);
+            dataGridViewResults.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = Color.FromArgb(64, 64, 64);
             dataGridViewResults.ThemeStyle.BackColor = Color.White;
-            dataGridViewResults.ThemeStyle.GridColor = Color.FromArgb(60, 60, 60);
-            dataGridViewResults.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(55, 65, 81);
+            dataGridViewResults.ThemeStyle.GridColor = Color.FromArgb(244, 245, 247);
+            dataGridViewResults.ThemeStyle.HeaderStyle.BackColor = Color.FromArgb(232, 234, 237);
             dataGridViewResults.ThemeStyle.HeaderStyle.BorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewResults.ThemeStyle.HeaderStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            dataGridViewResults.ThemeStyle.HeaderStyle.ForeColor = Color.White;
+            dataGridViewResults.ThemeStyle.HeaderStyle.ForeColor = Color.Black;
             dataGridViewResults.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewResults.ThemeStyle.HeaderStyle.Height = 35;
+            dataGridViewResults.ThemeStyle.HeaderStyle.Height = 40;
             dataGridViewResults.ThemeStyle.ReadOnly = true;
-            dataGridViewResults.ThemeStyle.RowsStyle.BackColor = Color.FromArgb(31, 41, 55);
+            dataGridViewResults.ThemeStyle.RowsStyle.BackColor = Color.White;
             dataGridViewResults.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             dataGridViewResults.ThemeStyle.RowsStyle.Font = new Font("Segoe UI", 9F);
-            dataGridViewResults.ThemeStyle.RowsStyle.ForeColor = Color.White;
-            dataGridViewResults.ThemeStyle.RowsStyle.Height = 30;
-            dataGridViewResults.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(59, 130, 246);
-            dataGridViewResults.ThemeStyle.RowsStyle.SelectionForeColor = Color.White;
+            dataGridViewResults.ThemeStyle.RowsStyle.ForeColor = Color.Black;
+            dataGridViewResults.ThemeStyle.RowsStyle.Height = 32;
+            dataGridViewResults.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(239, 241, 243);
+            dataGridViewResults.ThemeStyle.RowsStyle.SelectionForeColor = Color.Black;
+            dataGridViewResults.VirtualMode = true;
             // 
             // panelTableHeader
             // 
@@ -251,8 +255,8 @@
             // 
             lblStatusSeparator.ForeColor = Color.Black;
             lblStatusSeparator.Name = "lblStatusSeparator";
-            lblStatusSeparator.Size = new Size(113, 17);
-            lblStatusSeparator.Text = "| Última atualização:";
+            lblStatusSeparator.Size = new Size(77, 17);
+            lblStatusSeparator.Text = "| Last update:";
             // 
             // lblLastUpdate
             // 
@@ -272,7 +276,7 @@
             Controls.Add(panelHeader);
             Name = "ResultsForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Sistema de Testes Aerodinâmicos";
+            Text = "Aerodynamic Test System";
             WindowState = FormWindowState.Maximized;
             panelHeader.ResumeLayout(false);
             panelHeader.PerformLayout();
@@ -291,18 +295,18 @@
         #endregion
 
         private Panel panelHeader;
-        private Panel panelHeaderButtons;
-        private Label lblTitle;
-        private Panel panelMain;
-        private Panel panelTable;
-        private Guna.UI2.WinForms.Guna2DataGridView dataGridViewResults;
-        private Panel panelTableHeader;
-        private Label lblTableTitle;
-        private StatusStrip statusStrip;
-        private ToolStripStatusLabel lblStatusTotal;
-        private ToolStripStatusLabel lblTotalCount;
-        private ToolStripStatusLabel lblStatusSeparator;
-        private ToolStripStatusLabel lblLastUpdate;
-        private Guna.UI2.WinForms.Guna2Button gunaButtonRetakeTest;
+            private Panel panelHeaderButtons;
+            private Label lblTitle;
+            private Panel panelMain;
+            private Panel panelTable;
+            private Guna.UI2.WinForms.Guna2DataGridView dataGridViewResults;
+            private Panel panelTableHeader;
+            private Label lblTableTitle;
+            private StatusStrip statusStrip;
+            private ToolStripStatusLabel lblStatusTotal;
+            private ToolStripStatusLabel lblTotalCount;
+            private ToolStripStatusLabel lblStatusSeparator;
+            private ToolStripStatusLabel lblLastUpdate;
+            private Guna.UI2.WinForms.Guna2Button gunaButtonRetakeTest;
     }
-}
+    }
