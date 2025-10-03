@@ -369,7 +369,7 @@
             LabelWingType.Font = new Font("Segoe UI", 20.75F);
             LabelWingType.Location = new Point(3, 3);
             LabelWingType.Name = "LabelWingType";
-            LabelWingType.Size = new Size(800, 42);
+            LabelWingType.Size = new Size(800, 63);
             LabelWingType.TabIndex = 17;
             LabelWingType.Text = null;
             LabelWingType.TextAlignment = ContentAlignment.MiddleCenter;

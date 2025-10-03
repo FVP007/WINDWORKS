@@ -1855,15 +1855,10 @@ Transform {
       {
         material Material
         {
-	       ambientIntensity 0.3
-	       diffuseColor 1 1 1
+	       ambientIntensity 0.2
+	       diffuseColor 0.9 0.9 0.9
 	       specularColor .1 .1 .1
 	       shininess .5
-        }
-        texture ImageTexture {
-          url "Textures/WhiteMetal.jpg"
-          repeatS TRUE
-          repeatT TRUE
         }
       }
     }
