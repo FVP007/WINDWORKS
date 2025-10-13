@@ -223,6 +223,7 @@
             guna2ControlBox2.ShadowDecoration.CustomizableEdges = customizableEdges6;
             guna2ControlBox2.Size = new Size(46, 32);
             guna2ControlBox2.TabIndex = 1;
+            guna2ControlBox2.Click += guna2ControlBox2_Click;
             // 
             // guna2ControlBox1
             // 
@@ -268,7 +269,7 @@
             // toolStripMenuItem2
             // 
             toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new Size(100, 22);
+            toolStripMenuItem2.Size = new Size(101, 22);
             toolStripMenuItem2.Text = "Excel";
             toolStripMenuItem2.Click += toolStripMenuItem2_Click;
             // 
@@ -914,6 +915,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Name = "Form1";
             Text = "Form1";
+            WindowState = FormWindowState.Maximized;
             Load += Form1_Load_1;
             guna2Panel1.ResumeLayout(false);
             guna2Panel1.PerformLayout();
