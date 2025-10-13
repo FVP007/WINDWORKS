@@ -24,7 +24,7 @@ DEF VENTO_MATERIAL Material {
 
 # Controlador do tempo
 DEF Tempo TimeSensor {
-  cycleInterval 2
+  cycleInterval 2.6
   loop TRUE
   startTime 0
 }
