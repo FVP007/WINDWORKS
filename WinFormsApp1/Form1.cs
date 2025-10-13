@@ -1,8 +1,10 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.IO;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.WinForms;
 using MySql.Data.MySqlClient;
 using StbImageSharp;
+using System.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -26,36 +28,30 @@ namespace WinFormsApp1
     {
         // Global variables
         double coefficient = 1.2;
+        private Dictionary<string, Dictionary<double, (double CL, double CD)>> airfoilData = new Dictionary<string, Dictionary<double, (double CL, double CD)>>();
         private string selectedWingType = "Rectangular";
         private bool PageGraficoEnabled = false;
-        private bool PageResultadosEnabled = false;
-        private bool isWebView3DReady = false;
-        private string connectionString = "Server=localhost;Database=LiftForceDb;Uid=root;";
-        
+        private string connectionString = ConfigurationManager.ConnectionStrings["LiftForceDb"].ConnectionString;
         // Variáveis para controle dos ComboBoxes de seleção de tipos de asa
         private Dictionary<string, bool> wingTypeSelections = new Dictionary<string, bool>
         {
             { "Rectangular", true },
             { "Trapezoidal", false },
             { "Elliptical", false },
-            { "Delta", false }
+            { "Delta", false },
+        
         };
+        
         private string currentSimulatedWingType = "Rectangular";
         // Responsive layout variables
         private Size originalFormSize;
         private bool isResponsiveInitialized = false;
         ResultsForm ResultsForm = new ResultsForm();
-        // Adicione estas propriedades na classe Form1:
-        private RectangularWingControl rectangularControl;
-        private EllipticalWingControl ellipticalControl;
-        private TrapezoidalWingControl trapezoidalControl;
-        private DeltaWingControl deltaControl;
-
-        private Process vrmlProcess = null;
-
+        private Process? vrmlProcess = null;
         public Form1()
         {
             InitializeComponent();
+
             ResultsForm resultsForm = new ResultsForm();
             // Existing setup
             ComboWindSpeed.DropDownStyle = ComboBoxStyle.DropDown;
@@ -67,8 +63,12 @@ namespace WinFormsApp1
             this.KeyPreview = true;
             SetupResponsiveLayout();
             // Inicializar WebView3D
-            
+
         }
+
+
+
+
 
         private void SetupResponsiveLayout()
         {
@@ -104,8 +104,9 @@ namespace WinFormsApp1
             LabelWingType.Height = 42;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object? sender, EventArgs e)
         {
+            LabelWingType.BackColor = Color.Transparent;
             ComboWingType.Items.AddRange(new object[] { "Rectangular", "Elliptical", "Trapezoidal", "Delta" });
             ComboCameraPerspective.Items.AddRange(new object[] { "Front View", "Side View", "Isometric View" });
             ComboWindSpeed.Items.AddRange(new object[] { 10, 20, 30, 40, 50 });
@@ -116,20 +117,31 @@ namespace WinFormsApp1
             ComboAirDensity.SelectedIndex = 0;
             ComboWindSpeed.SelectedIndexChanged += CheckFieldsFilled;
             ComboAirDensity.SelectedIndexChanged += CheckFieldsFilled;
-            
+
+            LoadAirfoilData();
+            // Populate comboboxAirFoil with airfoil names
+            foreach (var airfoilName in airfoilData.Keys)
+            {
+                ComboBoxAirFoil.Items.Add(airfoilName);
+            }
+            if (ComboBoxAirFoil.Items.Count > 0)
+            {
+                ComboBoxAirFoil.SelectedIndex = 0; // Select the first airfoil by default
+            }
+
             // Carregar o primeiro UserControl (Rectangular)
             LoadWingControl("Rectangular");
-            
+
             // Sincronizar checkboxes com as seleções iniciais
             SyncCheckBoxesWithSelections();
-            
+
             originalFormSize = this.Size;
             isResponsiveInitialized = true;
 
 
         }
 
-        private void Form1_Resize(object sender, EventArgs e)
+        private void Form1_Resize(object? sender, EventArgs e)
         {
             if (!isResponsiveInitialized) return;
             RecalculateButtonPositions();
@@ -193,103 +205,7 @@ namespace WinFormsApp1
             base.WndProc(ref m);
         }
 
-        private string GetFormulaHtmlForWingType(string wingType)
-        {
-            string mathJaxHeader = @"
-    <head>
-        <meta charset='UTF-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <script src='https://polyfill.io/v3/polyfill.min.js?features=es6'></script>
-        <script type='text/javascript' id='MathJax-script' async
-            src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'>
-        </script>
-        <style>
-            html, body {
-                margin: 0;
-                padding: 0;
-                height: 100%;
-                overflow: hidden;
-            }
-            body { 
-                font-family: 'Segoe UI', Arial, sans-serif;
-                color: #333;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 0;
-                background: #f5f5f5;
-            }
-            .formula {
-                background: white;
-                border-radius: 8px;
-                padding: 20px;
-                text-align: center;
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-                max-width: 90%;
-                width: auto;
-            }
-            .description {
-                margin-top: 15px;
-                font-size: 0.9em;
-                line-height: 1.6;
-            }
-            .mjx-chtml {
-                margin: 0 !important;
-            }
-        </style>
-    </head>";
-
-            string formulaBody = wingType switch
-            {
-                "Rectangular" => @"
-        <div class='formula'>
-            $$ S = b \times c $$
-            <div class='description'>
-                <b>S</b>: Área da asa<br>
-                <b>b</b>: Envergadura<br>
-                <b>c</b>: Corda
-            </div>
-        </div>",
-
-                "Trapezoidal" => @"
-        <div class='formula'>
-            $$ S = \frac{c_{root} + c_{tip}}{2} \times b $$
-            <div class='description'>
-                <b>c<sub>root</sub></b>: Corda na raiz<br>
-                <b>c<sub>tip</sub></b>: Corda na ponta<br>
-                <b>b</b>: Envergadura
-            </div>
-        </div>",
-
-                "Elliptical" => @"
-        <div class='formula'>
-            $$ S = \frac{\pi}{4} \times b \times c_{root} $$
-            <div class='description'>
-                <b>π</b>: Pi<br>
-                <b>b</b>: Envergadura<br>
-                <b>c<sub>root</sub></b>: Corda na raiz
-            </div>
-        </div>",
-
-                "Delta" => @"
-        <div class='formula'>
-            $$ S = \frac{b \times c_{root}}{2} $$
-            <div class='description'>
-                <b>b</b>: Envergadura<br>
-                <b>c<sub>root</sub></b>: Corda na raiz
-            </div>
-        </div>",
-
-                _ => @"<div class='formula'>Select a wing type to see the formula.</div>"
-            };
-
-            return $@"<!DOCTYPE html>
-<html lang='pt-BR'>
-    {mathJaxHeader}
-    <body>{formulaBody}</body>
-</html>";
-        }
-
+        
         private void LoadVRMLModel(object sender, EventArgs e)
         {
             try
@@ -480,6 +396,22 @@ namespace WinFormsApp1
                 }
 
                 // Get wing type and camera perspective
+                string selectedAirfoil = ComboBoxAirFoil.SelectedItem?.ToString() ?? "";
+                if (string.IsNullOrEmpty(selectedAirfoil))
+                {
+                    MessageBox.Show("Please select an airfoil type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                double angleOfAttack = TrackBarAngleAttack.Value; // Assuming TrackBarAngleOfAttack is the slider
+                                                                  // Linha corrigida:
+                (double clCoefficient, double cdCoefficient) = GetCoefficientsInterpolated(selectedAirfoil, angleOfAttack);
+
+                if (clCoefficient == 0.0 && !airfoilData.ContainsKey(selectedAirfoil))
+                {
+                    // Error message already shown by GetClInterpolated
+                    return;
+                }
+
                 string wingType = ComboWingType.SelectedItem?.ToString() ?? "Rectangular";
                 string cameraPerspective = ComboCameraPerspective.SelectedItem?.ToString() ?? "";
 
@@ -487,7 +419,7 @@ namespace WinFormsApp1
                 currentSimulatedWingType = wingType;
 
                 // Calculate lift force
-                double liftForce = CalculateLiftForce(airDensity, windSpeed, wingArea, coefficient);
+                double liftForce = CalculateLiftForce(airDensity, windSpeed, wingArea, clCoefficient);
 
                 // Show result
                 guna2HtmlLabelLiftForceValue.Text = $"{liftForce:F2}N";
@@ -495,33 +427,33 @@ namespace WinFormsApp1
                 // Mostrar informações detalhadas da asa
                 ShowWingDetails();
 
-                            // Save to database with wing parameters
-            var wingControl = GetCurrentWingControl();
-            if (wingControl != null)
-            {
-                ClassResults.SaveTestResult(
-                    wingType, 
-                    windSpeed, 
-                    airDensity, 
-                    wingArea, 
-                    coefficient, 
-                    liftForce, 
-                    cameraPerspective,
-                    wingControl.Wingspan,
-                    wingControl.Rope,
-                    wingControl is TrapezoidalWingControl trapControl ? trapControl.RopeAtRoot : 0,
-                    wingControl is TrapezoidalWingControl trapControl2 ? trapControl2.RopeAtEnd : 0
-                );
-            }
-            else
-            {
-                // Fallback para compatibilidade
-                ClassResults.SaveTestResult(wingType, windSpeed, airDensity, wingArea, coefficient, liftForce, cameraPerspective);
-            }
+                // Save to database with wing parameters
+                var wingControl = GetCurrentWingControl();
+                if (wingControl != null)
+                {
+                    ClassResults.SaveTestResult(
+                        wingType,
+                        windSpeed,
+                        airDensity,
+                        wingArea,
+                        clCoefficient,
+                        liftForce,
+                        cameraPerspective,
+                        wingControl.Wingspan,
+                        wingControl.Rope,
+                        wingControl is TrapezoidalWingControl trapControl ? trapControl.RopeAtRoot : 0,
+                        wingControl is TrapezoidalWingControl trapControl2 ? trapControl2.RopeAtEnd : 0
+                    );
+                }
+                else
+                {
+                    // Fallback para compatibilidade
+                    ClassResults.SaveTestResult(wingType, windSpeed, airDensity, wingArea, clCoefficient, liftForce, cameraPerspective);
+                }
 
                 LoadVRMLModel(sender, e);
                 // Show Highcharts graph with multiple wing types
-                ShowChart(airDensity, windSpeed, coefficient);
+                ShowChart(airDensity, windSpeed, clCoefficient);
 
                 PageGraficoEnabled = true;
                 ResultsForm resultsForm = new ResultsForm();
@@ -530,6 +462,9 @@ namespace WinFormsApp1
                 // Restaurar o botão
                 ButtonRunTest.Text = "Run Test";
                 ButtonRunTest.Enabled = true;
+                
+                // Verificar campos novamente após o teste
+                CheckFieldsFilled(null, null);
             }
             catch (Exception ex)
             {
@@ -539,6 +474,9 @@ namespace WinFormsApp1
                 // Restaurar o botão em caso de erro
                 ButtonRunTest.Text = "Run Test";
                 ButtonRunTest.Enabled = true;
+                
+                // Verificar campos novamente após erro
+                CheckFieldsFilled(null, null);
             }
         }
 
@@ -559,32 +497,32 @@ namespace WinFormsApp1
                 }
             }
         }
-
         private async void ShowChart(double density, double maxSpeed, double coefficient)
         {
             // Obter a envergadura do tipo de asa principal sendo simulada
             double wingspan = GetCurrentWingArea() > 0 ? GetCurrentWingControl()?.Wingspan ?? 10.0 : 10.0;
-            
+
             // Criar lista de séries para o gráfico
             List<object> series = new List<object>();
-            
+
             // Cores específicas para cada tipo de asa
             var wingColors = new Dictionary<string, string>
-            {
-                { "Rectangular", "#FF0000" },  // Vermelho
-                { "Trapezoidal", "#0000FF" },  // Azul
-                { "Elliptical", "#FFFF00" },   // Amarelo
-                { "Delta", "#00FF00" }         // Verde
-            };
+    {
+        { "Rectangular", "#FF0000" },  // Vermelho
+        { "Trapezoidal", "#0000FF" },  // Azul
+        { "Elliptical", "#FFFF00" },   // Amarelo
+        { "Delta", "#00FF00" }         // Verde
+    };
 
             // Gerar dados para cada tipo de asa selecionado
             foreach (var kvp in wingTypeSelections.Where(x => x.Value))
             {
                 string wingType = kvp.Key;
                 double area = CalculateWingAreaByType(wingType, wingspan);
-                
+
                 List<object[]> dataPoints = new List<object[]>();
-                for (double v = 0; v <= maxSpeed; v += 1)
+                // O loop que gera os pontos da curva (isso já está correto!)
+                for (double v = 0; v <= maxSpeed; v += 0.5) // Aumentei a resolução para uma curva mais suave
                 {
                     double force = CalculateLiftForce(density, v, area, coefficient);
                     dataPoints.Add(new object[] { v, Math.Round(force, 2) });
@@ -596,14 +534,14 @@ namespace WinFormsApp1
                     data = dataPoints,
                     color = wingColors[wingType],
                     lineWidth = 3,
-                    marker = new { enabled = true, radius = 3 }
+                    marker = new { enabled = false } // Desabilitar marcadores para uma linha mais limpa
                 });
             }
 
             string seriesJson = JsonSerializer.Serialize(series);
 
 
-            // Criar legenda dinâmica
+            // Criar legenda dinâmica para o cabeçalho (isso é uma ótima ideia!)
             string legendItems = string.Join(" | ", wingTypeSelections
                 .Where(x => x.Value)
                 .Select(x => $"<span style='color: {wingColors[x.Key]}'>●</span> {x.Key}"));
@@ -616,104 +554,63 @@ namespace WinFormsApp1
     <title>Lift Chart</title>
     <script src='https://code.highcharts.com/highcharts.js'></script>
     <style>
-        html, body {{
-            height: 100vh;
-            width: 100%;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-        }}
-        #container {{
-            height: calc(100vh - 160px);
-            width: 100%;
-            margin: 0;
-            padding: 0;
-        }}
-        .chart-header {{
-            text-align: center;
-            margin-bottom: 10px;
-        }}
-        .chart-title {{
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 5px;
-        }}
-        .chart-subtitle {{
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
-        }}
-        .chart-legend {{
-            font-size: 12px;
-            color: #555;
-            text-align: center;
-            margin-top: 10px;
-        }}
+        /* Seu CSS original aqui... (omitido para brevidade) */
+        html, body, #container {{ height: 100%; width: 100%; margin: 0; padding: 0; overflow: hidden; }}
+        .chart-header {{ text-align: center; padding-top: 20px; }}
+        .chart-title {{ font-size: 18px; font-weight: bold; color: #333; }}
+        .chart-subtitle {{ font-size: 14px; color: #666; }}
     </style>
 </head>
 <body>
     <div class='chart-header'>
-        <div class='chart-title'>Wind Speed vs Lift Force</div>
-        <div class='chart-subtitle'>Density: {density:F2} kg/m³ | Wingspan: {wingspan:F2} m | Coefficient: {coefficient:F2}</div>
+        <div class='chart-title'>Velocidade do Vento vs. Força de Sustentação</div>
+        <div class='chart-subtitle'>Densidade: {density:F2} kg/m³ | Envergadura Base: {wingspan:F2} m | Coeficiente (CL): {coefficient:F2}</div>
         <div class='chart-legend'>{legendItems}</div>
     </div>
-    <div id='container'></div>
+    <div id='container' style='height: calc(100% - 80px);'></div>
     <script>
         Highcharts.chart('container', {{
             chart: {{
-                type: 'line',
-                backgroundColor: 'transparent',
-                margin: [20, 20, 60, 80]
+                type: 'spline', // 'spline' cria uma curva ainda mais suave que 'line'
+                backgroundColor: 'transparent'
             }},
             title: {{ text: '' }},
             subtitle: {{ text: '' }},
             xAxis: {{
-                title: {{ text: 'Wind Speed (m/s)', style: {{ fontSize: '12px', fontWeight: 'bold' }} }},
+                title: {{ text: 'Velocidade do Vento (m/s)' }},
                 min: 0,
-                max: {maxSpeed.ToString("F0", System.Globalization.CultureInfo.InvariantCulture)},
-                gridLineWidth: 1,
-                gridLineColor: '#e6e6e6',
-                labels: {{ style: {{ fontSize: '11px' }} }}
+                max: {maxSpeed.ToString("F0", System.Globalization.CultureInfo.InvariantCulture)}
             }},
             yAxis: {{
-                title: {{ text: 'Lift Force (N)', style: {{ fontSize: '12px', fontWeight: 'bold' }} }},
-                min: 0,
-                gridLineWidth: 1,
+                title: {{ text: 'Força de Sustentação (N)' }},
+                // ###############################################################
+                // ## A ÚNICA CORREÇÃO NECESSÁRIA ESTÁ AQUI: ##
+                // ## REMOVI A LINHA 'min: 0,' DO SEU CÓDIGO ORIGINAL. ##
+                // ###############################################################
                 gridLineColor: '#e6e6e6',
-                labels: {{ style: {{ fontSize: '11px' }} }}
+                plotLines: [{{ // Linha de referência no zero
+                    value: 0,
+                    color: 'grey',
+                    dashStyle: 'shortdash',
+                    width: 1.5,
+                    zIndex: 5
+                }}]
             }},
-            legend: {{ 
+            legend: {{
                 enabled: true,
                 layout: 'horizontal',
                 align: 'center',
-                verticalAlign: 'bottom',
-                itemStyle: {{ fontSize: '11px' }}
+                verticalAlign: 'bottom'
             }},
             plotOptions: {{
-                line: {{
+                spline: {{
                     marker: {{
-                        enabled: true,
-                        radius: 3,
-                        lineWidth: 1
-                    }},
-                    lineWidth: 3
+                        enabled: false
+                    }}
                 }}
             }},
             series: {seriesJson},
-            credits: {{ enabled: false }},
-            responsive: {{
-                rules: [{{
-                    condition: {{ maxWidth: 500 }},
-                    chartOptions: {{
-                        legend: {{
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }}
-                    }}
-                }}]
-            }}
+            credits: {{ enabled: false }}
         }});
     </script>
 </body>
@@ -723,25 +620,91 @@ namespace WinFormsApp1
             webViewChart.NavigateToString(html);
         }
 
-        private void CheckFieldsFilled(object sender, EventArgs e)
+        private void CheckFieldsFilled(object? sender, EventArgs e)
         {
             try
             {
+                // Verificar se o botão não está em processamento
+                if (ButtonRunTest.Text == "Processing...")
+                {
+                    return; // Não alterar estado durante processamento
+                }
+
                 bool windSpeedValid = !string.IsNullOrWhiteSpace(ComboWindSpeed.Text);
                 bool airDensityValid = !string.IsNullOrWhiteSpace(ComboAirDensity.Text);
                 bool wingAreaValid = GetCurrentWingArea() > 0;
+
+                // Verificar também os ComboBoxes dos UserControls
+                bool userControlValid = CheckUserControlFields();
+
+                bool allFieldsValid = windSpeedValid && airDensityValid && wingAreaValid && userControlValid;
                 
-                ButtonRunTest.Enabled = windSpeedValid && airDensityValid && wingAreaValid;
-                
+                // Só alterar o estado se realmente mudou
+                if (ButtonRunTest.Enabled != allFieldsValid)
+                {
+                    ButtonRunTest.Enabled = allFieldsValid;
+                    ButtonRunTest.Text = "Run Test"; // Garantir que o texto esteja correto
+                }
+
                 // Debug apenas quando necessário (comentado para performance)
-                // Console.WriteLine($"WindSpeed: {windSpeedValid}, AirDensity: {airDensityValid}, WingArea: {wingAreaValid} (Area: {GetCurrentWingArea():F2})");
+                Console.WriteLine($"WindSpeed: {windSpeedValid}, AirDensity: {airDensityValid}, WingArea: {wingAreaValid}, UserControl: {userControlValid} (Area: {GetCurrentWingArea():F2})");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Validation error: {ex.Message}");
-                ButtonRunTest.Enabled = false;
+                // Em caso de erro, tentar reabilitar o botão se não estiver processando
+                if (ButtonRunTest.Text != "Processing...")
+                {
+                    ButtonRunTest.Enabled = false;
+                    ButtonRunTest.Text = "Run Test";
+                }
             }
         }
+
+        private bool CheckUserControlFields()
+        {
+            try
+            {
+                if (panelWingArea.Controls.Count == 0)
+                    return false;
+
+                var control = panelWingArea.Controls[0];
+                
+                if (control is RectangularWingControl rectControl)
+                {
+                    bool windSpeedValid = !string.IsNullOrWhiteSpace(rectControl.ComboWindSpeed.Text);
+                    bool airDensityValid = !string.IsNullOrWhiteSpace(rectControl.ComboAirDensity.Text);
+                    return windSpeedValid && airDensityValid;
+                }
+                else if (control is TrapezoidalWingControl trapControl)
+                {
+                    bool wingspanValid = !string.IsNullOrWhiteSpace(trapControl.ComboWingspan.Text);
+                    bool ropeRootValid = !string.IsNullOrWhiteSpace(trapControl.ComboRopeAtRootComboRopeAtRoot.Text);
+                    bool ropeEndValid = !string.IsNullOrWhiteSpace(trapControl.ComboRopeAtEnd.Text);
+                    return wingspanValid && ropeRootValid && ropeEndValid;
+                }
+                else if (control is EllipticalWingControl ellipControl)
+                {
+                    bool wingspanValid = !string.IsNullOrWhiteSpace(ellipControl.ComboWingspan.Text);
+                    bool ropeValid = !string.IsNullOrWhiteSpace(ellipControl.ComboRope.Text);
+                    return wingspanValid && ropeValid;
+                }
+                else if (control is DeltaWingControl deltaControl)
+                {
+                    bool wingspanValid = !string.IsNullOrWhiteSpace(deltaControl.ComboWingspan.Text);
+                    bool ropeValid = !string.IsNullOrWhiteSpace(deltaControl.ComboRope.Text);
+                    return wingspanValid && ropeValid;
+                }
+                
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao verificar campos do UserControl: {ex.Message}");
+                return false;
+            }
+        }
+
         private void ValidateNumericInput(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
@@ -750,25 +713,25 @@ namespace WinFormsApp1
             }
         }
 
-        private async void ButtonYX_Click(object sender, EventArgs e)
+        private void ButtonYX_Click(object sender, EventArgs e)
         {
-            
-                LoadWingImage("Cima");
-            
+
+            LoadWingImage("Cima");
+
         }
 
-        private async void ButtonZY_Click(object sender, EventArgs e)
+        private void ButtonZY_Click(object sender, EventArgs e)
         {
-            
-                LoadWingImage("Frente");
-            
+
+            LoadWingImage("Frente");
+
         }
 
-        private async void ButtonZX_Click(object sender, EventArgs e)
+        private void ButtonZX_Click(object sender, EventArgs e)
         {
-           
-                LoadWingImage("Perfil");
-            
+
+            LoadWingImage("Perfil");
+
         }
 
         private void LoadWingImage(string viewType)
@@ -781,9 +744,9 @@ namespace WinFormsApp1
                                   MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                selectedWingType = ComboWingType.SelectedItem.ToString();
+                selectedWingType = ComboWingType.SelectedItem.ToString() ?? string.Empty;
                 LabelWingType.Text = selectedWingType;
-                string imagePath = GetImagePath(selectedWingType, viewType);
+                string imagePath = GetImagePath(selectedWingType, viewType!);
                 if (string.IsNullOrEmpty(imagePath))
                 {
                     MessageBox.Show($"Wing type '{selectedWingType}' not recognized.", "Error",
@@ -824,7 +787,7 @@ namespace WinFormsApp1
                 "Elliptical" => Path.Combine(basePath, "Eliptica", $"{viewType}.png"),
                 "Trapezoidal" => Path.Combine(basePath, "Trapezoidal", $"{viewType}.png"),
                 "Delta" => Path.Combine(basePath, "Delta", $"{viewType}.png"),
-                _ => null
+                _ => string.Empty
             };
         }
 
@@ -841,9 +804,6 @@ namespace WinFormsApp1
         private void ComboWingType_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selected = ComboWingType.SelectedItem?.ToString() ?? "";
-            string formulaHtml = GetFormulaHtmlForWingType(selected);
-
-
         }
 
         // Adicione este método na sua classe Form1
@@ -889,10 +849,6 @@ namespace WinFormsApp1
             CloseExistingVRMLProcesses();
         }
 
-        private void Form1_Load_1(object sender, EventArgs e)
-        {
-
-        }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
@@ -1066,7 +1022,7 @@ namespace WinFormsApp1
                 AddXmlElement(xmlDoc, testData, "WingspanUnit", "m");
                 AddXmlElement(xmlDoc, testData, "Rope", wingControl.Rope.ToString("F2", CultureInfo.InvariantCulture));
                 AddXmlElement(xmlDoc, testData, "RopeUnit", "m");
-                
+
                 if (wingControl is TrapezoidalWingControl trapControl)
                 {
                     AddXmlElement(xmlDoc, testData, "RopeAtRoot", trapControl.RopeAtRoot.ToString("F2", CultureInfo.InvariantCulture));
@@ -1142,7 +1098,7 @@ namespace WinFormsApp1
                         {
                             while (checkReader.Read())
                             {
-                                availableColumns.Add(checkReader["Field"].ToString());
+                                availableColumns.Add(checkReader["Field"]?.ToString() ?? string.Empty);
                             }
                         }
                     }
@@ -1288,7 +1244,7 @@ namespace WinFormsApp1
             try
             {
                 int ordinal = reader.GetOrdinal(columnName);
-                return reader.IsDBNull(ordinal) ? "" : reader.GetValue(ordinal).ToString();
+                return reader.IsDBNull(ordinal) ? "" : reader.GetValue(ordinal).ToString()!;
             }
             catch
             {
@@ -1306,7 +1262,7 @@ namespace WinFormsApp1
         {
             panelWingArea.Controls.Clear();
 
-            UserControl control = null;
+            UserControl? control = null;
             switch (type)
             {
                 case "Rectangular":
@@ -1321,16 +1277,17 @@ namespace WinFormsApp1
                 case "Delta":
                     control = new DeltaWingControl();
                     break;
+                default:
+                    control = null; // Or throw an exception, depending on desired behavior
+                    break;
             }
 
             if (control != null)
             {
                 control.Dock = DockStyle.Fill;
                 panelWingArea.Controls.Add(control);
-                
-                // Popular as comboboxes com valores padrão
                 PopulateWingControlValues(control);
-                
+
                 // Adicionar evento para verificar campos quando os valores mudarem
                 if (control is IWingControl wingControl)
                 {
@@ -1352,13 +1309,13 @@ namespace WinFormsApp1
                 {
                     rectControl.ComboWindSpeed.Items.Clear();
                     rectControl.ComboAirDensity.Items.Clear();
-                    
+
                     rectControl.ComboWindSpeed.Items.AddRange(wingspanValues.Cast<object>().ToArray());
                     rectControl.ComboAirDensity.Items.AddRange(ropeValues.Cast<object>().ToArray());
-                    
+
                     if (rectControl.ComboWindSpeed.Items.Count > 0) rectControl.ComboWindSpeed.SelectedIndex = 0;
                     if (rectControl.ComboAirDensity.Items.Count > 0) rectControl.ComboAirDensity.SelectedIndex = 0;
-                    
+
                     Console.WriteLine($"Rectangular: Wingspan={rectControl.ComboWindSpeed.SelectedItem}, Rope={rectControl.ComboAirDensity.SelectedItem}");
                 }
                 else if (control is TrapezoidalWingControl trapControl)
@@ -1366,44 +1323,44 @@ namespace WinFormsApp1
                     trapControl.ComboWingspan.Items.Clear();
                     trapControl.ComboRopeAtRootComboRopeAtRoot.Items.Clear();
                     trapControl.ComboRopeAtEnd.Items.Clear();
-                    
+
                     trapControl.ComboWingspan.Items.AddRange(wingspanValues.Cast<object>().ToArray());
                     trapControl.ComboRopeAtRootComboRopeAtRoot.Items.AddRange(ropeValues.Cast<object>().ToArray());
                     trapControl.ComboRopeAtEnd.Items.AddRange(ropeValues.Cast<object>().ToArray());
-                    
+
                     if (trapControl.ComboWingspan.Items.Count > 0) trapControl.ComboWingspan.SelectedIndex = 0;
                     if (trapControl.ComboRopeAtRootComboRopeAtRoot.Items.Count > 0) trapControl.ComboRopeAtRootComboRopeAtRoot.SelectedIndex = 0;
                     if (trapControl.ComboRopeAtEnd.Items.Count > 0) trapControl.ComboRopeAtEnd.SelectedIndex = 0;
-                    
+
                     Console.WriteLine($"Trapezoidal: Wingspan={trapControl.ComboWingspan.SelectedItem}, RopeRoot={trapControl.ComboRopeAtRootComboRopeAtRoot.SelectedItem}, RopeEnd={trapControl.ComboRopeAtEnd.SelectedItem}");
                 }
                 else if (control is EllipticalWingControl ellipControl)
                 {
                     ellipControl.ComboWingspan.Items.Clear();
                     ellipControl.ComboRope.Items.Clear();
-                    
+
                     ellipControl.ComboWingspan.Items.AddRange(wingspanValues.Cast<object>().ToArray());
                     ellipControl.ComboRope.Items.AddRange(ropeValues.Cast<object>().ToArray());
-                    
+
                     if (ellipControl.ComboWingspan.Items.Count > 0) ellipControl.ComboWingspan.SelectedIndex = 0;
                     if (ellipControl.ComboRope.Items.Count > 0) ellipControl.ComboRope.SelectedIndex = 0;
-                    
+
                     Console.WriteLine($"Elliptical: Wingspan={ellipControl.ComboWingspan.SelectedItem}, Rope={ellipControl.ComboRope.SelectedItem}");
                 }
                 else if (control is DeltaWingControl deltaControl)
                 {
                     deltaControl.ComboWingspan.Items.Clear();
                     deltaControl.ComboRope.Items.Clear();
-                    
+
                     deltaControl.ComboWingspan.Items.AddRange(wingspanValues.Cast<object>().ToArray());
                     deltaControl.ComboRope.Items.AddRange(ropeValues.Cast<object>().ToArray());
-                    
+
                     if (deltaControl.ComboWingspan.Items.Count > 0) deltaControl.ComboWingspan.SelectedIndex = 0;
                     if (deltaControl.ComboRope.Items.Count > 0) deltaControl.ComboRope.SelectedIndex = 0;
-                    
+
                     Console.WriteLine($"Delta: Wingspan={deltaControl.ComboWingspan.SelectedItem}, Rope={deltaControl.ComboRope.SelectedItem}");
                 }
-                
+
                 // Aguardar um pouco para garantir que os valores sejam definidos
                 System.Threading.Thread.Sleep(100);
             }
@@ -1413,6 +1370,13 @@ namespace WinFormsApp1
             }
         }
 
+        // Método auxiliar para criar eventos que chamam CheckFieldsFilled
+        private void OnUserControlFieldChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine($"UserControl field changed: {sender.GetType().Name}");
+            CheckFieldsFilled(sender, e);
+        }
+
         private void AddWingControlEvents(UserControl control)
         {
             try
@@ -1420,38 +1384,59 @@ namespace WinFormsApp1
                 // Remover eventos existentes primeiro para evitar duplicação
                 if (control is RectangularWingControl rectControl)
                 {
-                    rectControl.ComboWindSpeed.SelectedIndexChanged -= CheckFieldsFilled;
-                    rectControl.ComboAirDensity.SelectedIndexChanged -= CheckFieldsFilled;
-                    
-                    rectControl.ComboWindSpeed.SelectedIndexChanged += CheckFieldsFilled;
-                    rectControl.ComboAirDensity.SelectedIndexChanged += CheckFieldsFilled;
+                    rectControl.ComboWindSpeed.SelectedIndexChanged -= OnUserControlFieldChanged;
+                    rectControl.ComboAirDensity.SelectedIndexChanged -= OnUserControlFieldChanged;
+                    rectControl.ComboWindSpeed.TextChanged -= OnUserControlFieldChanged;
+                    rectControl.ComboAirDensity.TextChanged -= OnUserControlFieldChanged;
+
+                    rectControl.ComboWindSpeed.SelectedIndexChanged += OnUserControlFieldChanged;
+                    rectControl.ComboAirDensity.SelectedIndexChanged += OnUserControlFieldChanged;
+                    rectControl.ComboWindSpeed.TextChanged += OnUserControlFieldChanged;
+                    rectControl.ComboAirDensity.TextChanged += OnUserControlFieldChanged;
                 }
                 else if (control is TrapezoidalWingControl trapControl)
                 {
-                    trapControl.ComboWingspan.SelectedIndexChanged -= CheckFieldsFilled;
-                    trapControl.ComboRopeAtRootComboRopeAtRoot.SelectedIndexChanged -= CheckFieldsFilled;
-                    trapControl.ComboRopeAtEnd.SelectedIndexChanged -= CheckFieldsFilled;
-                    
-                    trapControl.ComboWingspan.SelectedIndexChanged += CheckFieldsFilled;
-                    trapControl.ComboRopeAtRootComboRopeAtRoot.SelectedIndexChanged += CheckFieldsFilled;
-                    trapControl.ComboRopeAtEnd.SelectedIndexChanged += CheckFieldsFilled;
+                    trapControl.ComboWingspan.SelectedIndexChanged -= OnUserControlFieldChanged;
+                    trapControl.ComboRopeAtRootComboRopeAtRoot.SelectedIndexChanged -= OnUserControlFieldChanged;
+                    trapControl.ComboRopeAtEnd.SelectedIndexChanged -= OnUserControlFieldChanged;
+                    trapControl.ComboWingspan.TextChanged -= OnUserControlFieldChanged;
+                    trapControl.ComboRopeAtRootComboRopeAtRoot.TextChanged -= OnUserControlFieldChanged;
+                    trapControl.ComboRopeAtEnd.TextChanged -= OnUserControlFieldChanged;
+
+                    trapControl.ComboWingspan.SelectedIndexChanged += OnUserControlFieldChanged;
+                    trapControl.ComboRopeAtRootComboRopeAtRoot.SelectedIndexChanged += OnUserControlFieldChanged;
+                    trapControl.ComboRopeAtEnd.SelectedIndexChanged += OnUserControlFieldChanged;
+                    trapControl.ComboWingspan.TextChanged += OnUserControlFieldChanged;
+                    trapControl.ComboRopeAtRootComboRopeAtRoot.TextChanged += OnUserControlFieldChanged;
+                    trapControl.ComboRopeAtEnd.TextChanged += OnUserControlFieldChanged;
                 }
                 else if (control is EllipticalWingControl ellipControl)
                 {
-                    ellipControl.ComboWingspan.SelectedIndexChanged -= CheckFieldsFilled;
-                    ellipControl.ComboRope.SelectedIndexChanged -= CheckFieldsFilled;
-                    
-                    ellipControl.ComboWingspan.SelectedIndexChanged += CheckFieldsFilled;
-                    ellipControl.ComboRope.SelectedIndexChanged += CheckFieldsFilled;
+                    ellipControl.ComboWingspan.SelectedIndexChanged -= OnUserControlFieldChanged;
+                    ellipControl.ComboRope.SelectedIndexChanged -= OnUserControlFieldChanged;
+                    ellipControl.ComboWingspan.TextChanged -= OnUserControlFieldChanged;
+                    ellipControl.ComboRope.TextChanged -= OnUserControlFieldChanged;
+
+                    ellipControl.ComboWingspan.SelectedIndexChanged += OnUserControlFieldChanged;
+                    ellipControl.ComboRope.SelectedIndexChanged += OnUserControlFieldChanged;
+                    ellipControl.ComboWingspan.TextChanged += OnUserControlFieldChanged;
+                    ellipControl.ComboRope.TextChanged += OnUserControlFieldChanged;
                 }
                 else if (control is DeltaWingControl deltaControl)
                 {
-                    deltaControl.ComboWingspan.SelectedIndexChanged -= CheckFieldsFilled;
-                    deltaControl.ComboRope.SelectedIndexChanged -= CheckFieldsFilled;
-                    
-                    deltaControl.ComboWingspan.SelectedIndexChanged += CheckFieldsFilled;
-                    deltaControl.ComboRope.SelectedIndexChanged += CheckFieldsFilled;
+                    deltaControl.ComboWingspan.SelectedIndexChanged -= OnUserControlFieldChanged;
+                    deltaControl.ComboRope.SelectedIndexChanged -= OnUserControlFieldChanged;
+                    deltaControl.ComboWingspan.TextChanged -= OnUserControlFieldChanged;
+                    deltaControl.ComboRope.TextChanged -= OnUserControlFieldChanged;
+
+                    deltaControl.ComboWingspan.SelectedIndexChanged += OnUserControlFieldChanged;
+                    deltaControl.ComboRope.SelectedIndexChanged += OnUserControlFieldChanged;
+                    deltaControl.ComboWingspan.TextChanged += OnUserControlFieldChanged;
+                    deltaControl.ComboRope.TextChanged += OnUserControlFieldChanged;
                 }
+                
+                // Verificar campos imediatamente após adicionar eventos
+                CheckFieldsFilled(null, null);
             }
             catch (Exception ex)
             {
@@ -1469,13 +1454,13 @@ namespace WinFormsApp1
                     if (control is IWingControl wingControl)
                     {
                         double area = wingControl.WingArea;
-                        
+
                         // Debug para identificar problemas
                         if (area <= 0)
                         {
                             Console.WriteLine($"Calculated area: {area}, Wingspan: {wingControl.Wingspan}, Rope: {wingControl.Rope}");
                         }
-                        
+
                         return area;
                     }
                 }
@@ -1488,7 +1473,7 @@ namespace WinFormsApp1
             }
         }
 
-        private IWingControl GetCurrentWingControl()
+        private IWingControl? GetCurrentWingControl()
         {
             if (panelWingArea.Controls.Count > 0)
             {
@@ -1510,21 +1495,21 @@ namespace WinFormsApp1
                 string details = $"Tipo de Asa: {wingType}\n";
                 details += $"Envergadura: {wingControl.Wingspan:F2} m\n";
                 details += $"Corda: {wingControl.Rope:F2} m\n";
-                
+
                 if (wingControl is TrapezoidalWingControl trapControl)
                 {
                     details += $"Corda na Raiz: {trapControl.RopeAtRoot:F2} m\n";
                     details += $"Corda na Ponta: {trapControl.RopeAtEnd:F2} m\n";
                 }
-                
+
                 details += $"Wing Area: {wingControl.WingArea:F2} m²";
-                
+
                 // Você pode usar isso para mostrar em um MessageBox ou em um label
                 Console.WriteLine(details);
             }
         }
 
-        private async void ComboWingType_SelectedIndexChanged_1(object sender, EventArgs e)
+        private void ComboWingType_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             string selectedType = ComboWingType.SelectedItem?.ToString() ?? "";
             LoadWingControl(selectedType);
@@ -1534,8 +1519,8 @@ namespace WinFormsApp1
                 LabelWingType.Text = selectedType;
             }
             TestCurrentWingControl();
-            
-            
+
+
         }
 
         private void ComboWingTypeSelection_SelectedIndexChanged(object sender, EventArgs e)
@@ -1553,7 +1538,7 @@ namespace WinFormsApp1
                 {
                     // Não permitir desmarcar o tipo que está sendo simulado
                     comboBox.SelectedIndex = 0;
-                    MessageBox.Show($"Cannot uncheck wing type '{wingType}' as it is currently being simulated.", 
+                    MessageBox.Show($"Cannot uncheck wing type '{wingType}' as it is currently being simulated.",
                                   "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -1566,7 +1551,7 @@ namespace WinFormsApp1
                 {
                     comboBox.SelectedIndex = 0;
                     wingTypeSelections[wingType] = true;
-                    MessageBox.Show("At least one wing type must be selected.", 
+                    MessageBox.Show("At least one wing type must be selected.",
                                   "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -1594,7 +1579,7 @@ namespace WinFormsApp1
                 string wingType = checkBox.Name switch
                 {
                     "checkBox1" => "Rectangular",
-                    "checkBox2" => "Trapezoidal", 
+                    "checkBox2" => "Trapezoidal",
                     "checkBox3" => "Elliptical",
                     "checkBox4" => "Delta",
                     _ => ""
@@ -1607,7 +1592,7 @@ namespace WinFormsApp1
                 {
                     // Não permitir desmarcar o tipo que está sendo simulado
                     checkBox.Checked = true;
-                    MessageBox.Show($"Cannot uncheck wing type '{wingType}' as it is currently being simulated.", 
+                    MessageBox.Show($"Cannot uncheck wing type '{wingType}' as it is currently being simulated.",
                                   "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -1620,7 +1605,7 @@ namespace WinFormsApp1
                 {
                     checkBox.Checked = true;
                     wingTypeSelections[wingType] = true;
-                    MessageBox.Show("At least one wing type must be selected.", 
+                    MessageBox.Show("At least one wing type must be selected.",
                                   "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
@@ -1652,7 +1637,7 @@ namespace WinFormsApp1
                 Console.WriteLine($"Erro ao sincronizar checkboxes: {ex.Message}");
             }
         }
-        
+
         private void TestCurrentWingControl()
         {
             try
@@ -1677,5 +1662,103 @@ namespace WinFormsApp1
             }
         }
 
+       
+
+        private void TrackBarAngleAttack_ValueChanged(object sender, EventArgs e)
+        {
+            LabelAngleAttack.Text = $"Attack Angle ({TrackBarAngleAttack.Value.ToString()}°)";
+        }
+
+
+        private void LoadAirfoilData()
+        {
+            string airfoilDataPath = @"c:\WINDWORKS\ProjetoTCC\WinFormsApp1\AirfoilData";
+            if (!Directory.Exists(airfoilDataPath))
+            {
+                MessageBox.Show($"Diretório de dados de aerofólio não encontrado: {airfoilDataPath}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Limpa os dados antigos antes de carregar novos
+            airfoilData.Clear();
+
+            foreach (string filePath in Directory.GetFiles(airfoilDataPath, "*.csv"))
+            {
+                string airfoilName = Path.GetFileNameWithoutExtension(filePath);
+                // Cria um dicionário local TEMPORÁRIO para este arquivo
+                var localProfileData = new Dictionary<double, (double CL, double CD)>();
+
+                try
+                {
+                    // Lê o arquivo CSV
+                    foreach (string line in File.ReadLines(filePath).Skip(1))
+                    {
+                        string[] parts = line.Split(',');
+                        if (parts.Length == 3 &&
+                            double.TryParse(parts[0], NumberStyles.Any, CultureInfo.InvariantCulture, out double angle) &&
+                            double.TryParse(parts[1], NumberStyles.Any, CultureInfo.InvariantCulture, out double cl) &&
+                            double.TryParse(parts[2], NumberStyles.Any, CultureInfo.InvariantCulture, out double cd))
+                        {
+                            // Adiciona os dados ao dicionário local
+                            localProfileData[angle] = (cl, cd);
+                        }
+                    }
+                    // Ao final, adiciona o dicionário local ao dicionário GLOBAL
+                    airfoilData[airfoilName] = localProfileData;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao ler o arquivo {airfoilName}.csv: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private (double CL, double CD) GetCoefficientsInterpolated(string airfoilName, double angleOfAttack)
+        {
+            // 1. Verifica se o dicionário GLOBAL tem os dados para o perfil solicitado
+            if (!airfoilData.ContainsKey(airfoilName))
+            {
+                MessageBox.Show($"Dados para o perfil '{airfoilName}' não foram encontrados.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return (0.0, 0.0);
+            }
+
+            // 2. Pega os dados ESPECÍFICOS do perfil solicitado do dicionário GLOBAL
+            var specificProfileData = airfoilData[airfoilName];
+
+            // 3. Pega a lista de ângulos e a ordena
+            var angles = specificProfileData.Keys.OrderBy(a => a).ToList();
+
+            // Lógica de interpolação e clamp (usando 'specificProfileData')
+            if (angleOfAttack < angles.First())
+            {
+                return specificProfileData[angles.First()]; // Retorna o CL/CD do primeiro ângulo
+            }
+
+            if (angleOfAttack > angles.Last())
+            {
+                return specificProfileData[angles.Last()]; // Retorna o CL/CD do último ângulo
+            }
+
+            for (int i = 0; i < angles.Count - 1; i++)
+            {
+                double x1 = angles[i];
+                double x2 = angles[i + 1];
+
+                if (angleOfAttack >= x1 && angleOfAttack <= x2)
+                {
+                    var p1 = specificProfileData[x1]; // Tupla (CL1, CD1)
+                    var p2 = specificProfileData[x2]; // Tupla (CL2, CD2)
+
+                    // Interpola CL
+                    double cl = p1.CL + (angleOfAttack - x1) * (p2.CL - p1.CL) / (x2 - x1);
+                    // Interpola CD
+                    double cd = p1.CD + (angleOfAttack - x1) * (p2.CD - p1.CD) / (x2 - x1);
+
+                    return (cl, cd);
+                }
+            }
+
+            return (0.0, 0.0); // Segurança, não deve acontecer
+        }
     }
 }

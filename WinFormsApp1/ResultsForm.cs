@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -32,20 +32,20 @@ namespace WinFormsApp1
             if (dataGridViewResults.CurrentRow != null)
             {
                 var row = dataGridViewResults.CurrentRow;
-                string wingType = row.Cells["WingType"].Value?.ToString();
-                string cameraPerspective = row.Cells["CameraPerspective"].Value?.ToString();
-                string windSpeed = row.Cells["WindSpeed"].Value?.ToString();
-                string airDensity = row.Cells["AirDensity"].Value?.ToString();
-                string wingArea = row.Cells["WingArea"].Value?.ToString();
-                string coefficient = row.Cells["Coefficient"].Value?.ToString();
-                string liftForce = row.Cells["LiftForce"].Value?.ToString();
-                string testDate = row.Cells["TestDate"].Value?.ToString();
+                string wingType = row.Cells["WingType"].Value?.ToString() ?? string.Empty;
+                string cameraPerspective = row.Cells["CameraPerspective"].Value?.ToString() ?? string.Empty;
+                string windSpeed = row.Cells["WindSpeed"].Value?.ToString() ?? string.Empty;
+                string airDensity = row.Cells["AirDensity"].Value?.ToString() ?? string.Empty;
+                string wingArea = row.Cells["WingArea"].Value?.ToString() ?? string.Empty;
+                string coefficient = row.Cells["Coefficient"].Value?.ToString() ?? string.Empty;
+                string liftForce = row.Cells["LiftForce"].Value?.ToString() ?? string.Empty;
+                string testDate = row.Cells["TestDate"].Value?.ToString() ?? string.Empty;
 
                 if (this.Owner is Form1 mainForm)
                 {
                     mainForm.ReceiveDataFromResults(
-                        wingType, cameraPerspective, windSpeed,
-                        airDensity, wingArea, coefficient, liftForce, testDate
+                        wingType ?? string.Empty, cameraPerspective ?? string.Empty, windSpeed ?? string.Empty,
+                        airDensity ?? string.Empty, wingArea ?? string.Empty, coefficient ?? string.Empty, liftForce ?? string.Empty, testDate ?? string.Empty
                     );
                 }
                 this.Close();

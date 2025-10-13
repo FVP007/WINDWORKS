@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml;
 using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace WinFormsApp1
 {
@@ -15,7 +16,7 @@ namespace WinFormsApp1
     public static class ClassResults
     {
         #region Private Fields
-        private static string connectionString = "Server=localhost;Database=LiftForceDb;Uid=root;";
+        private static string connectionString = ConfigurationManager.ConnectionStrings["LiftForceDb"].ConnectionString;
         #endregion
 
         #region Public Properties
@@ -229,7 +230,7 @@ namespace WinFormsApp1
         /// </summary>
         /// <param name="wingType">Tipo de asa (opcional)</param>
         /// <returns>DataTable com estatísticas</returns>
-        public static DataTable GetWingTypeStatistics(string wingType = null)
+        public static DataTable GetWingTypeStatistics(string? wingType = null)
         {
             DataTable dataTable = new DataTable();
             try
@@ -321,7 +322,7 @@ namespace WinFormsApp1
         /// </summary>
         /// <param name="dataGridView">DataGridView a ser preenchido</param>
         /// <param name="wingType">Tipo de asa para filtrar (opcional)</param>
-        public static void LoadFilteredData(DataGridView dataGridView, string wingType = null)
+        public static void LoadFilteredData(DataGridView dataGridView, string? wingType = null)
         {
             try
             {
@@ -557,7 +558,7 @@ namespace WinFormsApp1
             if (dataGridView.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
-                string wingType = selectedRow.Cells["WingType"].Value?.ToString();
+                string wingType = selectedRow.Cells["WingType"].Value?.ToString() ?? string.Empty;
                 double liftForce = Convert.ToDouble(selectedRow.Cells["LiftForce"].Value ?? 0);
 
                 Console.WriteLine($"Selected: {wingType} - Force: {liftForce}N");
@@ -686,7 +687,7 @@ namespace WinFormsApp1
 
                     foreach (DataRow row in data.Rows)
                     {
-                        wingTypes.Add(row["WingType"].ToString());
+                        wingTypes.Add(row["WingType"].ToString() ?? string.Empty);
                         totalLiftForce += Convert.ToDouble(row["LiftForce"]);
                     }
 

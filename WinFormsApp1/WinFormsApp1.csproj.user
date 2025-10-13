@@ -10,9 +10,6 @@
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="FormulaForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="RectangularWingControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
