@@ -1170,7 +1170,7 @@ namespace WinFormsApp1
             guna2HtmlLabel8.Name = "guna2HtmlLabel8";
             guna2HtmlLabel8.Size = new Size(91, 17);
             guna2HtmlLabel8.TabIndex = 7;
-            guna2HtmlLabel8.Text = "Coeficiente (CL)";
+            guna2HtmlLabel8.Text = "Coefficient (CL)";
             // 
             // guna2Panel13
             // 

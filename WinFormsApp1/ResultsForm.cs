@@ -19,7 +19,7 @@ namespace WinFormsApp1
             //stes métodos precisam existir na sua classe ClassResults
             lblTotalCount.Text = ClassResults.GetTotalTestCount().ToString();
             lblLastUpdate.Text = ClassResults.GetLastUpdate().ToString();
-             ClassResults.LoadDataToGridView(dataGridViewResults);
+            ClassResults.LoadDataToGridView(dataGridViewResults);
         }
 
         private void gunaButtonRetakeTest_Click(object sender, EventArgs e)

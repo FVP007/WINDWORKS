@@ -70,15 +70,12 @@ namespace WinFormsApp1
              ComboWindSpeed.DropDownStyle = ComboBoxStyle.DropDown; 
              ComboAirDensity.DropDownStyle = ComboBoxStyle.DropDown; 
              Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US"); 
-             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); 
+             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+             PictureBoxModelImage.Image = Image.FromFile("C:\\WINDWORKS\\Prints\\Rectangular\\Cima.png");
              ButtonRunTest.Enabled = false; 
              this.KeyPreview = true; 
              SetupResponsiveLayout(); 
          } 
-
-
-
-
 
         private void SetupResponsiveLayout()
         {
@@ -394,12 +391,8 @@ namespace WinFormsApp1
                 tableLayoutPanel1.ColumnStyles[0] = new ColumnStyle(SizeType.Absolute, 250F);
                 tableLayoutPanel1.ColumnStyles[1] = new ColumnStyle(SizeType.Percent, 60F);
                 tableLayoutPanel1.ColumnStyles[2] = new ColumnStyle(SizeType.Percent, 40F);
-
             }
         }
-
-        
-        
 
         private void LoadVRMLModel(object sender, EventArgs e)
         {
@@ -626,7 +619,7 @@ namespace WinFormsApp1
                 guna2HtmlLabelLiftCoeffValue.Text = $"{clCoefficient:F2}"; // Label para o CL
                 guna2HtmlLabelDragCoeffValue.Text = $"{cdCoefficient:F2}"; // Label para o CD
                 guna2HtmlLabelEfficiencyValue.Text = $"{(efficiency > 0 ? efficiency.ToString("F2") : "N/A")}"; // Label para a eficiência
-
+                MessageBox.Show(wingType.ToString());
                 // Mostrar informações detalhadas da asa
                 ShowWingDetails();
                 ShowAllCharts(airDensity, windSpeed, wingArea, selectedAirfoil, clCoefficient, cdCoefficient);
@@ -912,10 +905,10 @@ namespace WinFormsApp1
 
             return wingType switch
             {
-                "Rectangular" => Path.Combine(basePath, "Reta", $"{viewType}.png"),
-                "Elliptical" => Path.Combine(basePath, "Eliptica", $"{viewType}.png"),
-                "Trapezoidal" => Path.Combine(basePath, "Trapezoidal", $"{viewType}.png"),
-                "Delta" => Path.Combine(basePath, "Delta", $"{viewType}.png"),
+                "Rectangular" => Path.Combine(basePath, wingType, $"{viewType}.png"),
+                "Elliptical" => Path.Combine(basePath, wingType, $"{viewType}.png"),
+                "Trapezoidal" => Path.Combine(basePath, wingType, $"{viewType}.png"),
+                "Delta" => Path.Combine(basePath, wingType, $"{viewType}.png"),
                 _ => string.Empty
             };
         }
@@ -1394,14 +1387,14 @@ namespace WinFormsApp1
             if (wingControl != null)
             {
                 string wingType = ComboWingType.SelectedItem?.ToString() ?? "";
-                string details = $"Tipo de Asa: {wingType}\n";
-                details += $"Envergadura: {wingControl.Wingspan:F2} m\n";
-                details += $"Corda: {wingControl.Rope:F2} m\n";
+                string details = $"Wing Type: {wingType}\n";
+                details += $"Wingspan: {wingControl.Wingspan:F2} m\n";
+                details += $"Rope: {wingControl.Rope:F2} m\n";
 
                 if (wingControl is TrapezoidalWingControl trapControl)
                 {
-                    details += $"Corda na Raiz: {trapControl.RopeAtRoot:F2} m\n";
-                    details += $"Corda na Ponta: {trapControl.RopeAtEnd:F2} m\n";
+                    details += $"Rope at the Root: {trapControl.RopeAtRoot:F2} m\n";
+                    details += $"Rope at the End: {trapControl.RopeAtEnd:F2} m\n";
                 }
 
                 details += $"Wing Area: {wingControl.WingArea:F2} m²";
@@ -1417,12 +1410,12 @@ namespace WinFormsApp1
             LoadWingControl(selectedType);
             if (!string.IsNullOrEmpty(selectedType))
             {
+                PictureBoxModelImage.Image = Image.FromFile(GetImagePath(selectedType, "Cima"));
                 selectedWingType = selectedType;
                 LabelWingType.Text = selectedType;
             }
+
             TestCurrentWingControl();
-
-
         }
 
         private void ComboWingTypeSelection_SelectedIndexChanged(object sender, EventArgs e)
@@ -1579,7 +1572,7 @@ namespace WinFormsApp1
             {
                 string selectedAirfoil = ComboBoxAirFoil.SelectedItem.ToString();
                 // Define o caminho base para as imagens dos perfis
-                string imagePath = $@"C:\WINDWORKS\ProjetoTCC\WinFormsApp1\AirfoilImages\{selectedAirfoil}.Gif";
+                string imagePath = $@"C:\WINDWORKS\WinFormsApp1\AirfoilImages\{selectedAirfoil}.Gif";
 
                 // Limpa a imagem anterior para evitar que fique "presa" se a nova não for encontrada
                 if (pictureBoxAirfoilProfile.Image != null)
@@ -1617,7 +1610,7 @@ namespace WinFormsApp1
 
         private void LoadAirfoilData()
         {
-            string airfoilDataPath = @"c:\WINDWORKS\ProjetoTCC\WinFormsApp1\AirfoilData";
+            string airfoilDataPath = @"C:\WINDWORKS\WinFormsApp1\AirfoilData";
             if (!Directory.Exists(airfoilDataPath))
             {
                 MessageBox.Show($"Diretório de dados não encontrado: {airfoilDataPath}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1735,7 +1728,7 @@ namespace WinFormsApp1
             XmlElement root = xmlDoc.CreateElement("LiftForceTestResults");
             xmlDoc.AppendChild(root);
 
-            // MANTIDO: Informações da exportação
+            // Informações da exportação
             XmlElement exportInfo = xmlDoc.CreateElement("ExportInformation");
             root.AppendChild(exportInfo);
             AddXmlElement(xmlDoc, exportInfo, "ExportDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
@@ -1743,62 +1736,30 @@ namespace WinFormsApp1
             AddXmlElement(xmlDoc, exportInfo, "Application", "Lift Force Calculator");
             AddXmlElement(xmlDoc, exportInfo, "Version", "1.0");
 
-            // MANTIDO: Container para todos os testes
+            // Container para todos os testes
             XmlElement testsContainer = xmlDoc.CreateElement("Tests");
             root.AppendChild(testsContainer);
 
             try
             {
-                List<string> availableColumns = new List<string>();
+                // A string de conexão precisa ser acessível
+                string connectionString = ConfigurationManager.ConnectionStrings["LiftForceDb"].ConnectionString;
 
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    // MANTIDO: Verificar estrutura da tabela
-                    string checkColumnsQuery = "DESCRIBE TestResults";
-                    using (MySqlCommand checkCommand = new MySqlCommand(checkColumnsQuery, connection))
-                    {
-                        using (MySqlDataReader checkReader = checkCommand.ExecuteReader())
-                        {
-                            while (checkReader.Read())
-                            {
-                                availableColumns.Add(checkReader["Field"]?.ToString() ?? string.Empty);
-                            }
-                        }
-                    }
-
-                    // MANTIDO: Construir query
-                    string baseQuery = "SELECT ";
-                    List<string> selectColumns = new List<string>();
-
-                    // MANTIDO: Colunas obrigatórias
-                    string[] requiredColumns = { "Id", "WingType", "WindSpeed", "AirDensity", "WingArea", "LiftForce", "TestDate" };
-                    foreach (string col in requiredColumns)
-                    {
-                        if (availableColumns.Contains(col))
-                            selectColumns.Add(col);
-                    }
-
-                    // MELHORADO: Mais colunas opcionais
-                    string[] optionalColumns = {
-                "CameraPerspective", "LiftCoefficient", "Coefficient",
-                "Wingspan", "Rope", "RopeAtRoot", "RopeAtEnd",
-                "Airfoil", "AngleOfAttack", "DragCoefficient", "DragForce", "Efficiency" // ADICIONADO
-            };
-                    foreach (string col in optionalColumns)
-                    {
-                        if (availableColumns.Contains(col))
-                            selectColumns.Add(col);
-                    }
-
-                    if (selectColumns.Count == 0)
-                    {
-                        throw new Exception("Nenhuma coluna reconhecida encontrada na tabela TestResults");
-                    }
-
-                    string query = baseQuery + string.Join(", ", selectColumns) + " FROM TestResults ORDER BY TestDate DESC";
-
+                    // A query agora usa JOIN para unir as duas tabelas
+                    string query = @"
+                SELECT 
+                    tr.Id, tr.TestDate, tr.WingType, tr.Airfoil, tr.AngleOfAttack, tr.CameraPerspective,
+                    tr.WindSpeed, tr.AirDensity, tr.WingArea, tr.Wingspan,
+                    wg.Rope, wg.RopeAtRoot, wg.RopeAtEnd,
+                    tr.LiftCoefficient, tr.DragCoefficient,
+                    tr.LiftForce, tr.DragForce, tr.Efficiency
+                FROM testresults AS tr
+                LEFT JOIN winggeometry AS wg ON tr.Id = wg.TestResultId
+                ORDER BY tr.TestDate DESC";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         using (MySqlDataReader reader = command.ExecuteReader())
@@ -1812,35 +1773,23 @@ namespace WinFormsApp1
                                 test.SetAttribute("number", testCount.ToString());
                                 testsContainer.AppendChild(test);
 
-                                // MANTIDO: Dados básicos do teste
+                                // Dados básicos do teste
                                 XmlElement basicData = xmlDoc.CreateElement("BasicData");
                                 test.AppendChild(basicData);
-
                                 AddXmlElement(xmlDoc, basicData, "WingType", GetSafeValue(reader, "WingType"));
+                                AddXmlElement(xmlDoc, basicData, "Airfoil", GetSafeValue(reader, "Airfoil"));
+                                AddXmlElement(xmlDoc, basicData, "AngleOfAttack", GetSafeValue(reader, "AngleOfAttack"));
+                                AddXmlElement(xmlDoc, basicData, "CameraPerspective", GetSafeValue(reader, "CameraPerspective"));
 
-                                // ADICIONADO: Airfoil e AngleOfAttack (NOVO)
-                                if (availableColumns.Contains("Airfoil"))
-                                    AddXmlElement(xmlDoc, basicData, "Airfoil", GetSafeValue(reader, "Airfoil"));
+                                string dateValue = GetSafeValue(reader, "TestDate");
+                                if (DateTime.TryParse(dateValue, out DateTime testDate))
+                                    AddXmlElement(xmlDoc, basicData, "TestDate", testDate.ToString("yyyy-MM-dd HH:mm:ss"));
+                                else
+                                    AddXmlElement(xmlDoc, basicData, "TestDate", dateValue);
 
-                                if (availableColumns.Contains("AngleOfAttack"))
-                                    AddXmlElement(xmlDoc, basicData, "AngleOfAttack", GetSafeValue(reader, "AngleOfAttack"));
-
-                                if (availableColumns.Contains("CameraPerspective"))
-                                    AddXmlElement(xmlDoc, basicData, "CameraPerspective", GetSafeValue(reader, "CameraPerspective"));
-
-                                if (availableColumns.Contains("TestDate"))
-                                {
-                                    string dateValue = GetSafeValue(reader, "TestDate");
-                                    if (DateTime.TryParse(dateValue, out DateTime testDate))
-                                        AddXmlElement(xmlDoc, basicData, "TestDate", testDate.ToString("yyyy-MM-dd HH:mm:ss"));
-                                    else
-                                        AddXmlElement(xmlDoc, basicData, "TestDate", dateValue);
-                                }
-
-                                // MANTIDO: Parâmetros de entrada
+                                // Parâmetros de entrada
                                 XmlElement inputParams = xmlDoc.CreateElement("InputParameters");
                                 test.AppendChild(inputParams);
-
                                 AddXmlElement(xmlDoc, inputParams, "WindSpeed", GetSafeValue(reader, "WindSpeed"));
                                 AddXmlElement(xmlDoc, inputParams, "WindSpeedUnit", "m/s");
                                 AddXmlElement(xmlDoc, inputParams, "AirDensity", GetSafeValue(reader, "AirDensity"));
@@ -1848,70 +1797,32 @@ namespace WinFormsApp1
                                 AddXmlElement(xmlDoc, inputParams, "WingArea", GetSafeValue(reader, "WingArea"));
                                 AddXmlElement(xmlDoc, inputParams, "WingAreaUnit", "m²");
 
-                                // MANTIDO: Parâmetros da asa
-                                if (availableColumns.Contains("Wingspan"))
-                                {
-                                    AddXmlElement(xmlDoc, inputParams, "Wingspan", GetSafeValue(reader, "Wingspan"));
-                                    AddXmlElement(xmlDoc, inputParams, "WingspanUnit", "m");
-                                }
-                                if (availableColumns.Contains("Rope"))
-                                {
-                                    AddXmlElement(xmlDoc, inputParams, "Rope", GetSafeValue(reader, "Rope"));
-                                    AddXmlElement(xmlDoc, inputParams, "RopeUnit", "m");
-                                }
-                                if (availableColumns.Contains("RopeAtRoot"))
-                                {
-                                    AddXmlElement(xmlDoc, inputParams, "RopeAtRoot", GetSafeValue(reader, "RopeAtRoot"));
-                                    AddXmlElement(xmlDoc, inputParams, "RopeAtRootUnit", "m");
-                                }
-                                if (availableColumns.Contains("RopeAtEnd"))
-                                {
-                                    AddXmlElement(xmlDoc, inputParams, "RopeAtEnd", GetSafeValue(reader, "RopeAtEnd"));
-                                    AddXmlElement(xmlDoc, inputParams, "RopeAtEndUnit", "m");
-                                }
+                                // Parâmetros da asa (agora lidos da query com JOIN)
+                                AddXmlElement(xmlDoc, inputParams, "Wingspan", GetSafeValue(reader, "Wingspan"));
+                                AddXmlElement(xmlDoc, inputParams, "Rope", GetSafeValue(reader, "Rope"));
+                                AddXmlElement(xmlDoc, inputParams, "RopeAtRoot", GetSafeValue(reader, "RopeAtRoot"));
+                                AddXmlElement(xmlDoc, inputParams, "RopeAtEnd", GetSafeValue(reader, "RopeAtEnd"));
 
-                                // CORRIGIDO: Coeficiente (a lógica estava duplicada!)
-                                string coefficientValue = "N/A";
-                                if (availableColumns.Contains("LiftCoefficient"))
-                                    coefficientValue = GetSafeValue(reader, "LiftCoefficient");
-                                else if (availableColumns.Contains("Coefficient"))
-                                    coefficientValue = GetSafeValue(reader, "Coefficient");
-
-                                AddXmlElement(xmlDoc, inputParams, "Coefficient", coefficientValue);
-
-                                // ADICIONADO: DragCoefficient (NOVO - estava faltando!)
-                                if (availableColumns.Contains("DragCoefficient"))
-                                    AddXmlElement(xmlDoc, inputParams, "DragCoefficient", GetSafeValue(reader, "DragCoefficient"));
-
-                                // MANTIDO: Resultado
+                                // Coeficientes e resultados
                                 XmlElement result = xmlDoc.CreateElement("Result");
                                 test.AppendChild(result);
-
+                                AddXmlElement(xmlDoc, result, "LiftCoefficient", GetSafeValue(reader, "LiftCoefficient"));
+                                AddXmlElement(xmlDoc, result, "DragCoefficient", GetSafeValue(reader, "DragCoefficient"));
                                 AddXmlElement(xmlDoc, result, "LiftForce", GetSafeValue(reader, "LiftForce"));
-                                AddXmlElement(xmlDoc, result, "LiftForceUnit", "N");
+                                AddXmlElement(xmlDoc, result, "DragForce", GetSafeValue(reader, "DragForce"));
+                                AddXmlElement(xmlDoc, result, "Efficiency", GetSafeValue(reader, "Efficiency"));
 
-                                // ADICIONADO: DragForce e Efficiency (NOVO - estava faltando!)
-                                if (availableColumns.Contains("DragForce"))
-                                {
-                                    AddXmlElement(xmlDoc, result, "DragForce", GetSafeValue(reader, "DragForce"));
-                                    AddXmlElement(xmlDoc, result, "DragForceUnit", "N");
-                                }
-
-                                if (availableColumns.Contains("Efficiency"))
-                                    AddXmlElement(xmlDoc, result, "Efficiency", GetSafeValue(reader, "Efficiency"));
-
-                                // MANTIDO: Fórmula
+                                // Fórmula
                                 XmlElement formula = xmlDoc.CreateElement("Formula");
                                 result.AppendChild(formula);
-                                AddXmlElement(xmlDoc, formula, "Expression", "F = 0.5 × ρ × v² × S × Cl");
-                                AddXmlElement(xmlDoc, formula, "Description", "Lift Force = 0.5 × Air Density × Wind Speed² × Wing Area × Lift Coefficient");
+                                AddXmlElement(xmlDoc, formula, "Expression", "F = 0.5 × ρ × v² × S × C");
+                                AddXmlElement(xmlDoc, formula, "Description", "Force = 0.5 × Air Density × Wind Speed² × Wing Area × Coefficient");
                             }
 
-                            // MANTIDO: Estatísticas
+                            // Estatísticas
                             XmlElement statistics = xmlDoc.CreateElement("Statistics");
                             root.AppendChild(statistics);
                             AddXmlElement(xmlDoc, statistics, "TotalTests", testCount.ToString());
-                            AddXmlElement(xmlDoc, statistics, "DatabaseColumns", string.Join(", ", availableColumns));
                             AddXmlElement(xmlDoc, statistics, "ExportDate", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                         }
                     }
@@ -1919,7 +1830,7 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
-                // MANTIDO: Tratamento de erro
+                // Tratamento de erro
                 XmlElement errorInfo = xmlDoc.CreateElement("Error");
                 testsContainer.AppendChild(errorInfo);
                 AddXmlElement(xmlDoc, errorInfo, "Message", "Erro ao acessar banco de dados");
@@ -1929,8 +1840,6 @@ namespace WinFormsApp1
 
             xmlDoc.Save(filePath);
         }
-
-
 
         private (double CL, double CD) GetCoefficientsInterpolated(string airfoilName, double angleOfAttack)
         {

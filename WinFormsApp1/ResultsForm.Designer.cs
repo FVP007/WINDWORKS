@@ -241,7 +241,7 @@
             // 
             lblStatusTotal.ForeColor = Color.Black;
             lblStatusTotal.Name = "lblStatusTotal";
-            lblStatusTotal.Size = new Size(69, 17);
+            lblStatusTotal.Size = new Size(68, 17);
             lblStatusTotal.Text = "Total testes:";
             // 
             // lblTotalCount

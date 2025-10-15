@@ -26,119 +26,136 @@ namespace WinFormsApp1
 
         #region Database Operations
         /// <summary>
-        /// Salva o resultado COMPLETO do teste no banco de dados
+        /// Salva o resultado COMPLETO do teste no banco de dados, agora em duas tabelas.
         /// </summary>
-        // Dentro da sua classe de banco de dados (ex: ClassResults.cs)
-
         public static void SaveTestResult(
             string wingType,
-            string airfoil, // Novo
-            double angleOfAttack, // Novo
+            string airfoil,
+            double angleOfAttack,
             double windSpeed,
             double airDensity,
             double wingArea,
             double clCoefficient,
-            double cdCoefficient, // Novo
+            double cdCoefficient,
             double liftForce,
-            double dragForce, // Novo
-            double efficiency, // Novo
+            double dragForce,
+            double efficiency,
             string cameraPerspective,
             double wingspan,
-            double rope,
-            double ropeAtRoot,
-            double ropeAtEnd
+            double? rope,
+            double? ropeAtRoot,
+            double? ropeAtEnd
         )
         {
-            // A string de conexão deve ser acessível aqui
             string connectionString = ConfigurationManager.ConnectionStrings["LiftForceDb"].ConnectionString;
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                // COMANDO SQL ATUALIZADO com todas as novas colunas
-                string query = @"
-            INSERT INTO TestResults (
-                WingType, Airfoil, AngleOfAttack, CameraPerspective,
-                WindSpeed, AirDensity, WingArea,
-                Wingspan, Rope, RopeAtRoot, RopeAtEnd,
-                LiftCoefficient, DragCoefficient,
-                LiftForce, DragForce, Efficiency
-            ) VALUES (
-                @WingType, @Airfoil, @AngleOfAttack, @CameraPerspective,
-                @WindSpeed, @AirDensity, @WingArea,
-                @Wingspan, @Rope, @RopeAtRoot, @RopeAtEnd,
-                @LiftCoefficient, @DragCoefficient,
-                @LiftForce, @DragForce, @Efficiency
-            );";
+                connection.Open();
+                MySqlTransaction transaction = connection.BeginTransaction();
 
-                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                try
                 {
-                    // Adiciona todos os parâmetros (antigos e novos)
-                    cmd.Parameters.AddWithValue("@WingType", wingType);
-                    cmd.Parameters.AddWithValue("@Airfoil", airfoil); // Novo
-                    cmd.Parameters.AddWithValue("@AngleOfAttack", angleOfAttack); // Novo
-                    cmd.Parameters.AddWithValue("@CameraPerspective", cameraPerspective);
-                    cmd.Parameters.AddWithValue("@WindSpeed", windSpeed);
-                    cmd.Parameters.AddWithValue("@AirDensity", airDensity);
-                    cmd.Parameters.AddWithValue("@WingArea", wingArea);
-                    cmd.Parameters.AddWithValue("@Wingspan", wingspan);
-                    cmd.Parameters.AddWithValue("@Rope", rope);
-                    cmd.Parameters.AddWithValue("@RopeAtRoot", ropeAtRoot);
-                    cmd.Parameters.AddWithValue("@RopeAtEnd", ropeAtEnd);
-                    cmd.Parameters.AddWithValue("@LiftCoefficient", clCoefficient);
+                    // 1. Inserir na tabela testresults
+                    string testResultsQuery = @"
+                INSERT INTO testresults (
+                    TestDate, WingType, Airfoil, AngleOfAttack, CameraPerspective,
+                    WindSpeed, AirDensity, WingArea, Wingspan,
+                    LiftCoefficient, DragCoefficient, LiftForce, DragForce, Efficiency
+                ) VALUES (
+                    NOW(), @WingType, @Airfoil, @AngleOfAttack, @CameraPerspective,
+                    @WindSpeed, @AirDensity, @WingArea, @Wingspan,
+                    @LiftCoefficient, @DragCoefficient, @LiftForce, @DragForce, @Efficiency
+                );
+                SELECT LAST_INSERT_ID();"; // Para pegar o ID recém-criado
 
-                    // NOVOS PARÂMETROS ADICIONADOS AQUI
-                    cmd.Parameters.AddWithValue("@DragCoefficient", cdCoefficient);
-                    cmd.Parameters.AddWithValue("@LiftForce", liftForce);
-                    cmd.Parameters.AddWithValue("@DragForce", dragForce);
-                    cmd.Parameters.AddWithValue("@Efficiency", efficiency);
-
-                    try
+                    int testResultId;
+                    using (MySqlCommand cmd = new MySqlCommand(testResultsQuery, connection, transaction))
                     {
-                        connection.Open();
+                        cmd.Parameters.AddWithValue("@WingType", wingType);
+                        cmd.Parameters.AddWithValue("@Airfoil", airfoil);
+                        cmd.Parameters.AddWithValue("@AngleOfAttack", angleOfAttack);
+                        cmd.Parameters.AddWithValue("@CameraPerspective", cameraPerspective);
+                        cmd.Parameters.AddWithValue("@WindSpeed", windSpeed);
+                        cmd.Parameters.AddWithValue("@AirDensity", airDensity);
+                        cmd.Parameters.AddWithValue("@WingArea", wingArea);
+                        cmd.Parameters.AddWithValue("@Wingspan", wingspan);
+                        cmd.Parameters.AddWithValue("@LiftCoefficient", clCoefficient);
+                        cmd.Parameters.AddWithValue("@DragCoefficient", cdCoefficient);
+                        cmd.Parameters.AddWithValue("@LiftForce", liftForce);
+                        cmd.Parameters.AddWithValue("@DragForce", dragForce);
+                        cmd.Parameters.AddWithValue("@Efficiency", efficiency);
+
+                        testResultId = Convert.ToInt32(cmd.ExecuteScalar());
+                    }
+
+                    // 2. Inserir na tabela winggeometry usando o ID da tabela anterior
+                    string wingGeometryQuery = @"
+                INSERT INTO winggeometry (
+                    TestResultId, Rope, RopeAtRoot, RopeAtEnd
+                ) VALUES (
+                    @TestResultId, @Rope, @RopeAtRoot, @RopeAtEnd
+                );";
+
+                    using (MySqlCommand cmd = new MySqlCommand(wingGeometryQuery, connection, transaction))
+                    {
+                        cmd.Parameters.AddWithValue("@TestResultId", testResultId);
+                        cmd.Parameters.AddWithValue("@Rope", (object)rope ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@RopeAtRoot", (object)ropeAtRoot ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@RopeAtEnd", (object)ropeAtEnd ?? DBNull.Value);
+
                         cmd.ExecuteNonQuery();
                     }
-                    catch (Exception ex)
-                    {
-                        // É uma boa prática registrar o erro em algum lugar
-                        Console.WriteLine("Erro ao salvar no banco de dados: " + ex.Message);
-                    }
+
+                    // Confirma a transação se tudo der certo
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    // Reverte a transação em caso de erro
+                    transaction.Rollback();
+                    Console.WriteLine("Erro ao salvar no banco de dados: " + ex.Message);
+                    // É uma boa prática lançar a exceção novamente ou registrar em um log
+                    throw;
                 }
             }
         }
 
         /// <summary>
-        /// Recupera TODOS os resultados dos testes do banco de dados
+        /// Recupera TODOS os resultados dos testes do banco de dados, unindo as duas tabelas.
         /// </summary>
         public static DataTable GetAllTestResults()
         {
             DataTable dataTable = new DataTable();
             try
             {
+                string connectionString = ConfigurationManager.ConnectionStrings["LiftForceDb"].ConnectionString;
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
                     string selectQuery = @"
-                    SELECT 
-                        Id,
-                        TestDate,
-                        WingType,
-                        Airfoil,
-                        AngleOfAttack,
-                        WindSpeed,
-                        AirDensity,
-                        WingArea,
-                        Wingspan,
-                        Rope,
-                        RopeAtRoot,
-                        RopeAtEnd,
-                        LiftCoefficient,
-                        DragCoefficient,
-                        LiftForce,
-                        DragForce,
-                        Efficiency,
-                        CameraPerspective
-                    FROM TestResults 
-                    ORDER BY TestDate DESC";
+                SELECT 
+                    tr.Id,
+                    tr.TestDate,
+                    tr.WingType,
+                    tr.Airfoil,
+                    tr.AngleOfAttack,
+                    tr.WindSpeed,
+                    tr.AirDensity,
+                    tr.WingArea,
+                    tr.Wingspan,
+                    wg.Rope,
+                    wg.RopeAtRoot,
+                    wg.RopeAtEnd,
+                    tr.LiftCoefficient,
+                    tr.DragCoefficient,
+                    tr.LiftForce,
+                    tr.DragForce,
+                    tr.Efficiency,
+                    tr.CameraPerspective
+                FROM testresults AS tr
+                LEFT JOIN winggeometry AS wg ON tr.Id = wg.TestResultId
+                ORDER BY tr.TestDate DESC";
 
                     using (MySqlDataAdapter adapter = new MySqlDataAdapter(selectQuery, connection))
                     {
@@ -148,20 +165,64 @@ namespace WinFormsApp1
             }
             catch (Exception ex)
             {
+                // Certifique-se de que a função ShowErrorMessage está definida em sua classe
                 ShowErrorMessage($"Erro ao recuperar dados do banco: {ex.Message}");
             }
             return dataTable;
         }
 
+        /// <summary>
+        /// Recupera os resultados dos testes filtrados por tipo de asa, unindo as duas tabelas.
+        /// </summary>
+        public static DataTable GetFilteredTestResults(string wingType)
+        {
+            DataTable dataTable = new DataTable();
+            try
+            {
+                string connectionString = ConfigurationManager.ConnectionStrings["LiftForceDb"].ConnectionString;
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    string selectQuery = @"
+                SELECT 
+                    tr.Id, tr.TestDate, tr.WingType, tr.Airfoil, tr.AngleOfAttack,
+                    tr.WindSpeed, tr.AirDensity, tr.WingArea,
+                    tr.Wingspan, wg.Rope, wg.RopeAtRoot, wg.RopeAtEnd,
+                    tr.LiftCoefficient, tr.DragCoefficient,
+                    tr.LiftForce, tr.DragForce, tr.Efficiency, tr.CameraPerspective
+                FROM testresults AS tr
+                LEFT JOIN winggeometry AS wg ON tr.Id = wg.TestResultId
+                WHERE tr.WingType = @WingType
+                ORDER BY tr.TestDate DESC";
+
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(selectQuery, connection))
+                    {
+                        adapter.SelectCommand.Parameters.AddWithValue("@WingType", wingType);
+                        adapter.Fill(dataTable);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowErrorMessage($"Error retrieving filtered data: {ex.Message}");
+            }
+            return dataTable;
+        }
+
+        /// <summary>
+        /// As funções GetTotalTestCount e GetLastUpdate podem permanecer as mesmas, pois
+        /// dependem apenas da tabela principal 'testresults'.
+        /// </summary>
         public static int GetTotalTestCount()
         {
             int count = 0;
             try
             {
+                string connectionString = ConfigurationManager.ConnectionStrings["LiftForceDb"].ConnectionString;
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string countQuery = "SELECT COUNT(*) FROM TestResults";
+                    string countQuery = "SELECT COUNT(*) FROM testresults";
                     using (MySqlCommand command = new MySqlCommand(countQuery, connection))
                     {
                         count = Convert.ToInt32(command.ExecuteScalar());
@@ -180,10 +241,11 @@ namespace WinFormsApp1
             DateTime? lastUpdate = null;
             try
             {
+                string connectionString = ConfigurationManager.ConnectionStrings["LiftForceDb"].ConnectionString;
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    string lastUpdateQuery = "SELECT MAX(TestDate) FROM TestResults";
+                    string lastUpdateQuery = "SELECT MAX(TestDate) FROM testresults";
                     using (MySqlCommand command = new MySqlCommand(lastUpdateQuery, connection))
                     {
                         object result = command.ExecuteScalar();
@@ -201,56 +263,39 @@ namespace WinFormsApp1
             return lastUpdate;
         }
 
-        public static DataTable GetFilteredTestResults(string wingType)
-        {
-            DataTable dataTable = new DataTable();
-            try
-            {
-                using (MySqlConnection connection = new MySqlConnection(connectionString))
-                {
-                    connection.Open();
-                    string selectQuery = @"
-                    SELECT 
-                        Id, TestDate, WingType, Airfoil, AngleOfAttack,
-                        WindSpeed, AirDensity, WingArea,
-                        Wingspan, Rope, RopeAtRoot, RopeAtEnd,
-                        LiftCoefficient, DragCoefficient,
-                        LiftForce, DragForce, Efficiency, CameraPerspective
-                    FROM TestResults 
-                    WHERE WingType = @WingType
-                    ORDER BY TestDate DESC";
 
-                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(selectQuery, connection))
-                    {
-                        adapter.SelectCommand.Parameters.AddWithValue("@WingType", wingType);
-                        adapter.Fill(dataTable);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ShowErrorMessage($"Error retrieving filtered data: {ex.Message}");
-            }
-            return dataTable;
-        }
-
+        /// <summary>
+        /// A função GetWingTypeStatistics também precisa ser ajustada para usar JOIN.
+        /// O procedimento armazenado 'sp_GetWingTypeStatistics' também precisará ser alterado
+        /// para refletir a nova estrutura de tabelas.
+        /// </summary>
         public static DataTable GetWingTypeStatistics(string? wingType = null)
         {
             DataTable dataTable = new DataTable();
             try
             {
+                string connectionString = ConfigurationManager.ConnectionStrings["LiftForceDb"].ConnectionString;
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    using (MySqlCommand command = new MySqlCommand("sp_GetWingTypeStatistics", connection))
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@p_WingType", wingType);
+                    // A query agora faz um JOIN para calcular a média da corda (Rope) também
+                    string selectQuery = @"
+                SELECT
+                    tr.WingType,
+                    COUNT(tr.Id) AS TotalTests,
+                    AVG(tr.Efficiency) AS AverageEfficiency,
+                    AVG(wg.Rope) AS AverageRope
+                FROM testresults AS tr
+                LEFT JOIN winggeometry AS wg ON tr.Id = wg.TestResultId
+                WHERE (@WingType IS NULL OR tr.WingType = @WingType)
+                GROUP BY tr.WingType;";
 
-                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(command))
-                        {
-                            adapter.Fill(dataTable);
-                        }
+                    // Caso prefira manter o Stored Procedure, a query dentro dele deve ser a mesma.
+                    // O código abaixo é uma alternativa sem SP, mais fácil de manter.
+                    using (MySqlDataAdapter adapter = new MySqlDataAdapter(selectQuery, connection))
+                    {
+                        adapter.SelectCommand.Parameters.AddWithValue("@WingType", (object)wingType ?? DBNull.Value);
+                        adapter.Fill(dataTable);
                     }
                 }
             }
@@ -260,6 +305,11 @@ namespace WinFormsApp1
             }
             return dataTable;
         }
+
+
+        /// <summary>
+        /// Função auxiliar para exibir mensagens de erro.
+        /// </summary>
         #endregion
 
         #region DataGridView Management
@@ -370,9 +420,9 @@ namespace WinFormsApp1
                 ["AirDensity"] = "Density (kg/m³)",
                 ["WingArea"] = "Area (m²)",
                 ["Wingspan"] = "Wingspan (m)",
-                ["Rope"] = "Chord (m)",
-                ["RopeAtRoot"] = "Root (m)",
-                ["RopeAtEnd"] = "Tip (m)",
+                ["Rope"] = "Rope (m)",
+                ["RopeAtRoot"] = "Rope at the Root (m)",
+                ["RopeAtEnd"] = "Rope at the End (m)",
                 ["LiftCoefficient"] = "CL",
                 ["DragCoefficient"] = "CD",
                 ["LiftForce"] = "Lift (N)",
@@ -444,9 +494,9 @@ namespace WinFormsApp1
                 ["AirDensity"] = "Density (kg/m³)",
                 ["WingArea"] = "Area (m²)",
                 ["Wingspan"] = "Wingspan (m)",
-                ["Rope"] = "Chord (m)",
-                ["RopeAtRoot"] = "Root (m)",
-                ["RopeAtEnd"] = "Tip (m)",
+                ["Rope"] = "Rope (m)",
+                ["RopeAtRoot"] = "Rope at the Root (m)",
+                ["RopeAtEnd"] = "Rope at the End (m)",
                 ["LiftCoefficient"] = "CL",
                 ["DragCoefficient"] = "CD",
                 ["LiftForce"] = "Lift (N)",
