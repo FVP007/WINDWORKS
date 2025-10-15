@@ -5,13 +5,13 @@
 Background {
   skyColor [ 0 0 0 ]  # preto
 }
-
 # Luzes da cena
 DirectionalLight {
   direction 0 -1 -1
   color 1 1 1
   intensity 1
 }
+
 NavigationInfo {
     headlight TRUE
     type ["EXAMINE"]
@@ -19,7 +19,7 @@ NavigationInfo {
 
 # Timer para o ventilador
 DEF VENTILADOR_TIMER TimeSensor {
-    cycleInterval 0.052333333
+    cycleInterval 2.0933332
     loop TRUE
 }
 
@@ -132,10 +132,30 @@ Group {
             ]
         }
         
+        # Modelo de vento - Transform externo para posicionamento
+        Transform {
+            # O formato  X Y Z
+            translation -20 -162 -45
+            
+            # SCALE: Altere os valores para aumentar/diminuir o modelo de vento.
+            # 1 1 1 = normal, 0.5 0.5 0.5 = metade do tamanho.
+            scale 0.006 0.006 0.006
+            
+            # ROTATION: <eixo_x> <eixo_y> <eixo_z> <ângulo_em_radianos>
+            # 0 1 0 = rotação no eixo Y (horizontal)
+            # 1 0 0 = rotação no eixo X (vertical)
+            # 0 0 1 = rotação no eixo Z (plano)
+            rotation 0 0 0 0
+            
+            children [
+                Inline { url ":vento.wrl" }
+            ]
+        }
+        
         # Ponto de vista 
         Viewpoint {
-            position 15.78701577186584 -128.219329833984 37.6202430725098 #Camera Position
-            orientation 0.728832358121872 -0.999999999999 -0.999999999999 2.23173069953918 #Camera Orientation
+            position 25 -138 35.6202430725098 #Camera Position
+            orientation 1.1 -1.1 -1.1 2.1 #Camera Orientation
             description "vista Frontal"
         }
         # ponto de vista
