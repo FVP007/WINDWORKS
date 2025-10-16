@@ -1459,6 +1459,7 @@ namespace WinFormsApp1
         private void ComboWingType_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             string selectedType = ComboWingType.SelectedItem?.ToString() ?? "";
+            LoadWingImage("Cima");
             LoadWingControl(selectedType);
             if (!string.IsNullOrEmpty(selectedType))
             {
@@ -1466,8 +1467,7 @@ namespace WinFormsApp1
                 LabelWingType.Text = selectedType;
             }
             TestCurrentWingControl();
-
-
+            
         }
 
         private void ComboWingTypeSelection_SelectedIndexChanged(object sender, EventArgs e)
