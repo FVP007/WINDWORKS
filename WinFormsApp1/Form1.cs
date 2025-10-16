@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
 using System.Xml;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace WinFormsApp1
 {
@@ -36,13 +36,12 @@ namespace WinFormsApp1
              LiftCurve,      // Curva de Sustentação (CL) 
              DragPolar,      // Polar de Arrasto (CL x CD) 
              Efficiency      // Eficiência (L/D) 
-         } 
- 
-         // Dicionários para armazenar dados dos perfis 
-         private Dictionary<string, Dictionary<double, (double CL, double CD)>> airfoilData = new Dictionary<string, Dictionary<double, (double CL, double CD)>>(); 
-         
-         // Coeficientes do último teste (para exportação e recálculo) 
-         private double lastClCoefficient = 0.0; 
+         }
+
+        private Dictionary<string, Dictionary<double, (double CL, double CD)>> airfoilData = new Dictionary<string, Dictionary<double, (double CL, double CD)>>(StringComparer.OrdinalIgnoreCase);
+
+        // Coeficientes do último teste (para exportação e recálculo) 
+        private double lastClCoefficient = 0.0; 
          private double lastCdCoefficient = 0.0; 
  
          // Controle de UI 
@@ -74,9 +73,15 @@ namespace WinFormsApp1
              ButtonRunTest.Enabled = false; 
              this.KeyPreview = true; 
              SetupResponsiveLayout(); 
-         } 
+         }
 
+        // Form1.cs
 
+        
+
+        
+
+        
 
 
 
@@ -188,6 +193,7 @@ namespace WinFormsApp1
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Aerodynamic Analysis</title>
+    <script src='https://code.highcharts.com/themes/dark-unica.js'></script>
     <script src='https://code.highcharts.com/highcharts.js'></script>
     <style>
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
@@ -250,7 +256,7 @@ namespace WinFormsApp1
         }};
 
         charts.chart1 = Highcharts.chart('chart1', Highcharts.merge(baseConfig, {{
-            title: {{ text: 'Performance vs. Speed' }},
+            title: {{ text: 'Wind Speed vs Force' }},
             xAxis: {{ title: {{ text: 'Wind Speed (m/s)' }} }},
             yAxis: {{ title: {{ text: 'Force (N)' }} }},
             tooltip: {{ shared: true }},
@@ -301,9 +307,18 @@ namespace WinFormsApp1
 
             if (wingControl == null) return "[]";
 
+            // Dicionário com as cores fixas para cada tipo de asa
+            var wingColors = new Dictionary<string, string>
+    {
+        { "Rectangular", "#FF0000" }, // Vermelho
+        { "Trapezoidal", "#0000FF" }, // Azul
+        { "Elliptical",  "#D4AC0D" }, // Amarelo/Dourado para melhor visibilidade
+        { "Delta",       "#28B463" }  // Verde
+    };
+
             // Pega os parâmetros do teste que foi executado
             double baseWingspan = wingControl.Wingspan;
-            double originalTestArea = wingControl.WingArea; // <-- Pega a área real do teste!
+            double originalTestArea = wingControl.WingArea;
             string originalTestWingType = ComboWingType.SelectedItem?.ToString() ?? "";
 
             // Itera sobre todos os tipos de asa que estão selecionados nos checkboxes
@@ -312,7 +327,6 @@ namespace WinFormsApp1
                 string currentWingType = selection.Key;
                 double wingAreaToUse;
 
-                // --- LÓGICA CORRIGIDA AQUI ---
                 // Se o tipo de asa atual for o mesmo do teste original, usa a área exata daquele teste.
                 if (currentWingType == originalTestWingType)
                 {
@@ -324,16 +338,36 @@ namespace WinFormsApp1
                 }
 
                 var liftPoints = new List<object[]>();
-                var dragPoints = new List<object[]>();
-
                 for (double v = 0; v <= maxSpeed; v += 0.5)
                 {
                     liftPoints.Add(new object[] { v, Math.Round(CalculateLiftForce(density, v, wingAreaToUse, cl), 2) });
+                }
+
+                // Adiciona a série de Sustentação com a cor correta
+                series.Add(new
+                {
+                    name = $"Lift ({currentWingType})",
+                    data = liftPoints,
+                    color = wingColors.ContainsKey(currentWingType) ? wingColors[currentWingType] : "#000000" // Cor preta como padrão se não encontrar
+                });
+
+                // --- ARRASTO COMENTADO ---
+                // A lógica do arrasto está aqui. Se o orientador aprovar,
+                // basta remover os comentários (/* e */) para reativá-la.
+                /*
+                var dragPoints = new List<object[]>();
+                for (double v = 0; v <= maxSpeed; v += 0.5)
+                {
                     dragPoints.Add(new object[] { v, Math.Round(CalculateLiftForce(density, v, wingAreaToUse, cd), 2) });
                 }
 
-                series.Add(new { name = $"Sustentação ({currentWingType})", data = liftPoints });
-                series.Add(new { name = $"Arrasto ({currentWingType})", data = dragPoints, dashStyle = "dash" });
+                series.Add(new {
+                    name = $"Arrasto ({currentWingType})",
+                    data = dragPoints,
+                    color = wingColors.ContainsKey(currentWingType) ? wingColors[currentWingType] : "#808080",
+                    dashStyle = "dash"
+                });
+                */
             }
 
             return JsonSerializer.Serialize(series);
@@ -551,6 +585,7 @@ namespace WinFormsApp1
         {
             try
             {
+                SyncCheckBoxesWithSelections();
                 // Desabilitar o botão durante o processamento
                 ButtonRunTest.Enabled = false;
                 ButtonRunTest.Text = "Processing...";
@@ -587,7 +622,7 @@ namespace WinFormsApp1
                 }
 
                 // Get wing type and camera perspective
-                string selectedAirfoil = ComboBoxAirFoil.SelectedItem?.ToString() ?? "";
+                string selectedAirfoil = (ComboBoxAirFoil.SelectedItem?.ToString() ?? "").Trim();
                 if (string.IsNullOrEmpty(selectedAirfoil))
                 {
                     MessageBox.Show("Please select an airfoil type.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -607,6 +642,20 @@ namespace WinFormsApp1
                 }
 
                 string wingType = ComboWingType.SelectedItem?.ToString() ?? "Rectangular";
+                var keys = wingTypeSelections.Keys.ToList(); // Pega uma cópia das chaves para iterar com segurança
+                foreach (var key in keys)
+                {
+                    wingTypeSelections[key] = false;
+                }
+
+                // 2. Define o tipo de asa ATUAL como o principal da simulação.
+                this.currentSimulatedWingType = wingType;
+
+                // 3. Marca APENAS o tipo de asa que acabou de ser testado.
+                this.wingTypeSelections[wingType] = true;
+
+                // 4. Sincroniza a interface (os checkboxes) para refletir a limpeza e a nova seleção.
+                SyncCheckBoxesWithSelections();
                 string cameraPerspective = ComboCameraPerspective.SelectedItem?.ToString() ?? "";
 
                 // Atualizar o tipo de asa sendo simulado
@@ -1071,61 +1120,57 @@ namespace WinFormsApp1
     }
 }
 
+        // No seu Form1.cs
+
         private void xmlToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                // Dialog para escolher o tipo de exportação
-                DialogResult choice = MessageBox.Show(
-                    "Choose export type:\n\n" +
-                    "YES - Export current test only\n" +
-                    "NO - Export all saved results\n" +
-                    "CANCEL - Cancel operation",
-                    "XML Export Type",
-                    MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Question
-                );
-
-                if (choice == DialogResult.Cancel)
-                    return;
-
-                using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+                // Cria e mostra a nossa nova janela de diálogo customizada
+                using (var choiceForm = new ExportChoiceForm())
                 {
-                    saveFileDialog.Filter = "Arquivos XML (*.xml)|*.xml";
-                    saveFileDialog.Title = "Salvar arquivo XML";
-                    saveFileDialog.FileName = choice == DialogResult.Yes ?
-                        $"TestResult_{DateTime.Now:yyyyMMdd_HHmmss}.xml" :
-                        $"AllResults_{DateTime.Now:yyyyMMdd_HHmmss}.xml";
+                    DialogResult choice = choiceForm.ShowDialog();
 
-                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    if (choice == DialogResult.Cancel)
+                        return;
+
+                    using (SaveFileDialog saveFileDialog = new SaveFileDialog())
                     {
-                        string filePath = saveFileDialog.FileName;
+                        saveFileDialog.Filter = "Arquivos XML (*.xml)|*.xml";
+                        saveFileDialog.Title = "Salvar arquivo XML";
+                        saveFileDialog.FileName = choice == DialogResult.Yes ? // "Yes" corresponde ao botão "Export Current"
+                            $"TestResult_{DateTime.Now:yyyyMMdd_HHmmss}.xml" :
+                            $"AllResults_{DateTime.Now:yyyyMMdd_HHmmss}.xml";
 
-                        if (choice == DialogResult.Yes)
+                        if (saveFileDialog.ShowDialog() == DialogResult.OK)
                         {
-                            ExportCurrentTestToXml(filePath);
-                        }
-                        else
-                        {
-                            ExportAllResultsToXml(filePath);
-                        }
+                            string filePath = saveFileDialog.FileName;
 
-                        MessageBox.Show($"Data exported successfully to:\n{filePath}",
-                            "Export Completed",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-
-                        // Opção para abrir o arquivo após exportar
-                        if (MessageBox.Show("Do you want to open the exported XML file?",
-                            "Open File",
-                            MessageBoxButtons.YesNo,
-                            MessageBoxIcon.Question) == DialogResult.Yes)
-                        {
-                            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo()
+                            if (choice == DialogResult.Yes)
                             {
-                                FileName = filePath,
-                                UseShellExecute = true
-                            });
+                                ExportCurrentTestToXml(filePath);
+                            }
+                            else // DialogResult.No corresponde ao botão "Export All"
+                            {
+                                ExportAllResultsToXml(filePath);
+                            }
+
+                            MessageBox.Show($"Data exported successfully to:\n{filePath}",
+                                "Export Completed",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+
+                            if (MessageBox.Show("Do you want to open the exported XML file?",
+                                "Open File",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Question) == DialogResult.Yes)
+                            {
+                                Process.Start(new ProcessStartInfo()
+                                {
+                                    FileName = filePath,
+                                    UseShellExecute = true
+                                });
+                            }
                         }
                     }
                 }
@@ -1139,7 +1184,7 @@ namespace WinFormsApp1
             }
         }
 
-       
+
 
         private string GetSafeValue(MySqlDataReader reader, string columnName)
         {
@@ -1474,6 +1519,7 @@ namespace WinFormsApp1
         {
             try
             {
+                
                 var checkBox = sender as CheckBox;
                 if (checkBox == null) return;
 
@@ -1626,17 +1672,18 @@ namespace WinFormsApp1
             airfoilData.Clear();
             foreach (string filePath in Directory.GetFiles(airfoilDataPath, "*.csv"))
             {
-                string airfoilName = Path.GetFileNameWithoutExtension(filePath);
+                string airfoilName = Path.GetFileNameWithoutExtension(filePath).Trim();
                 var localProfileData = new Dictionary<double, (double CL, double CD)>();
                 try
                 {
                     foreach (string line in File.ReadLines(filePath).Skip(1))
                     {
                         string[] parts = line.Split(',');
+                        // Trecho novo e corrigido:
                         if (parts.Length == 3 &&
-                            double.TryParse(parts[0], NumberStyles.Any, CultureInfo.InvariantCulture, out double angle) &&
-                            double.TryParse(parts[1], NumberStyles.Any, CultureInfo.InvariantCulture, out double cl) &&
-                            double.TryParse(parts[2], NumberStyles.Any, CultureInfo.InvariantCulture, out double cd))
+                            double.TryParse(parts[0].Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double angle) &&
+                            double.TryParse(parts[1].Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double cl) &&
+                            double.TryParse(parts[2].Replace(',', '.'), NumberStyles.Any, CultureInfo.InvariantCulture, out double cd))
                         {
                             localProfileData[angle] = (cl, cd);
                         }

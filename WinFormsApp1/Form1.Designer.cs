@@ -314,7 +314,7 @@ namespace WinFormsApp1
             // 
             toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2 });
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(131, 22);
+            toolStripMenuItem1.Size = new Size(180, 22);
             toolStripMenuItem1.Text = "Open With";
             toolStripMenuItem1.ToolTipText = "Export All Data for XML";
             // 
@@ -329,7 +329,7 @@ namespace WinFormsApp1
             // 
             exportToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { xmlToolStripMenuItem });
             exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            exportToolStripMenuItem.Size = new Size(131, 22);
+            exportToolStripMenuItem.Size = new Size(180, 22);
             exportToolStripMenuItem.Text = "Export To";
             // 
             // xmlToolStripMenuItem
@@ -439,7 +439,7 @@ namespace WinFormsApp1
             // LabelWingType
             // 
             LabelWingType.AutoSize = false;
-            LabelWingType.BackColor = Color.LightSteelBlue;
+            LabelWingType.BackColor = Color.Transparent;
             guna2Transition1.SetDecoration(LabelWingType, Guna.UI2.AnimatorNS.DecorationType.None);
             LabelWingType.Dock = DockStyle.Top;
             LabelWingType.Font = new Font("Segoe UI", 20.75F);
