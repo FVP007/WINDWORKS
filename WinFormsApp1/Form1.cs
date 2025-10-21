@@ -67,7 +67,8 @@ namespace WinFormsApp1
              this.Load += Form1_Load; 
              
              ComboWindSpeed.DropDownStyle = ComboBoxStyle.DropDown; 
-             ComboAirDensity.DropDownStyle = ComboBoxStyle.DropDown; 
+             ComboAirDensity.DropDownStyle = ComboBoxStyle.DropDown;
+             PictureBoxModelImage.Image = Image.FromFile(GetImagePath("Rectangular", "Cima"));
              Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US"); 
              Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US"); 
              ButtonRunTest.Enabled = false; 
@@ -612,7 +613,7 @@ namespace WinFormsApp1
                     if (wingControl1 != null)
                     {
                         errorMsg += $"Wingspan: {wingControl1.Wingspan:F2} m\n";
-                        errorMsg += $"Chord: {wingControl1.Rope:F2} m\n";
+                        errorMsg += $"Rope: {wingControl1.Rope:F2} m\n";
                         errorMsg += $"Calculated Area: {wingArea:F4} m²\n\n";
                         errorMsg += "Please check that all fields are filled correctly.";
                     }
@@ -1462,6 +1463,7 @@ namespace WinFormsApp1
             LoadWingControl(selectedType);
             if (!string.IsNullOrEmpty(selectedType))
             {
+                PictureBoxModelImage.Image = Image.FromFile(GetImagePath(selectedType, "Cima"));
                 selectedWingType = selectedType;
                 LabelWingType.Text = selectedType;
             }
@@ -1625,7 +1627,7 @@ namespace WinFormsApp1
             {
                 string selectedAirfoil = ComboBoxAirFoil.SelectedItem.ToString();
                 // Define o caminho base para as imagens dos perfis
-                string imagePath = $@"C:\WINDWORKS\ProjetoTCC\WinFormsApp1\AirfoilImages\{selectedAirfoil}.Gif";
+                string imagePath = $@"C:\WINDWORKS\WinFormsApp1\AirfoilImages\{selectedAirfoil}.Gif";
 
                 // Limpa a imagem anterior para evitar que fique "presa" se a nova não for encontrada
                 if (pictureBoxAirfoilProfile.Image != null)
@@ -1663,7 +1665,7 @@ namespace WinFormsApp1
 
         private void LoadAirfoilData()
         {
-            string airfoilDataPath = @"c:\WINDWORKS\ProjetoTCC\WinFormsApp1\AirfoilData";
+            string airfoilDataPath = @"c:\WINDWORKS\WinFormsApp1\AirfoilData";
             if (!Directory.Exists(airfoilDataPath))
             {
                 MessageBox.Show($"Diretório de dados não encontrado: {airfoilDataPath}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);

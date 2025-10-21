@@ -219,7 +219,7 @@ namespace WinFormsApp1
             guna2Panel1.Location = new Point(0, 0);
             guna2Panel1.Name = "guna2Panel1";
             guna2Panel1.ShadowDecoration.CustomizableEdges = customizableEdges10;
-            guna2Panel1.Size = new Size(1680, 32);
+            guna2Panel1.Size = new Size(1386, 32);
             guna2Panel1.TabIndex = 0;
             // 
             // guna2HtmlLabel1
@@ -241,7 +241,7 @@ namespace WinFormsApp1
             guna2ControlBox3.Dock = DockStyle.Right;
             guna2ControlBox3.FillColor = Color.Transparent;
             guna2ControlBox3.IconColor = Color.Black;
-            guna2ControlBox3.Location = new Point(1542, 0);
+            guna2ControlBox3.Location = new Point(1248, 0);
             guna2ControlBox3.Name = "guna2ControlBox3";
             guna2ControlBox3.ShadowDecoration.CustomizableEdges = customizableEdges2;
             guna2ControlBox3.Size = new Size(46, 32);
@@ -269,7 +269,7 @@ namespace WinFormsApp1
             guna2ControlBox2.Dock = DockStyle.Right;
             guna2ControlBox2.FillColor = Color.Transparent;
             guna2ControlBox2.IconColor = Color.Black;
-            guna2ControlBox2.Location = new Point(1588, 0);
+            guna2ControlBox2.Location = new Point(1294, 0);
             guna2ControlBox2.Name = "guna2ControlBox2";
             guna2ControlBox2.ShadowDecoration.CustomizableEdges = customizableEdges6;
             guna2ControlBox2.Size = new Size(46, 32);
@@ -282,7 +282,7 @@ namespace WinFormsApp1
             guna2ControlBox1.Dock = DockStyle.Right;
             guna2ControlBox1.FillColor = Color.Transparent;
             guna2ControlBox1.IconColor = Color.Black;
-            guna2ControlBox1.Location = new Point(1634, 0);
+            guna2ControlBox1.Location = new Point(1340, 0);
             guna2ControlBox1.Name = "guna2ControlBox1";
             guna2ControlBox1.ShadowDecoration.CustomizableEdges = customizableEdges8;
             guna2ControlBox1.Size = new Size(46, 32);
@@ -295,7 +295,7 @@ namespace WinFormsApp1
             toolStrip1.Items.AddRange(new ToolStripItem[] { toolStripDropDownButton2, toolStripDropDownButton1 });
             toolStrip1.Location = new Point(0, 32);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(1680, 25);
+            toolStrip1.Size = new Size(1386, 25);
             toolStrip1.TabIndex = 1;
             toolStrip1.Text = "toolStrip1";
             // 
@@ -314,14 +314,14 @@ namespace WinFormsApp1
             // 
             toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2 });
             toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(180, 22);
+            toolStripMenuItem1.Size = new Size(131, 22);
             toolStripMenuItem1.Text = "Open With";
             toolStripMenuItem1.ToolTipText = "Export All Data for XML";
             // 
             // toolStripMenuItem2
             // 
             toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new Size(100, 22);
+            toolStripMenuItem2.Size = new Size(101, 22);
             toolStripMenuItem2.Text = "Excel";
             toolStripMenuItem2.Click += toolStripMenuItem2_Click;
             // 
@@ -329,7 +329,7 @@ namespace WinFormsApp1
             // 
             exportToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { xmlToolStripMenuItem });
             exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            exportToolStripMenuItem.Size = new Size(180, 22);
+            exportToolStripMenuItem.Size = new Size(131, 22);
             exportToolStripMenuItem.Text = "Export To";
             // 
             // xmlToolStripMenuItem
@@ -375,7 +375,7 @@ namespace WinFormsApp1
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 91.7293243F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 8.270677F));
-            tableLayoutPanel1.Size = new Size(1680, 692);
+            tableLayoutPanel1.Size = new Size(1386, 692);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // guna2Panel2
@@ -389,7 +389,7 @@ namespace WinFormsApp1
             guna2Panel2.Location = new Point(222, 3);
             guna2Panel2.Name = "guna2Panel2";
             guna2Panel2.ShadowDecoration.CustomizableEdges = customizableEdges20;
-            guna2Panel2.Size = new Size(1201, 628);
+            guna2Panel2.Size = new Size(907, 628);
             guna2Panel2.TabIndex = 0;
             // 
             // tabControl1
@@ -403,7 +403,7 @@ namespace WinFormsApp1
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1201, 544);
+            tabControl1.Size = new Size(907, 544);
             tabControl1.TabIndex = 0;
             tabControl1.Selecting += tabControl1_Selecting;
             // 
@@ -415,7 +415,7 @@ namespace WinFormsApp1
             PageVisualizador.Location = new Point(4, 24);
             PageVisualizador.Name = "PageVisualizador";
             PageVisualizador.Padding = new Padding(3);
-            PageVisualizador.Size = new Size(1193, 516);
+            PageVisualizador.Size = new Size(899, 516);
             PageVisualizador.TabIndex = 0;
             PageVisualizador.Text = "3D Viewer";
             PageVisualizador.UseVisualStyleBackColor = true;
@@ -431,7 +431,7 @@ namespace WinFormsApp1
             PictureBoxModelImage.Location = new Point(3, 68);
             PictureBoxModelImage.Name = "PictureBoxModelImage";
             PictureBoxModelImage.ShadowDecoration.CustomizableEdges = customizableEdges12;
-            PictureBoxModelImage.Size = new Size(1187, 445);
+            PictureBoxModelImage.Size = new Size(893, 445);
             PictureBoxModelImage.SizeMode = PictureBoxSizeMode.StretchImage;
             PictureBoxModelImage.TabIndex = 24;
             PictureBoxModelImage.TabStop = false;
@@ -445,7 +445,7 @@ namespace WinFormsApp1
             LabelWingType.Font = new Font("Segoe UI", 20.75F);
             LabelWingType.Location = new Point(3, 3);
             LabelWingType.Name = "LabelWingType";
-            LabelWingType.Size = new Size(1187, 65);
+            LabelWingType.Size = new Size(893, 65);
             LabelWingType.TabIndex = 22;
             LabelWingType.Text = null;
             LabelWingType.TextAlignment = ContentAlignment.MiddleCenter;
@@ -456,7 +456,7 @@ namespace WinFormsApp1
             guna2Transition1.SetDecoration(AirFoilPreview, Guna.UI2.AnimatorNS.DecorationType.None);
             AirFoilPreview.Location = new Point(4, 24);
             AirFoilPreview.Name = "AirFoilPreview";
-            AirFoilPreview.Size = new Size(1193, 516);
+            AirFoilPreview.Size = new Size(899, 516);
             AirFoilPreview.TabIndex = 5;
             AirFoilPreview.Text = "AirFoil Preview";
             AirFoilPreview.UseVisualStyleBackColor = true;
@@ -471,7 +471,7 @@ namespace WinFormsApp1
             pictureBoxAirfoilProfile.Location = new Point(0, 0);
             pictureBoxAirfoilProfile.Name = "pictureBoxAirfoilProfile";
             pictureBoxAirfoilProfile.ShadowDecoration.CustomizableEdges = customizableEdges14;
-            pictureBoxAirfoilProfile.Size = new Size(1193, 516);
+            pictureBoxAirfoilProfile.Size = new Size(899, 516);
             pictureBoxAirfoilProfile.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxAirfoilProfile.TabIndex = 0;
             pictureBoxAirfoilProfile.TabStop = false;
@@ -484,7 +484,7 @@ namespace WinFormsApp1
             PageGrafico.Location = new Point(4, 24);
             PageGrafico.Name = "PageGrafico";
             PageGrafico.Padding = new Padding(3);
-            PageGrafico.Size = new Size(1193, 516);
+            PageGrafico.Size = new Size(899, 516);
             PageGrafico.TabIndex = 1;
             PageGrafico.Text = "Charts";
             PageGrafico.UseVisualStyleBackColor = true;
@@ -595,7 +595,7 @@ namespace WinFormsApp1
             webViewChart.ForeColor = Color.Black;
             webViewChart.Location = new Point(3, 3);
             webViewChart.Name = "webViewChart";
-            webViewChart.Size = new Size(1187, 510);
+            webViewChart.Size = new Size(893, 510);
             webViewChart.TabIndex = 7;
             webViewChart.ZoomFactor = 1D;
             // 
@@ -613,7 +613,7 @@ namespace WinFormsApp1
             ButtonRunTest.ForeColor = Color.White;
             ButtonRunTest.ImageAlign = HorizontalAlignment.Left;
             ButtonRunTest.ImageSize = new Size(30, 30);
-            ButtonRunTest.Location = new Point(507, 582);
+            ButtonRunTest.Location = new Point(360, 582);
             ButtonRunTest.Name = "ButtonRunTest";
             ButtonRunTest.ShadowDecoration.CustomizableEdges = customizableEdges18;
             ButtonRunTest.Size = new Size(183, 35);
@@ -753,6 +753,7 @@ namespace WinFormsApp1
             // 
             // TrackBarAngleAttack
             // 
+            TrackBarAngleAttack.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             TrackBarAngleAttack.BackColor = Color.White;
             guna2Transition1.SetDecoration(TrackBarAngleAttack, Guna.UI2.AnimatorNS.DecorationType.None);
             TrackBarAngleAttack.DisplayFocus = true;
@@ -963,7 +964,7 @@ namespace WinFormsApp1
             guna2Panel6.CustomizableEdges = customizableEdges59;
             guna2Transition1.SetDecoration(guna2Panel6, Guna.UI2.AnimatorNS.DecorationType.None);
             guna2Panel6.Dock = DockStyle.Fill;
-            guna2Panel6.Location = new Point(1429, 3);
+            guna2Panel6.Location = new Point(1135, 3);
             guna2Panel6.Name = "guna2Panel6";
             guna2Panel6.ShadowDecoration.CustomizableEdges = customizableEdges60;
             guna2Panel6.ShadowDecoration.Depth = 10;
@@ -1168,9 +1169,9 @@ namespace WinFormsApp1
             guna2HtmlLabel8.ForeColor = Color.Gray;
             guna2HtmlLabel8.Location = new Point(4, 3);
             guna2HtmlLabel8.Name = "guna2HtmlLabel8";
-            guna2HtmlLabel8.Size = new Size(91, 17);
+            guna2HtmlLabel8.Size = new Size(89, 17);
             guna2HtmlLabel8.TabIndex = 7;
-            guna2HtmlLabel8.Text = "Coeficiente (CL)";
+            guna2HtmlLabel8.Text = "Coefficient (CL)";
             // 
             // guna2Panel13
             // 
@@ -1323,7 +1324,7 @@ namespace WinFormsApp1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1680, 749);
+            ClientSize = new Size(1386, 749);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(toolStrip1);
             Controls.Add(guna2Panel1);
@@ -1331,6 +1332,7 @@ namespace WinFormsApp1
             FormBorderStyle = FormBorderStyle.None;
             Name = "Form1";
             Text = "Form1";
+            WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
             guna2Panel1.ResumeLayout(false);
             guna2Panel1.PerformLayout();
